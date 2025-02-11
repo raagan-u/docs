@@ -2,11 +2,12 @@
 id: sdk-demo-app
 ---
 
-:::note
-This cookbook demonstrates the basic implementations to integrate Garden sdk to perform various actions like fetching quotes, swapping, fetching orders from orderbook. For completely working example demo app refer to [SDK Demo App](https://github.com/catalogfi/sdk-demo-app).
-:::
 
 # SDK Demo App using Nextjs
+
+:::note
+This cookbook demonstrates the basic implementations to integrate Garden sdk to perform various actions like fetching quotes, swapping, fetching orders from orderbook. For completely working example demo app refer to [catalogfi/sdk-demo-app](https://github.com/catalogfi/sdk-demo-app).
+:::
 
 This cookbook demonstrates how to build a simple swap application using Garden SDK in a Next.js environment. We'll create a dApp that enables users to swap between TestnetBTC and WBTC on the testnet.
 
@@ -99,26 +100,27 @@ const TokenSwap = ()=>{
 ```
 </TabItem>
 <TabItem value="swapStore" label="SwapStore.ts">
-```tsx
-import { useGarden } from "@gardenfi/react-hooks";
-const TokenSwap = ()=>{
-    const { getQuote } = useGarden();
-    const {swapParams} = swapStore();
-    const fetchQuote = async (amount: string) => {
-        if (!getQuote) return;
-
-        const amountInDecimals = new BigNumber(amount).multipliedBy(
-            10 ** swapParams.fromAsset.decimals
-        );
-
-        const quote = await getQuote({
-            fromAsset: swapParams.fromAsset,
-            toAsset: swapParams.toAsset,
-            amount: amountInDecimals.toNumber(),
-            isExactOut: false,
-        });
-    }
+```ts
+import { SupportedAssets } from "@gardenfi/orderbook";
+import { SwapParams } from "@gardenfi/core";
+import { create } from "zustand";
+interface SwapState {
+  swapParams: SwapParams;
+  setSwapParams: (params: Partial<SwapState["swapParams"]>) => void;
 }
+export const swapStore = create<SwapState>((set) => ({
+  swapParams: {
+    fromAsset: SupportedAssets.testnet.ethereum_sepolia_WBTC,
+    toAsset: SupportedAssets.testnet.bitcoin_testnet_BTC,
+    sendAmount: "0",
+    receiveAmount: "0",
+    additionalData: { strategyId: "" },
+  },
+  setSwapParams: (params) =>
+    set((state) => ({
+      swapParams: { ...state.swapParams, ...params },
+    })),
+}));
 ```
 </TabItem>
 </Tabs>

@@ -1,0 +1,205 @@
+.swagger-ui *::selection {
+    background-color: var(--ifm-color-primary);
+    color: white;
+}
+.swagger-ui .scheme-container *{
+    color: var(--ifm-font-color-base);
+}
+.swagger-ui .opblock-tag {
+    line-height: 2;
+}
+.swagger-ui {
+    font-family: Satoshi, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji !important;
+    padding: 0 2rem;
+}
+.swagger-ui .renderedMarkdown code {
+    padding: 0rem 0.5rem;
+}
+.swagger-ui table thead tr td {
+    padding: 1rem;
+}
+.swagger-ui .info .title, 
+.swagger-ui .info p, 
+.swagger-ui a.nostyle, 
+.swagger-ui .opblock-tag small, 
+.swagger-ui .opblock .opblock-summary-description, 
+.swagger-ui .renderedMarkdown p, 
+.swagger-ui .opblock-description-wrapper p, 
+.swagger-ui .response-col_status, 
+.swagger-ui table thead tr td, 
+.swagger-ui .tab li button.tablinks, 
+.swagger-ui .response-control-media-type__title, 
+.swagger-ui .parameter__name, 
+.swagger-ui .parameter__type, 
+.swagger-ui .parameter__in, 
+.swagger-ui .prop-format, 
+.swagger-ui table thead tr th, 
+.swagger-ui .model, 
+.swagger-ui .model .property.primitive,
+.swagger-ui .operation-servers h4.message,
+.swagger-ui .servers *{
+    color: var(--ifm-font-color-base);
+}
+.swagger-ui .renderedMarkdown code {
+    color: var(--ifm-font-color-base);
+    background: var(--docusaurus-highlighted-code-line-bg);
+}
+.swagger-ui .response-col_links {
+    display: none;
+}
+.swagger-ui .arrow {
+    fill: var(--ifm-font-color-base);
+}
+.swagger-ui .model-box-control:focus {
+    outline: none;
+}
+.swagger-ui .unlocked {
+    fill: var(--ifm-border-background-color);
+}
+.swagger-ui .auth-btn-wrapper {
+    justify-content: space-evenly;
+}
+.swagger-ui table.model tr.property-row td {
+    color: var(--ifm-font-color-base);
+}
+.swagger-ui .opblock-tag .nostyle {
+    width: 9rem;
+}
+.swagger-ui .opblock-tag {
+    flex-wrap: wrap;
+}
+.swagger-ui td {
+    padding: 1rem !important;
+}
+.swagger-ui .scheme-container {
+    border-radius: 0.7rem;
+    background-color: var(--docusaurus-highlighted-code-line-bg);
+}
+.swagger-ui .opblock-summary-control {
+    outline: none !important;
+}
+.swagger-ui table.model tbody tr td:first-of-type {
+    width: fit-content;
+}
+.swagger-ui td {
+    min-width: 75px;
+}
+.swagger-ui th{
+    padding: 1rem!important;
+}
+.model-title__text{
+    display: none;
+}
+#auth-bearer-value{
+    color: black;
+}
+.api-reference--btn{
+    color: var(--ifm-color-primary)!important;
+    text-decoration: none;
+    font-weight: 400!important;
+}
+.custom-alert{
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 200;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: thin solid var(--ifm-color-primary);
+    font-weight: bold;
+    background-color: #f4f4f4;
+}
+.custom-alert__close-btn{
+    font-size: 0.8rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 100%;
+    border: none;
+    width: 1rem;
+    height: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f4f4;
+    font-weight: bold;
+    cursor: pointer;
+}
+.custom-alert *{
+    color: #554b6a;
+}
+.custom-alert__container{
+    width: fit-content;
+    max-width: 15rem;
+    height: fit-content;
+    max-height: 15rem;
+    overflow-y: scroll;
+}
+input{
+    color: #000;
+}
+#servers{
+    background-color: transparent;
+}
+#auth-bearer-value{
+    outline: none;
+    width: 100%;
+}
+
+.swagger-ui .info .title small.version-stamp{
+    padding: 1 0.8rem;
+}
+
+.swagger-ui .btn.authorize svg{
+    fill: var(--ifm-color-primary);
+}
+.swagger-ui .btn.authorize{
+    color: var(--ifm-color-primary);
+    border-color: var(--ifm-color-primary);
+}
+.swagger-ui .btn{
+    color: #000;
+}
+.swagger-ui label[for="auth-bearer-value"]{
+    color: #333;
+}
+.modal-ux-inner{
+    background-color: var(--ifm-code-background);
+}
+.swagger-ui .auth-container code{
+    color: #000;
+}
+.swagger-ui .scheme-container select, .servers select{
+    background: var(--ifm-drop-down-image);
+    background-size: 1.5rem;
+}
+.docMainContainer_TBSr{
+    scrollbar-width: none!important;
+    -ms-overflow-style: none!important;
+}
+.docMainContainer_TBSr::-webkit-scrollbar{
+    display: none!important;
+}
+.swagger-ui .responses-inner h4, .swagger-ui[class] .responses-inner[class] h5{
+    color: var(--ifm-font-color-base);
+}
+@media (max-width: 1024px) {
+    .swagger-ui .opblock-tag {
+        width: 100%;
+    }
+    .swagger-ui .opblock-tag .nostyle {
+        width: 100%;
+    }
+    .swagger-ui {
+        width: 100%;
+    }
+    .swagger-ui {
+        padding: 0;
+    }
+    .swagger-ui .wrapper{
+        padding: 0;
+    }
+    .swagger-ui .scheme-container{
+        padding: 1rem;
+    }
+}

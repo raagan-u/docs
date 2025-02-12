@@ -19,6 +19,7 @@ This cookbook demonstrates how to build a simple swap application using Garden S
 - Real-time quote updates
 
 ![start UI](../images/sdk-demo-app/sdk-demo-app-ui.png)
+![UI](../images/sdk-demo-app/sd-demo-app-final-ui.png)
 
 ## Garden Provider Setup
 

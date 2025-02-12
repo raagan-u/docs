@@ -69,6 +69,7 @@ function GardenProviderWrapper({ children }: { children: React.ReactNode }) {
 export default GardenProviderWrapper;
 ```
 </TabItem>
+
 </Tabs>
 
 ## Fetching quotes
@@ -79,6 +80,8 @@ Garden SDK provides `getQuote` hook which provides the current USD values and qu
   <TabItem value="provider" label="TokenSwap.tsx">
 ```tsx
 import { useGarden } from "@gardenfi/react-hooks";
+import BigNumber from "bignumber.js";
+
 const TokenSwap = ()=>{
     const { getQuote } = useGarden();
     const {swapParams} = swapStore();
@@ -124,3 +127,124 @@ export const swapStore = create<SwapState>((set) => ({
 ```
 </TabItem>
 </Tabs>
+
+## Swap and initiate
+
+Garden SDK provides `swapAndInitiate` hook which expects inputs of type `SwapParams` and returns the initiated order of type `Matched Order`. The hook creates an order, waits for it to be matched, and initiates it if the source chain is EVM. Returns the order object or an error message.
+
+<Tabs>
+
+  <TabItem value="swalAndInitiate" label="TokenSwap.tsx">
+```tsx
+import { useGarden } from "@gardenfi/react-hooks";
+const TokenSwap = ()=>{
+    const { swapAndInitiate } = useGarden();
+    const performSwap = async (strategyId: string, receiveAmount: string)=>{
+    const response = await swapAndInitiate({
+      fromAsset: swapParams.fromAsset,
+      toAsset: swapParams.toAsset,
+      sendAmount,
+      receiveAmount,
+      additionalData: {
+        btcAddress,
+        strategyId,
+      },
+    });
+    }
+}
+```
+</TabItem>
+
+<TabItem value="swapParams" label="SwapParams.ts">
+```ts
+// type defined in @gardenfi/core
+export type SwapParams = {
+    /**
+     * Asset to be sent.
+     */
+    fromAsset: Asset;
+    /**
+     * Asset to be received.
+     */
+    toAsset: Asset;
+    /**
+     * Amount in lowest denomination of the asset.
+     */
+    sendAmount: string;
+    /**
+     * Amount in lowest denomination of the asset.
+     */
+    receiveAmount: string;
+    /**
+     * Time lock for the swap.
+     */
+    timelock?: number;
+    /**
+     * This will wait for the specified number of confirmations before redeeming the funds.
+     */
+    minDestinationConfirmations?: number;
+    /**
+     * Unique nonce for generating secret and secret hashes. If not provided, it will be generated as the total order count until now + 1.
+     */
+    nonce?: number;
+    /**
+     * Additional data for the order.
+     */
+    additionalData: {
+        /**
+         * Get strategy id from the quote
+         */
+        strategyId: string;
+        /**
+         * Provide btcAddress if the destination or source chain is bitcoin. This address is used as refund address if source chain is bitcoin, and as redeem address if destination chain is bitcoin.
+         */
+        btcAddress?: string;
+    };
+};
+```
+</TabItem>
+
+<TabItem value="matchedOrder" label="MatchedOrder.ts">
+```ts
+// type defined in @gardenfi/orderbook
+export type MatchedOrder = {
+    created_at: string;
+    updated_at: string;
+    deleted_at: string | null;
+    source_swap: Swap;
+    destination_swap: Swap;
+    create_order: CreateOrder;
+};
+```
+</TabItem>
+
+</Tabs>
+
+
+## Fetch Order Status
+
+:::note
+While the [SDK demo app](https://github.com/catalogfi/sdk-demo-app) redirects users to [Garden Explorer](https://explorer.garden.finance/) for order status monitoring, Garden SDK provides hooks to fetch and track order status programmatically. Here's how to implement order tracking:
+:::
+
+Garden SDK provides `ParseOrderStatus` which parses the order status based on the current block number and checks if the order is `expired`, `initiated`, `redeemed`, or `refunded`.
+
+<Tabs>
+  <TabItem value="fetchOrder" label="OrderStatusParser.tsx">
+```tsx
+
+const OrderStatusParser = ()=>{
+    const status = ParseOrderStatus(
+      order.val,
+      blockNumbers.val[order.val.source_swap.chain],
+      blockNumbers.val[order.val.destination_swap.chain],
+    );
+    console.log('status :', status);
+}
+
+```
+</TabItem>
+
+</Tabs>
+
+Ta-Daa! You have now everything that is needed to build a simple swap application using the Garden SDK.

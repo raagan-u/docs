@@ -21,8 +21,8 @@ SEED empowers holders to actively shape the Garden ecosystem:
 **Total Supply**: 147,000,000 SEED
 
 * **Community incentives**: 54.4% (80,000,000 SEED) allocated for community growth and engagement through various programs.
-* **Liquidity and partnerships**: 5.5% (8,000,000 SEED) to support liquidity on and establish strategic partnerships.
-* **Grants**: 5.5% (8,000,000 SEED) reserved for both tech and non-tech community grants.
+* **Liquidity**: 5.5% (8,000,000 SEED) to support liquidity.
+* **Partnerships and Grants**: 5.5% (8,000,000 SEED) reserved for both tech and non-tech community grants and establish strategic partnerships.
 * **Team**: 15% (22,000,000 SEED) allocated to the Garden team, subject to a 24-month cliff from TGE and subsequent streaming.
 * **Investors**: 19.6% (29,000,000 SEED) allocated to early backers, subject to a 24-month cliff from TGE and subsequent streaming.
 

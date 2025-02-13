@@ -3,27 +3,29 @@ id: sdk-demo-app
 ---
 
 
-# SDK Demo App using Nextjs
+# Exchange (using Garden SDK)
 
 :::note
 This cookbook demonstrates the basic implementations to integrate Garden sdk to perform various actions like fetching quotes, swapping, fetching orders from orderbook. For completely working example demo app refer to [catalogfi/sdk-demo-app](https://github.com/catalogfi/sdk-demo-app).
 :::
 
-This cookbook demonstrates how to build a simple swap application using Garden SDK in a Next.js environment. We'll create a dApp that enables users to swap between TestnetBTC and WBTC on the testnet.
+This cookbook demonstrates how to build a simple bridge using Garden SDK in a Next.js environment. Garden SDK provides a seamless way to perform swaps between any two [supported assets](../SupportedChains.mdx). But for now the demonstration of this cookbook is limited to BTC (`testnet4`) to WBTC (`Ethereum Sepolia`)
 
 ## What we'll build
 
-- A swap interface for TestnetBTC ↔ WBTC conversions
-- Integration with Garden SDK for handling swaps
-- Wallet connection and transaction management
-- Real-time quote updates
+- **Cross-chain swaps**: Enable seamless swaps between BTC(`testnet4`) to WBTC (`Ethereum Sepolia`)
+- **Real-time quotes**: Get real-time quotes for selected `fromAsset`, `toAsset`, `amount` params
+- **Initialize swap**: Initiate the swap and wait for the counterparty to initiate
+- **Order status tracking**: Keep users informed about the status of their swaps
 
 ![start UI](../images/sdk-demo-app/sdk-demo-app-ui.png)
 ![UI](../images/sdk-demo-app/sd-demo-app-final-ui.png)
 
 ## Garden Provider Setup
 
-First, let's set up the Garden Provider which will handle our SDK initialization and provide access to swap functionality throughout the app.
+Think of Garden Provider as your app's command center! It's a context wrapper that gives your application access to all of Garden SDK's features
+
+Here's how you can set up the Garden Provider:
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -73,7 +75,21 @@ export default GardenProviderWrapper;
 
 </Tabs>
 
+## Authentication
+
+To interact with blockchain networks, your app needs a way to sign transactions. Garden SDK uses `walletClient` from the `wagmi` library to handle this. You'll need to:
+
+1. Get the [walletClient](https://wagmi.sh/react/api/hooks/useWalletClient#usewalletclient) using the `useWalletClient` hook
+2. Pass it to your `GardenProvider` configuration
+
+The `walletClient` manages:
+- Wallet connections
+- Transaction signing
+- Network interactions
+
 ## Fetching quotes
+
+Great! Now that you have your `walletClient`, you can use it to initialize the `GardenProvider`. Before diving into swap, your app needs to fetch real-time quotes for their swap params `fromAsset`, `toAsset`, `amount`.
 
 Now, let's see how to fetch real-time quotes for your swap! The `getQuote` hook from Garden SDK helps us get the current USD values and exchange rates between any two supported assets. You'll need to provide:
 
@@ -243,7 +259,7 @@ export type MatchedOrder = {
 ## Fetch Order Status
 
 :::note
-While the [SDK demo app](https://github.com/catalogfi/sdk-demo-app) redirects users to [Garden Explorer](https://explorer.garden.finance/) for order status monitoring, Garden SDK provides hooks to fetch and track order status programmatically. Here's how to implement order tracking:
+While the [SDK demo app](https://github.com/catalogfi/sdk-demo-app) redirects users to [Garden Explorer](https://explorer.garden.finance/) for order status monitoring, Garden SDK provides hooks to fetch and track order status programmatically.
 :::
 
 Well, we've got our swap initiated - but what's happening with our order? Let's keep our users informed! While you could redirect users to the [Garden Explorer](https://explorer.garden.finance/), we can create a better user experience by tracking the order status right in our app.

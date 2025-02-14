@@ -21,7 +21,7 @@ This cookbook demonstrates how to build a simple bridge using Garden SDK in a Ne
 ![start UI](../images/sdk-demo-app/sdk-demo-app-ui.png)
 ![UI](../images/sdk-demo-app/sd-demo-app-final-ui.png)
 
-## Garden Provider Setup
+## Garden provider setup
 
 Think of Garden Provider as your app's command center! It's a context wrapper that gives your application access to all of Garden SDK's features
 
@@ -170,6 +170,7 @@ Here's how you can implement this:
 <Tabs>
 
   <TabItem value="swalAndInitiate" label="TokenSwap.tsx">
+
 ```tsx
 import { useGarden } from "@gardenfi/react-hooks";
 const TokenSwap = ()=>{
@@ -256,7 +257,7 @@ export type MatchedOrder = {
 </Tabs>
 
 
-## Fetch Order Status
+## Fetch order status
 
 :::note
 While the [SDK demo app](https://github.com/catalogfi/sdk-demo-app) redirects users to [Garden Explorer](https://explorer.garden.finance/) for order status monitoring, Garden SDK provides hooks to fetch and track order status programmatically.

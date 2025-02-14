@@ -11,7 +11,7 @@ This cookbook demonstrates the basic implementations to integrate Garden sdk to 
 
 This cookbook demonstrates how to build a simple bridge using Garden SDK in a Next.js environment. Garden SDK provides a seamless way to perform swaps between any two [supported assets](../SupportedChains.mdx). But for now the demonstration of this cookbook is limited to BTC (`testnet4`) to WBTC (`Ethereum Sepolia`)
 
-## What we'll build
+## What you'll build
 
 - **Cross-chain swaps**: Enable seamless swaps between BTC(`testnet4`) to WBTC (`Ethereum Sepolia`)
 - **Real-time quotes**: Get real-time quotes for selected `fromAsset`, `toAsset`, `amount` params
@@ -91,7 +91,7 @@ The `walletClient` manages:
 
 Great! Now that you have your `walletClient`, you can use it to initialize the `GardenProvider`. Before diving into swap, your app needs to fetch real-time quotes for their swap params `fromAsset`, `toAsset`, `amount`.
 
-Now, let's see how to fetch real-time quotes for your swap! The `getQuote` hook from Garden SDK helps us get the current USD values and exchange rates between any two supported assets. You'll need to provide:
+Here's how you can fetch real-time quotes for your swap! The `getQuote` hook from Garden SDK helps you get the current USD values and exchange rates between any two supported assets. You'll need to provide:
 
 - The token you want to swap from (`fromAsset`)
 - The token you want to receive (`toAsset`)
@@ -156,16 +156,16 @@ export const swapStore = create<SwapState>((set) => ({
 
 ## Swap and initiate
 
-Great! Now that we have our quotes, let's execute the swap! Garden SDK provides `swapAndInitiate` hook that handles the entire swap process for us. 
+Great! Now that you have the quotes, it's time to execute the swap! Garden SDK provides `swapAndInitiate` hook that handles the entire swap process for you. 
 
 Here's what it does:
 1. Creates your swap order
 2. Waits for it to be matched with a suitable counterparty
 3. Automatically initiates the swap if you're on an EVM chain
 
-You'll need to provide the swap parameters (including the quote details we got earlier), and the hook will return either your matched order or an error message if something goes wrong. 
+You'll need to provide the swap parameters (including the quote details you got earlier), and the hook will return either your matched order or an error message if something goes wrong. 
 
-Let's see how to implement this:
+Here's how you can implement this:
 
 <Tabs>
 
@@ -262,7 +262,7 @@ export type MatchedOrder = {
 While the [SDK demo app](https://github.com/catalogfi/sdk-demo-app) redirects users to [Garden Explorer](https://explorer.garden.finance/) for order status monitoring, Garden SDK provides hooks to fetch and track order status programmatically.
 :::
 
-Well, we've got our swap initiated - but what's happening with our order? Let's keep our users informed! While you could redirect users to the [Garden Explorer](https://explorer.garden.finance/), we can create a better user experience by tracking the order status right in our app.
+Your swap is now initiated - but what's happening with your order? You can keep your users informed! While you could redirect users to the [Garden Explorer](https://explorer.garden.finance/), you can create a better user experience by tracking the order status right in your app.
 
 The Garden SDK makes this easy with the `ParseOrderStatus` hook, which tells us exactly what's happening with the order. It checks the current block numbers on both chains and tells us if the order is:
 - `Expired` - The user's swap has expired, and they have to refund their funds.

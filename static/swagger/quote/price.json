@@ -22,7 +22,7 @@
         "schema": {
           "type": "string",
           "description": "The order pair for which the quote is needed.",
-          "example": "ethereum_sepolia:0x3C6a17b8cD92976D1D91E491c93c98cd81998265::bitcoin_testnet:primary"
+          "example": "arbitrum_sepolia:0x1cd0bBd55fD66B4C5F7dfE434eFD009C09e628d1::base_sepolia:0xB391CA6D0A76CD2A927bC314856E8a374a225CFc"
         }
       },
       {

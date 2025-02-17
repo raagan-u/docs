@@ -3,6 +3,16 @@
         "operationId": "redeemSwap",
         "summary": "Redeems a token swap.",
         "description": "Redeems a token swap by submitting the secret associated with the swap. The request also specifies the side of execution to finalize the transaction.",
+        "servers": [
+            {
+                "url": "https://orderbook.garden.finance",
+                "description": "Testnet - Auth, Gasless, Orderbook server"
+            },
+            {
+                "url": "https://orderbookv2.garden.finance",
+                "description": "Mainnet - Auth, Gasless, Orderbook server"
+            }
+        ],
         "security": [
             {
                 "bearer": []
@@ -138,7 +148,7 @@
             }
         },
         "tags": [
-          "Gasless"
+            "Gasless"
         ]
     }
 }

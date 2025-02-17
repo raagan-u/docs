@@ -5,7 +5,12 @@
         "description": "Retrieves all unmatched orders for a specific user, identified by their unique address, with optional pagination. It returns the orders that have been initiated and picked up by `Orderbook`.",
         "servers": [
             {
-                "url": "https://orderbook.garden.finance"
+                "url": "https://orderbook.garden.finance",
+                "description": "Testnet - Auth, Gasless, Orderbook server"
+            },
+            {
+                "url": "https://orderbookv2.garden.finance",
+                "description": "Mainnet - Auth, Gasless, Orderbook server"
             }
         ],
         "parameters": [
@@ -82,7 +87,7 @@
                                     "properties": {
                                         "code": {
                                             "type": "number",
-                                            "description":"The numeric status code indicating the type of error or response.",
+                                            "description": "The numeric status code indicating the type of error or response.",
                                             "example": 401
                                         },
                                         "message": {

@@ -5,7 +5,12 @@
     "description": "Retrieves an attested quote, which includes the validity period of the quote until a specified time. It ensures that the quote is valid for a certain duration before expiration.",
     "servers": [
       {
-        "url": "https://price.garden.finance"
+        "url": "https://price.garden.finance",
+        "description": "Testnet - Quote server"
+      },
+      {
+        "url": "https://pricev2.garden.finance",
+        "description": "Mainnet - Quote server"
       }
     ],
     "security": [],
@@ -110,7 +115,10 @@
               "properties": {
                 "status": {
                   "type": "string",
-                  "enum": ["Ok", "Error"],
+                  "enum": [
+                    "Ok",
+                    "Error"
+                  ],
                   "example": "Ok",
                   "description": "An enum representing the possible outcomes of the endpoint, indicating whether the request was successful."
                 },
@@ -239,7 +247,10 @@
               "properties": {
                 "status": {
                   "type": "string",
-                  "enum": ["Ok", "Error"],
+                  "enum": [
+                    "Ok",
+                    "Error"
+                  ],
                   "example": "Error",
                   "description": "An enum representing the possible outcomes of the endpoint, indicating whether the request was successful."
                 },
@@ -264,6 +275,8 @@
         }
       }
     },
-    "tags": ["Quote"]
+    "tags": [
+      "Quote"
+    ]
   }
 }

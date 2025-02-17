@@ -5,7 +5,12 @@
     "description": "Retrieves a `quote` for the specified `order pair`, considering the exact output or input amount.",
     "servers": [
       {
-        "url": "https://price.garden.finance"
+        "url": "https://price.garden.finance",
+        "description": "Testnet - Quote server"
+      },
+      {
+        "url": "https://pricev2.garden.finance",
+        "description": "Mainnet - Quote server"
       }
     ],
     "security": [],
@@ -52,7 +57,10 @@
               "properties": {
                 "status": {
                   "type": "string",
-                  "enum": ["Ok", "Error"],
+                  "enum": [
+                    "Ok",
+                    "Error"
+                  ],
                   "example": "Ok"
                 },
                 "result": {
@@ -95,7 +103,10 @@
               "properties": {
                 "status": {
                   "type": "string",
-                  "enum": ["Ok", "Error"],
+                  "enum": [
+                    "Ok",
+                    "Error"
+                  ],
                   "example": "Error"
                 },
                 "error": {
@@ -119,6 +130,8 @@
         }
       }
     },
-    "tags": ["Quote"]
+    "tags": [
+      "Quote"
+    ]
   }
 }

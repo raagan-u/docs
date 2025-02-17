@@ -5,7 +5,12 @@
     "description": "Retrieves all unmatched orders for a specific user, identified by their unique address, with optional pagination. It returns the orders that have been initiated but not yet picked up by `Orderbook`.",
     "servers": [
       {
-        "url": "https://orderbook.garden.finance"
+        "url": "https://orderbook.garden.finance",
+        "description": "Testnet - Auth, Gasless, Orderbook server"
+      },
+      {
+        "url": "https://orderbookv2.garden.finance",
+        "description": "Mainnet - Auth, Gasless, Orderbook server"
       }
     ],
     "parameters": [
@@ -84,19 +89,19 @@
                   "description": "An enum representing the possible outcomes of the endpoint, indicating whether the request was successful."
                 },
                 "error": {
-                                    "type": "object",
-                                    "properties": {
-                                        "code": {
-                                            "type": "number",
-                                            "description":"The numeric status code indicating the type of error or response.",
-                                            "example": 401
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "description": "A descriptive message providing details about the error or response."
-                                        }
-                                    }
-                                }
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "The numeric status code indicating the type of error or response.",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "A descriptive message providing details about the error or response."
+                    }
+                  }
+                }
               }
             }
           }

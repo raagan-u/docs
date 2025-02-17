@@ -3,6 +3,16 @@
         "operationId": "createOrder",
         "summary": "Creates a new order.",
         "description": "Creates a new cross-chain swap order with specified parameters and strategy details.",
+        "servers": [
+            {
+                "url": "https://orderbook.garden.finance",
+                "description": "Testnet - Auth, Gasless, Orderbook server"
+            },
+            {
+                "url": "https://orderbookv2.garden.finance",
+                "description": "Mainnet - Auth, Gasless, Orderbook server"
+            }
+        ],
         "security": [
             {
                 "bearer": []

@@ -3,13 +3,13 @@ id: sdk-demo-app
 ---
 
 
-# Exchange (using Garden SDK)
+# Bridge (using Garden SDK)
 
 :::note
-This cookbook demonstrates the basic implementations to integrate Garden sdk to perform various actions like fetching quotes, swapping, fetching orders from orderbook. For completely working example demo app refer to [catalogfi/sdk-demo-app](https://github.com/catalogfi/sdk-demo-app).
+This cookbook demonstrates the basic implementations to integrate Garden SDK to perform various actions like fetching quotes, swapping, and fetching orders from the orderbook. For a completely working example, refer to [catalogfi/sdk-demo-app](https://github.com/catalogfi/sdk-demo-app).
 :::
 
-This cookbook demonstrates how to build a simple bridge using Garden SDK in a Next.js environment. Garden SDK provides a seamless way to perform swaps between any two [supported assets](../SupportedChains.mdx). But for now the demonstration of this cookbook is limited to BTC (`testnet4`) to WBTC (`Ethereum Sepolia`)
+This cookbook demonstrates how to build a simple bridge using Garden SDK in a Next.js environment. Garden SDK provides a seamless way to perform swaps between any two [supported assets](../SupportedChains.mdx). For this demonstration, we'll focus on swaps between BTC (`testnet4`) and WBTC (`Ethereum Sepolia`).
 
 ## What you'll build
 
@@ -18,12 +18,14 @@ This cookbook demonstrates how to build a simple bridge using Garden SDK in a Ne
 - **Initialize swap**: Initiate the swap and wait for the counterparty to initiate
 - **Order status tracking**: Keep users informed about the status of their swaps
 
+### The landing UI
 ![start UI](../images/sdk-demo-app/sdk-demo-app-ui.png)
+### The working app UI
 ![UI](../images/sdk-demo-app/sd-demo-app-final-ui.png)
 
 ## Garden provider setup
 
-Think of Garden Provider as your app's command center! It's a context wrapper that gives your application access to all of Garden SDK's features
+Garden provider is a context wrapper that gives your application access to all of Garden SDK's features
 
 Here's how you can set up the Garden Provider:
 
@@ -154,16 +156,16 @@ export const swapStore = create<SwapState>((set) => ({
 </TabItem>
 </Tabs>
 
-## Swap and initiate
+## Execute swap
 
-Great! Now that you have the quotes, it's time to execute the swap! Garden SDK provides `swapAndInitiate` hook that handles the entire swap process for you. 
+Great! Now that you have the quotes, it's time to execute the swap! Garden SDK provides the `swapAndInitiate` hook that handles the entire swap process for you. 
 
 Here's what it does:
 1. Creates your swap order
 2. Waits for it to be matched with a suitable counterparty
 3. Automatically initiates the swap if you're on an EVM chain
 
-You'll need to provide the swap parameters (including the quote details you got earlier), and the hook will return either your matched order or an error message if something goes wrong. 
+You'll need to provide the swap parameters (including the quote details you got earlier). The hook will return either a matched order or an error message if something goes wrong. 
 
 Here's how you can implement this:
 
@@ -260,18 +262,18 @@ export type MatchedOrder = {
 ## Fetch order status
 
 :::note
-While the [SDK demo app](https://github.com/catalogfi/sdk-demo-app) redirects users to [Garden Explorer](https://explorer.garden.finance/) for order status monitoring, Garden SDK provides hooks to fetch and track order status programmatically.
+Although the [SDK demo app](https://github.com/catalogfi/sdk-demo-app) redirects users to [Garden Explorer](https://explorer.garden.finance/) for order status monitoring, Garden SDK provides hooks to fetch and track order status programmatically.
 :::
 
-Your swap is now initiated - but what's happening with your order? You can keep your users informed! While you could redirect users to the [Garden Explorer](https://explorer.garden.finance/), you can create a better user experience by tracking the order status right in your app.
+Your swap is now initiated, but what's happening with your order? You can keep your users informed! Instead of redirecting users to [Garden Explorer](https://explorer.garden.finance/), you can create a better user experience by tracking the order status right in your app.
 
-The Garden SDK makes this easy with the `ParseOrderStatus` hook, which tells us exactly what's happening with the order. It checks the current block numbers on both chains and tells us if the order is:
+The Garden SDK simplifies this with the `ParseOrderStatus` hook, which determines the order's current state. By checking block numbers on both chains, it can identify if the order is:
 - `Expired` - The user's swap has expired, and they have to refund their funds.
 - `Initiated` - User initiated, waiting for counterparty to initiate.
 - `Redeemed` - User redeemed, counterparty has to redeem
 - `Refunded` - User refunded
 
-Let's see how to implement this status tracking:
+Here's how you can implement this status tracking:
 
 <Tabs>
   <TabItem value="fetchOrder" label="OrderStatusParser.tsx">
@@ -291,4 +293,4 @@ const OrderStatusParser = ()=>{
 
 </Tabs>
 
-Ta-Daa! You have now everything that is needed to build a simple swap application using the Garden SDK.
+Ta-Daa! You have now everything needed to build a simple swap application using the Garden SDK.

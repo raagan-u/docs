@@ -4,6 +4,16 @@
         "summary": "Generate nonce.",
         "description": "The `/auth/nonce` endpoint generates a unique `nonce` that serves as a one-time challenge for the user. This nonce is used during the authentication process, requiring the user to `sign` it with their `private key` to prove their identity.",
         "security": [],
+        "servers": [
+            {
+                "url": "https://orderbook.garden.finance",
+                "description": "Testnet - Auth, Gasless, Orderbook server"
+            },
+            {
+                "url": "https://orderbookv2.garden.finance",
+                "description": "Mainnet - Auth, Gasless, Orderbook server"
+            }
+        ],
         "responses": {
             "200": {
                 "description": "Returns the generated nonce as a one-time challenge for the user to sign during authentication.",
@@ -16,7 +26,10 @@
                                     "type": "string",
                                     "example": "Ok",
                                     "description": "An enum representing the possible outcomes of the endpoint, indicating whether the request was successful.",
-                                    "enum": ["Ok","Error"]
+                                    "enum": [
+                                        "Ok",
+                                        "Error"
+                                    ]
                                 },
                                 "result": {
                                     "type": "string",
@@ -39,7 +52,10 @@
                                     "type": "string",
                                     "example": "Error",
                                     "description": "An enum representing the possible outcomes of the `/auth/nonce` endpoint, indicating whether the nonce generation was successful.",
-                                    "enum": ["Ok","Error"]
+                                    "enum": [
+                                        "Ok",
+                                        "Error"
+                                    ]
                                 },
                                 "error": {
                                     "type": "string",
@@ -53,7 +69,7 @@
             }
         },
         "tags": [
-          "Auth"
+            "Auth"
         ]
     }
 }

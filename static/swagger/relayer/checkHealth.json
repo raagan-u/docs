@@ -3,6 +3,16 @@
         "operationId": "checkHealth",
         "summary": "Checks health of the server.",
         "description": "Checks the operational status of the API to ensure it's online and functioning.",
+        "servers": [
+            {
+                "url": "https://orderbook.garden.finance",
+                "description": "Testnet - Auth, Gasless, Orderbook server"
+            },
+            {
+                "url": "https://orderbookv2.garden.finance",
+                "description": "Mainnet - Auth, Gasless, Orderbook server"
+            }
+        ],
         "security": [],
         "responses": {
             "200": {
@@ -29,7 +39,7 @@
             }
         },
         "tags": [
-          "Gasless"
+            "Gasless"
         ]
     }
 }

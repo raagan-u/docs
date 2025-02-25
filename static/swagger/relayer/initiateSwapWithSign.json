@@ -3,6 +3,16 @@
         "operationId": "initiateSwapWithSign",
         "summary": "Intiates a swap with signature.",
         "description": "Performs all the required validation checks to ensure the swap request is valid and meets the necessary conditions. After successful verification, it sends the swap request to the executor, triggering the execution of the token swap based on the provided parameters and conditions.",
+        "servers": [
+            {
+                "url": "https://orderbook.garden.finance",
+                "description": "Testnet - Auth, Gasless, Orderbook server"
+            },
+            {
+                "url": "https://orderbookv2.garden.finance",
+                "description": "Mainnet - Auth, Gasless, Orderbook server"
+            }
+        ],
         "security": [
             {
                 "bearer": []
@@ -138,7 +148,7 @@
             }
         },
         "tags": [
-          "Gasless"
+            "Gasless"
         ]
     }
 }

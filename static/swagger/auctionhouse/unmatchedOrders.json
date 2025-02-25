@@ -1,81 +1,91 @@
 {
-    "get": {
-      "operationId": "getAllUnmatchedOrders",
-      "summary": "Get all unmatched orders.",
-      "description": "Retrieves all unmatched orders, where users have initiated the order but `Orderbook` has not yet picked it up. Pagination is optional for limiting the results.",
-      "servers": [
-        {
-          "url": "https://orderbook.garden.finance"
-        }
-      ],
-      "parameters": [
-        {
-          "name": "page",
-          "in": "query",
-          "schema": {
-            "type": "integer",
-            "default": 1
-          },
-          "description": "Page number for pagination."
+  "get": {
+    "operationId": "getAllUnmatchedOrders",
+    "summary": "Get all unmatched orders.",
+    "description": "Retrieves all unmatched orders, where users have initiated the order but `Orderbook` has not yet picked it up. Pagination is optional for limiting the results.",
+    "servers": [
+      {
+        "url": "https://orderbook.garden.finance",
+        "description": "Testnet - Auth, Gasless, Orderbook server"
+      },
+      {
+        "url": "https://orderbookv2.garden.finance",
+        "description": "Mainnet - Auth, Gasless, Orderbook server"
+      }
+    ],
+    "parameters": [
+      {
+        "name": "page",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "default": 1
         },
-        {
-          "name": "per_page",
-          "in": "query",
-          "schema": {
-            "type": "integer",
-            "default": 10
-          },
-          "description": "Number of items per page."
-        }
-      ],
-      "responses": {
-        "200": {
-          "description": "The paginated unmatched orders.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "status": {
-                    "type": "string",
-                    "example": "Ok",
-                    "enum": ["Ok", "Error"],
-                    "description": "An enum representing the possible outcomes of the endpoint, indicating whether the request was successful."
-                  },
-                  "result": {
-                    "$ref": "./components/schemas.json#/components/schemas/CreateOrder"
-                  }
+        "description": "Page number for pagination."
+      },
+      {
+        "name": "per_page",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "default": 10
+        },
+        "description": "Number of items per page."
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "The paginated unmatched orders.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "Ok",
+                  "enum": [
+                    "Ok",
+                    "Error"
+                  ],
+                  "description": "An enum representing the possible outcomes of the endpoint, indicating whether the request was successful."
+                },
+                "result": {
+                  "$ref": "./components/schemas.json#/components/schemas/CreateOrder"
                 }
               }
             }
           }
-        },
-        "400": {
-          "description": "Bad Request. Invalid or missing parameters.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "status": {
-                    "type": "string",
-                    "enum": ["Ok", "Error"],
-                    "example": "Error",
-                    "description": "An enum representing the possible outcomes of the endpoint, indicating whether the request was successful."
-                  },
-                  "error": {
-                    "type": "object",
-                    "properties": {
-                      "code": {
-                        "type": "number",
-                        "description": "The numeric status code indicating the type of error or response.",
-                        "example": 401
-                      },
-                      "message": {
-                        "type": "string",
-                        "description": "A descriptive message providing details about the error or response.",
-                        "example": "Failed to get all unmatched orders."
-                      }
+        }
+      },
+      "400": {
+        "description": "Bad Request. Invalid or missing parameters.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "Ok",
+                    "Error"
+                  ],
+                  "example": "Error",
+                  "description": "An enum representing the possible outcomes of the endpoint, indicating whether the request was successful."
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "The numeric status code indicating the type of error or response.",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "A descriptive message providing details about the error or response.",
+                      "example": "Failed to get all unmatched orders."
                     }
                   }
                 }
@@ -83,7 +93,10 @@
             }
           }
         }
-      },
-      "tags": ["Orderbook"]
-    }
+      }
+    },
+    "tags": [
+      "Orderbook"
+    ]
   }
+}

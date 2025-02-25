@@ -6,13 +6,13 @@ const SwaggerComponent = ({ url }) => {
   const [alertVisible, setAlertVisible] = useState(false);
 
   useEffect(() => {
-      setTimeout(() => {
-        setAlertVisible(false);
-      }, 5000);
+    setTimeout(() => {
+      setAlertVisible(false);
+    }, 5000);
   }, [alertVisible]);
 
   const expandFirstTag = () => {
-    const firstButton = document.getElementsByClassName("expand-operation")[0];
+    const firstButton = document.getElementsByClassName('expand-operation')[0];
     if (firstButton) {
       firstButton.click();
     }
@@ -24,9 +24,10 @@ const SwaggerComponent = ({ url }) => {
     }
     return response;
   };
-  
-  const message = "401 Unauthorized!\nPlease obtain your API key from the Dev Dashboard or through the Auth endpoint.";
-  const formattedMessage = message.split("\n").map((line, index) => (
+
+  const message =
+    '401 Unauthorized!\nPlease obtain your API key from the Dev Dashboard or through the Auth endpoint.';
+  const formattedMessage = message.split('\n').map((line, index) => (
     <React.Fragment key={index}>
       {line}
       <br />
@@ -37,7 +38,7 @@ const SwaggerComponent = ({ url }) => {
     <div className="">
       {alertVisible && (
         <CustomAlert
-          message={formattedMessage} 
+          message={formattedMessage}
           onClose={() => setAlertVisible(false)}
         />
       )}
@@ -46,6 +47,7 @@ const SwaggerComponent = ({ url }) => {
         url={url}
         docExpansion="none"
         onComplete={expandFirstTag}
+        supportedSubmitMethods={[]}
         responseInterceptor={customResponseInterceptor}
       />
     </div>

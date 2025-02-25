@@ -5,7 +5,12 @@
         "description": "Fetches the total number of orders for a specific user based on their address.",
         "servers": [
             {
-                "url": "https://orderbook.garden.finance"
+                "url": "https://orderbook.garden.finance",
+                "description": "Testnet - Auth, Gasless, Orderbook server"
+            },
+            {
+                "url": "https://orderbookv2.garden.finance",
+                "description": "Mainnet - Auth, Gasless, Orderbook server"
             }
         ],
         "parameters": [
@@ -56,7 +61,7 @@
                                     "properties": {
                                         "code": {
                                             "type": "number",
-                                            "description":"The numeric status code indicating the type of error or response.",
+                                            "description": "The numeric status code indicating the type of error or response.",
                                             "example": 401
                                         },
                                         "message": {
@@ -73,7 +78,7 @@
             }
         },
         "tags": [
-          "Orderbook"
+            "Orderbook"
         ]
     }
 }

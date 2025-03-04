@@ -70,7 +70,7 @@ jobs:
         run: |
           git config --global user.name "${{ github.actor }}"
           echo "username=${{ github.actor }}"
-          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global user.email "97949943+${{ github.actor }}@users.noreply.github.com"
           echo "user-email=${{ github.actor }}@users.noreply.github.com"
           git add versioned_sidebars/ versioned_docs/ versions.json
           git commit -m "v${{ steps.version.outputs.new_version }} "

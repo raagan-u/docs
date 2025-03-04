@@ -46,14 +46,14 @@ jobs:
           COMMIT_MSG=$(git log -1 --pretty=%B)
           COMMIT_MSG_LOWER=$(echo "$COMMIT_MSG" | tr '[:upper:]' '[:lower:]')
           
-          if echo "$COMMIT_MSG_LOWER" | grep -q "feat"; then
+          if echo "$COMMIT_MSG_LOWER" | grep -q "feat:"; then
             MAJOR=$((MAJOR + 1))
             MINOR=0
             PATCH=0
-          elif echo "$COMMIT_MSG_LOWER" | grep -q "fix"; then
+          elif echo "$COMMIT_MSG_LOWER" | grep -q "fix:"; then
             MINOR=$((MINOR + 1))
             PATCH=0
-          else
+          elif echo "$COMMIT_MSG_LOWER" | grep -q "chore:"; then
             PATCH=$((PATCH + 1))
           fi
           

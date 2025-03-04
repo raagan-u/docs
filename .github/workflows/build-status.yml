@@ -3,7 +3,7 @@ name: Build Status
 on: 
   push:
     branches:
-      - main
+      - update/ci-pipeline
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Node.js Environment Setup
         uses: actions/setup-node@v4
@@ -35,10 +37,27 @@ jobs:
       - name: Get Latest Version
         id: version
         run: |
-          LATEST_VERSION=$(ls versioned_docs | grep -E "version-2\.0\.[0-9]+" | sort -V | tail -n 1 || echo "version-2.0.0")
-          CURRENT_NUMBER=$(echo $LATEST_VERSION | grep -oE "2\.0\.[0-9]+" | cut -d. -f3)
-          NEW_NUMBER=$((CURRENT_NUMBER + 1))
-          NEW_VERSION="2.0.$NEW_NUMBER"
+          LATEST_VERSION=$(ls versioned_docs | grep -E "version-[0-9]+\.[0-9]+\.[0-9]+" | sort -V | tail -n 1 || echo "version-2.0.0")
+          CURRENT_VERSION=$(echo $LATEST_VERSION | grep -oE "[0-9]+\.[0-9]+\.[0-9]+")
+          MAJOR=$(echo $CURRENT_VERSION | cut -d. -f1)
+          MINOR=$(echo $CURRENT_VERSION | cut -d. -f2)
+          PATCH=$(echo $CURRENT_VERSION | cut -d. -f3)
+          
+          COMMIT_MSG=$(git log -1 --pretty=%B)
+          COMMIT_MSG_LOWER=$(echo "$COMMIT_MSG" | tr '[:upper:]' '[:lower:]')
+          
+          if echo "$COMMIT_MSG_LOWER" | grep -q "feat"; then
+            MAJOR=$((MAJOR + 1))
+            MINOR=0
+            PATCH=0
+          elif echo "$COMMIT_MSG_LOWER" | grep -q "fix"; then
+            MINOR=$((MINOR + 1))
+            PATCH=0
+          else
+            PATCH=$((PATCH + 1))
+          fi
+          
+          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
       
 

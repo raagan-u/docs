@@ -27,7 +27,7 @@ jobs:
       - name: Setup yarn
         run: |
           corepack enable
-          yarn set version stable
+          yarn set version 4.5.1
 
       - name: Install Dependencies
         run: |

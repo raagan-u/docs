@@ -69,7 +69,9 @@ jobs:
       - name: Commit New Version
         run: |
           git config --global user.name "${{ github.actor }}"
+          echo "user-name=${{ github.actor }}" >> $GITHUB_OUTPUT
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          echo "user-email=${{ github.actor }}@users.noreply.github.com" >> $GITHUB_OUTPUT
           git add versioned_sidebars/ versioned_docs/ versions.json
           git commit -m "v${{ steps.version.outputs.new_version }} "
           git push

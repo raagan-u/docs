@@ -10,20 +10,20 @@ import DocCardList from '@theme/DocCardList';
 items={[
 {
 type: "link",
-href: "./quickstart",
+href: "./nodejs/quickstart",
 label: "Quickstart",
 description: "Quickly set up and integrate Garden into your node project.",
 docId: "developers/sdk/nodejs/quickstart",
 },
 {
 type: "link",
-href: "./settle-order",
+href: "./nodejs/settle-order",
 label: "Settle order",
 docId: "developers/sdk/nodejs/settle-order",
 },
 {
 type: "link",
-href: "./get-order",
+href: "./nodejs/get-order",
 label: "Get order",
 docId: "developers/sdk/nodejs/get-order",
 }

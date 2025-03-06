@@ -251,6 +251,21 @@ const sidebars: SidebarsConfig = {
         },
       ],
     },
+    {
+      type: "category",
+      label: "Contracts",
+      link: {
+        type: "doc",
+        id: "developers/contracts/contracts",
+      },
+      items: [
+        {
+          type: "doc",
+          id: "developers/contracts/htlc-evm",
+          label: "HTLC(EVM)",
+        },
+      ],
+    },
     "developers/supported-chains",
     "developers/testing/testing",
     "developers/troubleshooting",

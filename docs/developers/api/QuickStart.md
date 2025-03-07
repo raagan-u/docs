@@ -18,7 +18,7 @@ Use this endpoint to get a unique single-time nonce.
 
 ```bash
 curl -X 'GET' \
-  'https://orderbook.garden.finance/nonce' \
+  'https://orderbook.garden.finance/auth/nonce' \
   -H 'accept: application/json'
 ```
 

@@ -36,7 +36,7 @@
     {
       "name": "Auth",
       "x-displayName": "Auth",
-      "description": "The Auth API provides a secure and seamless authentication mechanism using the Sign-In with Ethereum (`SIWE`) protocol. The /auth/nonce endpoint generates a unique, one-time-use `nonce` to ensure integrity and prevent replay attacks. Users sign a message containing this nonce and relevant metadata with their Ethereum private key. The signed message is then submitted to the /auth/verify endpoint, which `validates` the signature and confirms the user's identity without compromising their private key.\n\n> **Note:** You can obtain an API key through either the Auth section or the Dev Dashboard."
+      "description": "The Auth API provides a secure and seamless authentication mechanism using the Sign-In with Ethereum (<a target=\"_blank\" href=\"https://eips.ethereum.org/EIPS/eip-4361\"><b>SIWE</b></a>) protocol. The /auth/nonce endpoint generates a unique, one-time-use `nonce` to ensure integrity and prevent replay attacks. Users sign a message containing this nonce and relevant metadata with their Ethereum private key. The signed message is then submitted to the /auth/verify endpoint, which `validates` the signature and confirms the user's identity without compromising their private key.\n\n> **Note:** You can obtain an API key through either the Auth section or the Dev Dashboard."
     },
     {
       "name": "Quote",

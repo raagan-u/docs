@@ -54,22 +54,21 @@
               "source_amount": {
                 "type": "string",
                 "description": "The amount of the asset being swapped on the source blockchain.",
-                "example": "1"
+                "example": "1000000000000000000000"
               },
               "destination_amount": {
                 "type": "string",
                 "description": "The amount of the asset expected on the destination blockchain.",
-                "example": "0.97"
+                "example": "1217349"
               },
               "fee": {
-                "type": "number",
-                "description": "The total cost associated with the swap transaction.",
-                "example": 1
+                "type": "string",
+                "example": "1"
               },
               "nonce": {
                 "type": "string",
                 "description": "A unique identifier for the swap transaction to prevent duplication.",
-                "example": "b8bc718d6af38a0d2cac5085c53f617a52e590b0ff4ad2c4abb0825e9cc39079"
+                "example": "1741603785397"
               },
               "min_destination_confirmations": {
                 "type": "integer",
@@ -92,7 +91,7 @@
                   "strategy_id": {
                     "type": "string",
                     "description": "Provided by the quote server",
-                    "example": "bre112"
+                    "example": "aae4bafa"
                   },
                   "bitcoin_optional_recipient": {
                     "type": "string",
@@ -159,22 +158,22 @@
                     "source_amount": {
                       "type": "string",
                       "description": "The amount of the asset being swapped on the source blockchain.",
-                      "example": "1"
+                      "example": "1000000000000000000000"
                     },
                     "destination_amount": {
                       "type": "string",
                       "description": "The amount of the asset expected on the destination blockchain.",
-                      "example": "0.97"
+                      "example": "1217349"
                     },
                     "fee": {
                       "type": "string",
                       "description": "The total cost associated with the swap transaction.",
-                      "example": 1
+                      "example": "1"
                     },
                     "nonce": {
                       "type": "string",
                       "description": "A unique identifier for the swap transaction to prevent duplication.",
-                      "example": "b8bc718d6af38a0d2cac5085c53f617a52e590b0ff4ad2c4abb0825e9cc39079"
+                      "example": "1741603785397"
                     },
                     "min_destination_confirmations": {
                       "type": "integer",
@@ -213,7 +212,8 @@
                         },
                         "deadline": {
                           "type": "string",
-                          "description": "Validity till the current quote is valid"
+                          "description": "Validity till the current quote is valid",
+                          "example": 1741607397
                         },
                         "bitcoin_optional_recipient": {
                           "type": "string",
@@ -223,12 +223,7 @@
                         "sig": {
                           "type": "string",
                           "description": "",
-                          "example": "MEYCIQDYfLzU1MxP3RLlY5YXzkKcFvndv3tZyjGtHKqbrFqJ6QIhAMTytBYJ5Fb2+9NdXdHSTHz9BUEtwxE/n9VUwqP1X5fn"
-                        },
-                        "instant_refund_tx_bytes": {
-                          "type": "string",
-                          "description": "The signature used to derive the transaction hash for an instant refund in case of transaction failure.",
-                          "example": "90a36c9fc942109060165b9db0ada8f6499302288d9d3698c6b4fa9431b5bf22"
+                          "example": "d5985058aed6fcec1ed4a537783394e362b21c7a94929754b757b71b57e653b876e687d81363f67fe2ed9bf619287cb0702f1da64c8b1310085fe761b73bb8761b"
                         }
                       }
                     }

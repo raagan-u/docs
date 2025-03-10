@@ -5,7 +5,7 @@
             "source_chain": {
                 "type": "string",
                 "description": "The blockchain network where the swap originates.",
-                "example": "ethereum_sepolia"
+                "example": "ethereum"
             },
             "destination_chain": {
                 "type": "string",
@@ -34,23 +34,22 @@
             },
             "source_amount": {
                 "type": "string",
-                "description": "The amount of the asset being swapped on the source blockchain, expressed in its lowest denomination.",
-                "example": "1000000"
+                "description": "The amount of the asset being swapped on the source blockchain.",
+                "example": "1000000000000000000000"
             },
             "destination_amount": {
                 "type": "string",
-                "description": "The amount of the asset being swapped on the destination blockchain, expressed in its lowest denomination.",
+                "description": "The amount of the asset being swapped on the destination blockchain.",
                 "example": "9970000000000000"
             },
             "fee": {
                 "type": "string",
-                "description": "The total cost associated with the swap transaction.",
                 "example": "1"
             },
             "nonce": {
                 "type": "string",
                 "description": "A unique identifier for the swap transaction to prevent duplication.",
-                "example": "5"
+                "example": "1741603785397"
             },
             "min_destination_confirmations": {
                 "type": "integer",
@@ -78,14 +77,14 @@
                     "input_token_price": {
                         "type": "number",
                         "format": "double",
-                        "description": "Provided by the quote server",
-                        "example": 95339.72353861976
+                        "description": "Input token price provided by the quote server",
+                        "example": 0.9999373900647296
                     },
                     "output_token_price": {
                         "type": "number",
                         "format": "double",
-                        "description": "Provided by the quote server",
-                        "example": 95339.72353861976
+                        "description": "Output token price provided by the quote server",
+                        "example": 81894.13851815807
                     },
                     "deadline": {
                         "type": "number",

@@ -115,7 +115,7 @@ const config: Config = {
           'aria-label': 'Twitter Handle',
         },
         {
-          href: 'https://discord.gg/CtBvdzqy',
+          href: 'https://discord.com/invite/kqMBgeAKAh',
           position: 'right',
           className: 'header-link header-discord-link',
           'aria-label': 'Discord Server',
@@ -178,7 +178,7 @@ const config: Config = {
           items: [
             {
               label: 'Discord',
-              to: 'https://discord.gg/CtBvdzqy',
+              to: 'https://discord.com/invite/kqMBgeAKAh',
             },
             {
               label: 'Telegram',

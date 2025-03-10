@@ -54,22 +54,21 @@
               "source_amount": {
                 "type": "string",
                 "description": "The amount of the asset being swapped on the source blockchain.",
-                "example": "1"
+                "example": "1000000000000000000000"
               },
               "destination_amount": {
                 "type": "string",
                 "description": "The amount of the asset expected on the destination blockchain.",
-                "example": "0.97"
+                "example": "1217349"
               },
               "fee": {
-                "type": "number",
-                "description": "The total cost associated with the swap transaction.",
-                "example": 1
+                "type": "string",
+                "example": "1"
               },
               "nonce": {
                 "type": "string",
                 "description": "A unique identifier for the swap transaction to prevent duplication.",
-                "example": "b8bc718d6af38a0d2cac5085c53f617a52e590b0ff4ad2c4abb0825e9cc39079"
+                "example": "1741603785397"
               },
               "min_destination_confirmations": {
                 "type": "integer",
@@ -92,7 +91,7 @@
                   "strategy_id": {
                     "type": "string",
                     "description": "Provided by the quote server",
-                    "example": "bre112"
+                    "example": "aae4bafa"
                   },
                   "bitcoin_optional_recipient": {
                     "type": "string",

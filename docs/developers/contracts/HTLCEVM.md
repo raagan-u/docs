@@ -4,11 +4,13 @@ id: htlc-evm
 
 # Architecture
 
-The HTLC contract enables atomic swaps across different blockchains. It allows an initiator to lock tokens that can only be claimed by a specific redeemer who knows a secret. If the redeemer doesn't claim the tokens within a specific timeframe, the initiator can reclaim them.
+The **Hashed timelock contract (HTLC)** is a core component of atomic swaps, enabling secure cross-chain transactions. It allows an **initiator** to lock tokens in a contract that can only be claimed by a designated **redeemer** who possesses a cryptographic secret. If the redeemer does not claim the tokens within the specified timeframe, the initiator can reclaim them, ensuring no funds are lost.
 
-Atomic swaps involve two parties creating complementary HTLCs on different blockchains, ensuring that either both transactions succeed or both fail, eliminating counterparty risk. For an in-depth walkthrough, [read our docs](https://docs.garden.finance/home/fundamentals/introduction/atomic-swaps).
+In Garden's atomic swaps, two parties—the **user** and the [solver](https://docs.garden.finance/home/fundamentals/introduction/solvers) —each create complementary HTLCs on different blockchains. This mechanism guarantees that either both transactions are successfully executed or both are refunded, eliminating counterparty risk.
 
-## Guarantees and Invariants
+For a deeper understanding of atomic swaps and their role in Garden, read [atomic swaps](https://docs.garden.finance/home/fundamentals/introduction/atomic-swaps).
+
+## Contract guarantees
 
 The contract ensures the following guarantees:
 
@@ -21,7 +23,7 @@ The contract ensures the following guarantees:
   - Amount must be greater than zero
   - Initiator and redeemer must be different addresses
 
-# Order Lifecycle
+# Order lifecycle
 
 ### Initiation
 
@@ -54,7 +56,7 @@ The refund phase returns tokens to the initiator:
 4. Tokens are transferred back to the initiator
 5. A `Refunded` event is emitted
 
-### Instant Refund
+### Instant refund
 
 This allows for early termination of the contract:
 
@@ -65,7 +67,7 @@ This allows for early termination of the contract:
 5. Tokens are transferred back to the initiator
 6. A `Refunded` event is emitted
 
-# Data Types and Storage
+# Data types and storage
 
 ## Order struct
 
@@ -98,7 +100,7 @@ The contract uses the following storage variables:
 - `_INITIATE_TYPEHASH`: Type hash constant for EIP-712 signatures for initiations
 - `_REFUND_TYPEHASH`: Type hash constant for EIP-712 signatures for refunds
 
-# Methods
+# Contract functions
 
 ## Constructor
 
@@ -110,7 +112,7 @@ Initializes the contract with the ERC20 token address and the domain separator f
 
 | Parameter | Description                                         |
 | --------- | --------------------------------------------------- |
-| token\_   | Address of the ERC20 token used in the atomic swaps |
+| token\_   | Address of the ERC20 token used in the atomic swap |
 | name      | Name for the EIP-712 domain separator               |
 | version   | Version for the EIP-712 domain separator            |
 
@@ -205,26 +207,26 @@ Emitted when an order is refunded (either after timelock expiry or instantly wit
 | --------- | ------------------------ |
 | orderID   | ID of the refunded order |
 
-# Security Considerations
+# Security considerations
 
-## Order Identification
+## Order identification
 
 - Order IDs are deterministically calculated as `sha256(abi.encode(block.chainid, secretHash, initiator))` to ensure uniqueness
 - This prevents replay attacks across different chains and duplicate orders with the same parameters
 
-## Signature Verification
+## Signature verification
 
 - The contract uses EIP-712 typed structured data for secure, user-friendly signatures
 - This enables gas-efficient meta-transactions for both order creation and early refunds
 
-## Order Validation
+## Order validation
 
 - The contract prevents orders with duplicate IDs
 - It verifies that initiator and redeemer addresses are different
 - All numerical parameters (timelock, amount) must be non-zero
 - The redeemer address cannot be zero
 
-## Error Messages
+## Error messages
 
 - Clear, specific error messages for all failure cases
 - Distinct checks for expired orders, fulfilled orders, and validation errors

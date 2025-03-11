@@ -2,7 +2,7 @@
 id: htlc-evm
 ---
 
-# HTLC - EVM compatible chains
+# Atomic swap (EVM)
 
 ## Architecture
 

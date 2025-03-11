@@ -4,8 +4,6 @@ id: contracts
 
 import DocCardList from '@theme/DocCardList';
 
-The **Garden API** is a set of API endpoints that allow you to bridge Bitcoin to EVM or non-EVM chains and vice versa.
-
 <DocCardList
 items={[
 {

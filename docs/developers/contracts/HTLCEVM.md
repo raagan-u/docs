@@ -2,7 +2,9 @@
 id: htlc-evm
 ---
 
-# Architecture
+# HTLC - EVM compatible chains
+
+## Architecture
 
 The **Hashed timelock contract (HTLC)** is a core component of atomic swaps, enabling secure cross-chain transactions. It allows an **initiator** to lock tokens in a contract that can only be claimed by a designated **redeemer** who possesses a cryptographic secret. If the redeemer does not claim the tokens within the specified timeframe, the initiator can reclaim them, ensuring no funds are lost.
 

@@ -262,7 +262,7 @@ const sidebars: SidebarsConfig = {
         {
           type: "doc",
           id: "developers/contracts/htlc-evm",
-          label: "HTLC(EVM)",
+          label: "HTLC (EVM)",
         },
       ],
     },

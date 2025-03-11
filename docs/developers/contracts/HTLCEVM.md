@@ -8,7 +8,7 @@ id: htlc-evm
 
 The **Hashed timelock contract (HTLC)** is a core component of atomic swaps, enabling secure cross-chain transactions. It allows an **initiator** to lock tokens in a contract that can only be claimed by a designated **redeemer** who possesses a cryptographic secret. If the redeemer does not claim the tokens within the specified timeframe, the initiator can reclaim them, ensuring no funds are lost.
 
-In Garden's atomic swaps, two parties—the **user** and the [solver](https://docs.garden.finance/home/fundamentals/introduction/solvers) —each create complementary HTLCs on different blockchains. This mechanism guarantees that either both transactions are successfully executed or both are refunded, eliminating counterparty risk.
+In Garden's atomic swaps, two parties—the **user** and the [solver](https://docs.garden.finance/home/fundamentals/introduction/solvers)—each create complementary HTLCs on different blockchains. This mechanism guarantees that either both transactions are successfully executed or both are refunded, eliminating counterparty risk.
 
 For a deeper understanding of atomic swaps and their role in Garden, read [atomic swaps](https://docs.garden.finance/home/fundamentals/introduction/atomic-swaps).
 
@@ -112,11 +112,11 @@ constructor(address token_, string memory name, string memory version)
 
 Initializes the contract with the ERC20 token address and the domain separator for EIP-712 signatures.
 
-| Parameter | Description                                         |
-| --------- | --------------------------------------------------- |
+| Parameter | Description                                        |
+| --------- | -------------------------------------------------- |
 | token\_   | Address of the ERC20 token used in the atomic swap |
-| name      | Name for the EIP-712 domain separator               |
-| version   | Version for the EIP-712 domain separator            |
+| name      | Name for the EIP-712 domain separator              |
+| version   | Version for the EIP-712 domain separator           |
 
 ## initiate
 

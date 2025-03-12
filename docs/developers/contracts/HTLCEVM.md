@@ -167,18 +167,6 @@ Returns locked tokens to the initiator before the timelock expires, if authorize
 | orderID   | ID of the order to refund immediately                            |
 | signature | EIP-712 signature from the redeemer authorizing the early refund |
 
-## \_initiate (internal)
-
-Internal implementation for initiating orders used by both initiate and initiateWithSignature.
-
-| Parameter    | Description                                       |
-| ------------ | ------------------------------------------------- |
-| initiator\_  | Address of the order initiator                    |
-| redeemer\_   | Address of the order redeemer                     |
-| timelock\_   | Number of blocks before the order can be refunded |
-| amount\_     | Amount of tokens to lock in the contract          |
-| secretHash\_ | SHA-256 hash of the secret for order redemption   |
-
 # Events
 
 ## Initiated

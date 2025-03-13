@@ -23,7 +23,14 @@ This cookbook demonstrates how to build a simple bridge using Garden SDK in a Ne
 
 ## Garden provider setup
 
-Garden provider is a context wrapper that gives your application access to all of Garden SDK's features
+Garden provider is a central garden instance that gives your application access to all of Garden SDK's features
+
+### Wallet client
+
+Garden SDK uses `walletClient` from the `wagmi` library to handle wallet events like wallet connections, transaction signing etc. You'll need to:
+
+1. Get the [walletClient](https://wagmi.sh/react/api/hooks/useWalletClient#usewalletclient) using the `useWalletClient` hook
+2. Pass it to your `GardenProvider` configuration
 
 Here's how you can set up the Garden Provider:
 
@@ -75,16 +82,10 @@ export default GardenProviderWrapper;
 
 </Tabs>
 
-## Wallet client
-
-Garden SDK uses `walletClient` from the `wagmi` library to handle wallet events like wallet connections, transaction signing etc. You'll need to:
-
-1. Get the [walletClient](https://wagmi.sh/react/api/hooks/useWalletClient#usewalletclient) using the `useWalletClient` hook
-2. Pass it to your `GardenProvider` configuration
 
 ## Fetching quotes
 
-Great! Now that you have your `walletClient`, you can use it to initialize the `GardenProvider`. Before diving into swap, your app needs to fetch real-time quotes for their swap params `fromAsset`, `toAsset`, `amount`.
+Now that you have your `walletClient`, you can use it to initialize the `GardenProvider`. Before diving into swap, your app needs to fetch real-time quotes for their swap params `fromAsset`, `toAsset`, `amount`.
 
 Here's how you can fetch real-time quotes for your swap! The `getQuote` hook from Garden SDK helps you get the current USD values and exchange rates between any two supported assets. You'll need to provide:
 

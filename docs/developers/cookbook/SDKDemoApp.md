@@ -40,33 +40,33 @@ import { Environment } from "@gardenfi/utils";
 import { useWalletClient } from "wagmi";
 
 const getStorage = (): Storage => {
-    if (typeof window !== "undefined") {
-        return localStorage;
-    }
-    return {
-        getItem: () => null,
-        setItem: () => {},
-        removeItem: () => {},
-        clear: () => {},
-        length: 0,
-        key: () => null,
-    };
+  if (typeof window !== "undefined") {
+    return localStorage;
+  }
+  return {
+    getItem: () => null,
+    setItem: () => {},
+    removeItem: () => {},
+    clear: () => {},
+    length: 0,
+    key: () => null,
+  };
 };
 
 function GardenProviderWrapper({ children }: { children: React.ReactNode }) {
-    const { data: walletClient } = useWalletClient();
+  const { data: walletClient } = useWalletClient();
 
-    return (
-        <GardenProvider
-            config={{
-                store: getStorage(),
-                environment: Environment.TESTNET,
-                walletClient: walletClient,
-            }}
-        >
-            {children}
-        </GardenProvider>
-    );
+  return (
+    <GardenProvider
+      config={{
+        store: getStorage(),
+        environment: Environment.TESTNET,
+        walletClient: walletClient,
+      }}
+    >
+      {children}
+    </GardenProvider>
+  );
 }
 
 export default GardenProviderWrapper;
@@ -107,24 +107,24 @@ Let's see the following basic implementation:
 import { useGarden } from "@gardenfi/react-hooks";
 import BigNumber from "bignumber.js";
 
-const TokenSwap = ()=>{
-    const { getQuote } = useGarden();
-    const {swapParams} = swapStore();
-    const fetchQuote = async (amount: string) => {
-        if (!getQuote) return;
+const TokenSwap = () => {
+  const { getQuote } = useGarden();
+  const { swapParams } = swapStore();
+  const fetchQuote = async (amount: string) => {
+    if (!getQuote) return;
 
-        const amountInDecimals = new BigNumber(amount).multipliedBy(
-            10 ** swapParams.fromAsset.decimals
-        );
+    const amountInDecimals = new BigNumber(amount).multipliedBy(
+      10 ** swapParams.fromAsset.decimals
+    );
 
-        const quote = await getQuote({
-            fromAsset: swapParams.fromAsset,
-            toAsset: swapParams.toAsset,
-            amount: amountInDecimals.toNumber(),
-            isExactOut: false,
-        });
-    }
-}
+    const quote = await getQuote({
+      fromAsset: swapParams.fromAsset,
+      toAsset: swapParams.toAsset,
+      amount: amountInDecimals.toNumber(),
+      isExactOut: false,
+    });
+  };
+};
 ```
 </TabItem>
 
@@ -173,23 +173,23 @@ Here's how you can implement this:
 
 ```tsx
 import { useGarden } from "@gardenfi/react-hooks";
-const TokenSwap = ()=>{
-    const { swapAndInitiate } = useGarden();
-    const performSwap = async (strategyId: string, receiveAmount: string)=>{
-      const response = await swapAndInitiate({
-        fromAsset: swapParams.fromAsset,
-        toAsset: swapParams.toAsset,
-        sendAmount,
-        receiveAmount,
-        additionalData: {
-          btcAddress,
-          strategyId,
-        },
-      });
-      console.log(response);
-      return response;
-    };
-}
+const TokenSwap = () => {
+  const { swapAndInitiate } = useGarden();
+  const performSwap = async (strategyId: string, receiveAmount: string) => {
+    const response = await swapAndInitiate({
+      fromAsset: swapParams.fromAsset,
+      toAsset: swapParams.toAsset,
+      sendAmount,
+      receiveAmount,
+      additionalData: {
+        btcAddress,
+        strategyId,
+      },
+    });
+    console.log(response);
+    return response;
+  };
+};
 ```
 </TabItem>
 

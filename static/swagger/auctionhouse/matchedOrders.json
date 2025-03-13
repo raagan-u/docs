@@ -5,11 +5,11 @@
         "description": "This endpoint retrieves all matched orders, where `Orderbook` has picked up the order. Pagination is optional for limiting the results.",
         "servers": [
             {
-                "url": "https://orderbook.garden.finance",
+                "url": "https://api.garden.finance/testnet/orderbook",
                 "description": "Testnet - Auth, Gasless, Orderbook server"
             },
             {
-                "url": "https://orderbookv2.garden.finance",
+                "url": "https://api.garden.finance/mainnet/orderbook",
                 "description": "Mainnet - Auth, Gasless, Orderbook server"
             }
         ],

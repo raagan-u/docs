@@ -5,11 +5,11 @@
         "description": "Performs all the required validation checks to ensure the swap request is valid and meets the necessary conditions. After successful verification, it sends the swap request to the executor, triggering the execution of the token swap based on the provided parameters and conditions.",
         "servers": [
             {
-                "url": "https://orderbook.garden.finance",
+                "url": "https://api.garden.finance/testnet/orderbook",
                 "description": "Testnet - Auth, Gasless, Orderbook server"
             },
             {
-                "url": "https://orderbookv2.garden.finance",
+                "url": "https://api.garden.finance/mainnet/orderbook",
                 "description": "Mainnet - Auth, Gasless, Orderbook server"
             }
         ],

@@ -5,11 +5,11 @@
         "description": "The `/auth/verify` endpoint verifies a signed Sign-In with Ethereum (`SIWE`) message along with the provided `nonce`, and, upon successful verification, issues a `JSON Web Token` (JWT) for authentication.",
         "servers": [
             {
-                "url": "https://orderbook.garden.finance",
+                "url": "https://api.garden.finance/testnet/orderbook",
                 "description": "Testnet - Auth, Gasless, Orderbook server"
             },
             {
-                "url": "https://orderbookv2.garden.finance",
+                "url": "https://api.garden.finance/mainnet/orderbook",
                 "description": "Mainnet - Auth, Gasless, Orderbook server"
             }
         ],

@@ -5,11 +5,11 @@
         "description": "Add instant refund SACP for a matched order by validating and storing the refund transaction details.",
         "servers": [
             {
-                "url": "https://orderbook.garden.finance",
+                "url": "https://api.garden.finance/testnet/orderbook",
                 "description": "Testnet - Auth, Gasless, Orderbook server"
             },
             {
-                "url": "https://orderbookv2.garden.finance",
+                "url": "https://api.garden.finance/mainnet/orderbook",
                 "description": "Mainnet - Auth, Gasless, Orderbook server"
             }
         ],

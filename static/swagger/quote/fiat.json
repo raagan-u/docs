@@ -5,11 +5,11 @@
     "description": "Retrieves the USD prices for the input and output tokens associated with the specified order pair, providing accurate and up-to-date pricing information.",
     "servers": [
       {
-        "url": "https://price.garden.finance",
+        "url": "https://api.garden.finance/testnet/quote",
         "description": "Testnet - Quote server"
       },
       {
-        "url": "https://pricev2.garden.finance",
+        "url": "https://api.garden.finance/mainnet/quote",
         "description": "Mainnet - Quote server"
       }
     ],

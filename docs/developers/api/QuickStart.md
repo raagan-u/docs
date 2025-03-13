@@ -18,7 +18,7 @@ Use this endpoint to get a unique single-time nonce.
 
 ```bash
 curl -X 'GET' \
-  'https://orderbook.garden.finance/auth/nonce' \
+  'https://api.garden.finance/testnet/orderbook/auth/nonce' \
   -H 'accept: application/json'
 ```
 
@@ -28,7 +28,7 @@ The retrieved nonce should be included in a message formatted according to EIP-4
 
 ```bash
 curl -X 'POST' \
-  'https://orderbook.garden.finance/auth/verify' \
+  'https://api.garden.finance/testnet/orderbook/auth/verify' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -44,7 +44,7 @@ Use this endpoint to fetch pricing for a given `OrderPair` and amount. The respo
 
 ```bash
 curl -X 'GET' \
- 'https://price.garden.finance/price?order_pair=<order_pair>&amount=<amount>&exact_out=<true/false>' \
+ 'https://api.garden.finance/testnet/quote/price?order_pair=<order_pair>&amount=<amount>&exact_out=<true/false>' \
   -H 'accept: application/json'
 ```
 
@@ -64,7 +64,7 @@ First, you need to attest the quote by submitting the `strategy_id` obtained fro
 
 ```bash
 curl -X 'POST' \
-  'https://orderbook.garden.finance/gasless/order' \
+  'https://api.garden.finance/testnet/orderbook/gasless/order' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -100,7 +100,7 @@ After attesting the quote, send the response from the attested quote to this end
 
 ```bash
 curl -X 'POST' \
-  'https://orderbook.garden.finance/gasless/create-order' \
+  'https://api.garden.finance/testnet/orderbook/gasless/create-order' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer <authorization_token>' \
@@ -117,7 +117,7 @@ Retrieve the order details using the order ID.
 
 ```bash
 curl -X 'GET' \
-  'https://orderbook.garden.finance/orders/id/matched/<order_id>' \
+  'https://api.garden.finance/testnet/orderbook/orders/id/matched/<order_id>' \
   -H 'accept: application/json'
 ```
 
@@ -136,7 +136,7 @@ To initiate the order using the relay service, the user must sign a message foll
 
 ```bash
 curl -X 'POST' \
-  'https://orderbook.garden.finance/gasless/initiate' \
+  'https://api.garden.finance/testnet/orderbook/gasless/initiate' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -156,7 +156,7 @@ For EVM chains, you can either redeem directly through the contract or use our r
 
 ```bash
 curl -X 'POST' \
-  'https://orderbook.garden.finance/gasless/redeem' \
+  'https://api.garden.finance/testnet/orderbook/gasless/redeem' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{

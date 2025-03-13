@@ -20,8 +20,6 @@ This cookbook demonstrates how to build a simple bridge using Garden SDK in a Ne
 
 ### The landing UI
 ![start UI](../images/sdk-demo-app/sdk-demo-app-ui.png)
-### The working app UI
-![UI](../images/sdk-demo-app/sd-demo-app-final-ui.png)
 
 ## Garden provider setup
 
@@ -33,7 +31,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <Tabs>
-  <TabItem value="provider" label="GardenProviderWrapper.tsx">
+  <TabItem value="provider" label="GardenProvider.tsx">
 ```tsx
 "use client";
 
@@ -178,17 +176,19 @@ import { useGarden } from "@gardenfi/react-hooks";
 const TokenSwap = ()=>{
     const { swapAndInitiate } = useGarden();
     const performSwap = async (strategyId: string, receiveAmount: string)=>{
-    const response = await swapAndInitiate({
-      fromAsset: swapParams.fromAsset,
-      toAsset: swapParams.toAsset,
-      sendAmount,
-      receiveAmount,
-      additionalData: {
-        btcAddress,
-        strategyId,
-      },
-    });
-    }
+      const response = await swapAndInitiate({
+        fromAsset: swapParams.fromAsset,
+        toAsset: swapParams.toAsset,
+        sendAmount,
+        receiveAmount,
+        additionalData: {
+          btcAddress,
+          strategyId,
+        },
+      });
+      console.log(response);
+      return response;
+    };
 }
 ```
 </TabItem>

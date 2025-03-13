@@ -75,17 +75,12 @@ export default GardenProviderWrapper;
 
 </Tabs>
 
-## Authentication
+## Wallet client
 
-To interact with blockchain networks, your app needs a way to sign transactions. Garden SDK uses `walletClient` from the `wagmi` library to handle this. You'll need to:
+Garden SDK uses `walletClient` from the `wagmi` library to handle wallet events like wallet connections, transaction signing etc. You'll need to:
 
 1. Get the [walletClient](https://wagmi.sh/react/api/hooks/useWalletClient#usewalletclient) using the `useWalletClient` hook
 2. Pass it to your `GardenProvider` configuration
-
-The `walletClient` manages:
-- Wallet connections
-- Transaction signing
-- Network interactions
 
 ## Fetching quotes
 

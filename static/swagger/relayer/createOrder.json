@@ -5,7 +5,7 @@
         "description": "Creates a new cross-chain swap order with specified parameters and strategy details.",
         "servers": [
             {
-                "url": "https://api.garden.finance/testnet/orderbook",
+                "url": "https://api.garden.finance/testnet/orders",
                 "description": "Testnet - Auth, Gasless, Orderbook server"
             },
             {

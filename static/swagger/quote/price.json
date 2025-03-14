@@ -5,7 +5,7 @@
     "description": "Retrieves a `quote` for the specified `order pair`, considering the exact output or input amount.",
     "servers": [
       {
-        "url": "https://api.garden.finance/testnet/quote",
+        "url": "https://api.garden.finance/testnet/prices",
         "description": "Testnet - Quote server"
       },
       {

@@ -5,11 +5,11 @@
     "description": "Retrieves all unmatched orders, where users have initiated the order but `Orderbook` has not yet picked it up. Pagination is optional for limiting the results.",
     "servers": [
       {
-        "url": "https://api.garden.finance/testnet/orderbook",
+        "url": "https://api.garden.finance/testnet/orders",
         "description": "Testnet - Auth, Gasless, Orderbook server"
       },
       {
-        "url": "https://api.garden.finance/mainnet/orderbook",
+        "url": "https://api.garden.finance/mainnet/orders",
         "description": "Mainnet - Auth, Gasless, Orderbook server"
       }
     ],

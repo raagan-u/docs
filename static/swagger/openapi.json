@@ -15,19 +15,19 @@
   },
   "servers": [
     {
-      "url": "https://api.garden.finance/testnet/orderbook",
+      "url": "https://api.garden.finance/testnet/orders",
       "description": "Testnet - Auth, Gasless, Orderbook server"
     },
     {
-      "url": "https://api.garden.finance/testnet/quote",
+      "url": "https://api.garden.finance/testnet/prices",
       "description": "Testnet - Quote server"
     },
     {
-      "url": "https://api.garden.finance/mainnet/orderbook",
+      "url": "https://api.garden.finance/mainnet/orders",
       "description": "Mainnet - Auth, Gasless, Orderbook server"
     },
     {
-      "url": "https://api.garden.finance/mainnet/quote",
+      "url": "https://api.garden.finance/mainnet/prices",
       "description": "Mainnet - Quote server"
     },
     {

@@ -5,11 +5,11 @@
     "description": "Retrieves a unmatched order using its unique order ID from the order book. It returns the order details if the order has not been picked up by `Orderbook`.",
     "servers": [
       {
-        "url": "https://api.garden.finance/testnet/orderbook",
+        "url": "https://api.garden.finance/testnet/orders",
         "description": "Testnet - Auth, Gasless, Orderbook server"
       },
       {
-        "url": "https://api.garden.finance/mainnet/orderbook",
+        "url": "https://api.garden.finance/mainnet/orders",
         "description": "Mainnet - Auth, Gasless, Orderbook server"
       }
     ],

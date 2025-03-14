@@ -52,6 +52,11 @@
       "name": "Gasless",
       "x-displayName": "Gasless",
       "description": "The Gasless API group streamlines the order lifecycle by offering endpoints for `order initiation`, `settlement`, `creation`, and `instant refunds`, all secured with `authentication`. This group eliminates the need for users to manage gas fees, enhancing accessibility and ease of use. By facilitating `HTLC`-based fund redemption and instant cancellations, it ensures a seamless, trustless, and user-friendly experience for cross-chain transactions."
+    },
+    {
+      "name": "Info",
+      "x-displayName": "Info",
+      "description": "The Assets API provides detailed information about supported networks and assets within the Garden ecosystem. It allows users to query available networks, including their chain ID, filler addresses, logos, explorers, and network types. Additionally, it lists asset configurations for each network, including token details such as name, symbol, decimals, base fees, logo, token address, and atomic swap address."
     }
   ],
   "paths": {

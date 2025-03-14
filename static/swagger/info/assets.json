@@ -1,0 +1,123 @@
+{
+    "get": {
+        "operationId": "getAssetsInfo",
+        "summary": "Fetches the detailed information about supported networks and assets within the Garden ecosystem.",
+        "description": "The Assets API provides information about `supported networks` and their `assets` in the Garden ecosystem, including chain ID, filler addresses, explorers, and network types. It also details asset configurations like `name`, `symbol`, `decimals`, `fees`, and `addresses`.",
+        "security": [],
+        "servers": [
+            {
+                "url": "https://api.garden.finance/mainnet/info",
+                "description": "Mainnet - Info server"
+            },
+            {
+                "url": "https://api.garden.finance/testnet/info",
+                "description": "Testnet - Info server"
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "Returns the detailed list of all supported chains and the assets.",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "networks": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "chainId": {
+                                                        "type": "integer",
+                                                        "example": 421614
+                                                    },
+                                                    "fillerAddresses": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "string",
+                                                            "example": "0x0205ed605dc5f032be4c709e01dd1f38ddfc3beb"
+                                                        }
+                                                    },
+                                                    "networkLogo": {
+                                                        "type": "string",
+                                                        "example": "https://garden-finance.imgix.net/chain_images/arbitrumSepolia.svg"
+                                                    },
+                                                    "explorer": {
+                                                        "type": "string",
+                                                        "example": "https://sepolia.arbiscan.io"
+                                                    },
+                                                    "networkType": {
+                                                        "type": "string",
+                                                        "example": "testnet"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Arbitrum Sepolia"
+                                                    },
+                                                    "identifier": {
+                                                        "type": "string",
+                                                        "example": "arbitrum_sepolia"
+                                                    },
+                                                    "assetConfig": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "name": {
+                                                                    "type": "string",
+                                                                    "example": "Wrapped Bitcoin"
+                                                                },
+                                                                "decimals": {
+                                                                    "type": "integer",
+                                                                    "example": 8
+                                                                },
+                                                                "symbol": {
+                                                                    "type": "string",
+                                                                    "example": "WBTC"
+                                                                },
+                                                                "baseFees": {
+                                                                    "type": "integer",
+                                                                    "example": 0
+                                                                },
+                                                                "logo": {
+                                                                    "type": "string",
+                                                                    "example": "https://garden-finance.imgix.net/token-images/wbtc.svg"
+                                                                },
+                                                                "tokenAddress": {
+                                                                    "type": "string",
+                                                                    "example": "0x00ab86f54F436CfE15253845F139955ae0C00bAf"
+                                                                },
+                                                                "atomicSwapAddress": {
+                                                                    "type": "string",
+                                                                    "example": "0x1cd0bBd55fD66B4C5F7dfE434eFD009C09e628d1"
+                                                                },
+                                                                "min_amount": {
+                                                                    "type": "string",
+                                                                    "example": ""
+                                                                },
+                                                                "max_amount": {
+                                                                    "type": "string",
+                                                                    "example": ""
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "tags": [
+            "Info"
+        ]
+    }
+}

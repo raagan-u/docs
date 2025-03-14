@@ -121,6 +121,9 @@
     },
     "/price": {
       "$ref": "./quote/price.json"
+    },
+    "/assets": {
+      "$ref": "./info/assets.json"
     }
   }
 }

@@ -9,7 +9,7 @@
         "description": "Testnet - Quote server"
       },
       {
-        "url": "https://api.garden.finance/mainnet/quote",
+        "url": "https://api.garden.finance/mainnet/prices",
         "description": "Mainnet - Quote server"
       }
     ],

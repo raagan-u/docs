@@ -13,24 +13,24 @@ This cookbook demonstrates how to build a simple bridge using Garden SDK in a Ne
 
 ## What you'll build
 
-- **Cross-chain swaps**: Enable seamless swaps between BTC(`testnet4`) to WBTC (`Ethereum Sepolia`)
-- **Real-time quotes**: Get real-time quotes for selected `fromAsset`, `toAsset`, `amount` params
-- **Initialize swap**: Initiate the swap and wait for the counterparty to initiate
-- **Order status tracking**: Keep users informed about the status of their swaps
+- **Cross-chain swaps**: Enable seamless swaps between BTC(`testnet4`) to WBTC (`Ethereum Sepolia`).
+- **Real-time quotes**: Get real-time quotes for selected `fromAsset`, `toAsset`, `amount` params.
+- **Initialize swap**: Initiate the swap and wait for the counterparty to initiate.
+- **Order status tracking**: Keep users informed about the status of their swaps.
 
 ### The landing UI
 ![start UI](../images/sdk-demo-app/sdk-demo-app-ui.png)
 
 ## Garden provider setup
 
-Garden provider is a central garden instance that gives your application access to all of Garden SDK's features
+Garden provider is a central garden instance that gives your application access to all of Garden SDK's features.
 
 ### Wallet client
 
 Garden SDK uses `walletClient` from the `wagmi` library to handle wallet events like wallet connections, transaction signing etc. You'll need to:
 
-1. Get the [walletClient](https://wagmi.sh/react/api/hooks/useWalletClient#usewalletclient) using the `useWalletClient` hook
-2. Pass it to your `GardenProvider` configuration
+1. Get the [walletClient](https://wagmi.sh/react/api/hooks/useWalletClient#usewalletclient) using the `useWalletClient` hook.
+2. Pass it to your `GardenProvider` configuration.
 
 Here's how you can set up the Garden Provider:
 
@@ -87,12 +87,12 @@ export default GardenProviderWrapper;
 
 Now that you have your `walletClient`, you can use it to initialize the `GardenProvider`. Before diving into swap, your app needs to fetch real-time quotes for their swap params `fromAsset`, `toAsset`, `amount`.
 
-Here's how you can fetch real-time quotes for your swap! The `getQuote` hook from Garden SDK helps you get the current USD values and exchange rates between any two supported assets. You'll need to provide:
+Here's how you can fetch real-time quotes for your swap. The `getQuote` hook from Garden SDK helps you get the current USD values and exchange rates between any two supported assets. You'll need to provide:
 
-- The token you want to swap from (`fromAsset`)
-- The token you want to receive (`toAsset`)
-- The amount you want to swap (`amount`)
-- Whether you're specifying the input or output amount (`isExactOut`)
+- `fromAsset`: The token you want to swap from.
+- `toAsset`: The token you want to receive.
+- `amount`: The amount you want to swap.
+- `isExactOut`: Whether you're specifying the input or output amount.
 
 Let's see the following basic implementation:
 
@@ -152,12 +152,12 @@ export const swapStore = create<SwapState>((set) => ({
 
 ## Execute swap
 
-Great! Now that you have the quotes, it's time to execute the swap! Garden SDK provides the `swapAndInitiate` hook that handles the entire swap process for you. 
+Now that you have the quotes, it's time to execute the swap. Garden SDK provides the `swapAndInitiate` hook that handles the entire swap process for you. 
 
 Here's what it does:
-1. Creates your swap order
-2. Waits for it to be matched with a suitable counterparty
-3. Automatically initiates the swap if you're on an EVM chain
+1. Creates your swap order.
+2. Waits for it to be matched with a suitable counterparty.
+3. Automatically initiates the swap if you're on an EVM chain.
 
 You'll need to provide the swap parameters (including the quote details you got earlier). The hook will return either a matched order or an error message if something goes wrong. 
 
@@ -266,8 +266,8 @@ Your swap is now initiated, but what's happening with your order? You can keep y
 The Garden SDK simplifies this with the `ParseOrderStatus` hook, which determines the order's current state. By checking block numbers on both chains, it can identify if the order is:
 - `Expired` - The user's swap has expired, and they have to refund their funds.
 - `Initiated` - User initiated, waiting for counterparty to initiate.
-- `Redeemed` - User redeemed, counterparty has to redeem
-- `Refunded` - User refunded
+- `Redeemed` - User redeemed, counterparty has to redeem.
+- `Refunded` - User refunded.
 
 Here's how you can implement this status tracking:
 
@@ -289,4 +289,4 @@ const OrderStatusParser = ()=>{
 
 </Tabs>
 
-Ta-Daa! You have now everything needed to build a simple swap application using the Garden SDK.
+You have now everything needed to build a simple swap application using the Garden SDK.

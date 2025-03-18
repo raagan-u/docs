@@ -5,32 +5,31 @@ id: sdk-demo-app
 
 # Bridge (using Garden SDK)
 
-:::note
-This cookbook demonstrates the basic implementations to integrate Garden SDK to perform various actions like fetching quotes, swapping, and fetching orders from the orderbook. For a completely working example, refer to [catalogfi/sdk-demo-app](https://github.com/catalogfi/sdk-demo-app).
-:::
+This cookbook provides a step-by-step guide to integrating Garden SDK for fetching quotes, executing swaps, and tracking them. It walks through building a simple cross-chain bridge in a Next.js environment, enabling seamless swaps between BTC (testnet4) and WBTC (Ethereum Sepolia).
 
-This cookbook demonstrates how to build a simple bridge using Garden SDK in a Next.js environment. Garden SDK provides a seamless way to perform swaps between any two [supported assets](../SupportedChains.mdx). For this demonstration, we'll focus on swaps between BTC (`testnet4`) and WBTC (`Ethereum Sepolia`).
+For a fully functional reference, check out the **Bridge**—a complete implementation with frontend components, allowing developers to see how these steps integrate into a working application.
 
 ## What you'll build
 
-- **Cross-chain swaps**: Enable seamless swaps between BTC(`testnet4`) to WBTC (`Ethereum Sepolia`).
-- **Real-time quotes**: Get real-time quotes for selected `fromAsset`, `toAsset`, `amount` params.
-- **Initialize swap**: Initiate the swap and wait for the counterparty to initiate.
-- **Order status tracking**: Keep users informed about the status of their swaps.
-
-### The landing UI
 ![start UI](../images/sdk-demo-app/sdk-demo-app-ui.png)
 
-## Garden provider setup
+- **Cross-chain swaps**: Enable seamless swaps between BTC(`testnet4`) to WBTC (`Ethereum Sepolia`).
+- **Real-time quotes**: Get real-time quotes for selected fromAsset, toAsset, amount params from Garden's [solver](../../home/fundamentals/introduction/Solvers.md) network.
+- **Initialize swap**: Initiate the swap and wait for the solver to initiate.
+- **Order status tracking**: Keep users informed about the status of their swaps. 
 
-Garden provider is a central garden instance that gives your application access to all of Garden SDK's features.
+## Setting up the SDK
 
-### Wallet client
+The **GardenProvider** is the core of the SDK integration. It acts as a wrapper around your application, handling:
 
-Garden SDK uses `walletClient` from the `wagmi` library to handle wallet events like wallet connections, transaction signing etc. You'll need to:
+- **Session management**: Maintains active user sessions and transaction state.
+- **Wallet connectivity**: Manages wallet connections, transaction signing, and approvals.
+- **Environment configuration**: Switches between testnet and mainnet as needed.
 
-1. Get the [walletClient](https://wagmi.sh/react/api/hooks/useWalletClient#usewalletclient) using the `useWalletClient` hook.
-2. Pass it to your `GardenProvider` configuration.
+Before interacting with the SDK, wrap your application with the GardenProvider. The provider requires walletClient, which is managed using wagmi. For this, you'll need to:
+
+1. Get the walletClient using the useWalletClient hook.
+2. Pass it to your GardenProvider configuration.
 
 Here's how you can set up the Garden Provider:
 

@@ -7,7 +7,7 @@ id: sdk-demo-app
 
 This cookbook provides a step-by-step guide to integrating Garden SDK for fetching quotes, executing swaps, and tracking them. It walks through building a simple cross-chain bridge in a Next.js environment, enabling seamless swaps between BTC (testnet4) and WBTC (Ethereum Sepolia).
 
-For a fully functional reference, check out the **Bridge**—a complete implementation with frontend components, allowing developers to see how these steps integrate into a working application.
+For a fully functional reference, check out the **[Bridge](https://github.com/gardenfi/sdk-demo-app)**—a complete implementation with frontend components, allowing developers to see how these steps integrate into a working application.
 
 ## What you'll build
 

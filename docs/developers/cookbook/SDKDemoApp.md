@@ -171,6 +171,7 @@ Here's how you can implement this:
 import { useGarden } from "@gardenfi/react-hooks";
 const TokenSwap = () => {
   const { swapAndInitiate } = useGarden();
+  // we get the strategyId and receiveAmount from the quote response
   const performSwap = async (strategyId: string, receiveAmount: string) => {
     const response = await swapAndInitiate({
       fromAsset: swapParams.fromAsset,
@@ -274,6 +275,7 @@ Here's how you can implement this status tracking:
 <Tabs>
   <TabItem value="fetchOrder" label="OrderStatusParser.tsx">
 ```tsx
+import { ParseOrderStatus } from "@gardenfi/core";
 
 const OrderStatusParser = ()=>{
     const status = ParseOrderStatus(

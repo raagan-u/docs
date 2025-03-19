@@ -11,7 +11,7 @@ If you are stuck anywhere integrating the SDK, feel free to join our [Garden Tow
 
 This cookbook provides a step-by-step guide to integrating Garden SDK for fetching quotes, executing swaps, and tracking them. It walks through building a simple cross-chain bridge in a Next.js environment, enabling seamless swaps between BTC (`testnet4`) and WBTC (`Ethereum Sepolia`).
 
-For a fully functional reference, check out the **[Bridge](https://github.com/gardenfi/demo-app-nextjs)**—a complete implementation with frontend components, allowing developers to see how these steps integrate into a working application.
+For a fully functional reference, check out the [Bridge](https://github.com/gardenfi/demo-app-nextjs)—a complete implementation with frontend components, allowing developers to see how these steps integrate into a working application.
 
 ## What you'll build
 
@@ -32,10 +32,8 @@ The **GardenProvider** is the core of the SDK integration. It acts as a wrapper 
 
 Before interacting with the SDK, wrap your application with the GardenProvider. The provider requires walletClient, which is provided by wagmi. For this, you'll need to:
 
-1. Get the walletClient using the useWalletClient hook.
-2. Pass it to your GardenProvider configuration.
-
-Here's how you can set up the Garden Provider:
+1. Get the [walletClient](https://wagmi.sh/react/api/hooks/useWalletClient) using the `useWalletClient` hook.
+2. Pass it to your `GardenProvider` configuration.
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -53,6 +51,7 @@ const getStorage = (): Storage => {
   if (typeof window !== "undefined") {
     return localStorage;
   }
+
   return {
     getItem: () => null,
     setItem: () => {},

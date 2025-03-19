@@ -5,6 +5,10 @@ id: bridge
 
 # Bridge (using Garden SDK)
 
+:::note
+If you are stuck anywhere integrating the SDK, feel free to join our [Garden Townhall](https://discord.com/invite/kqMBgeAKAh) and reach out to our dev team. They can help you out with any implementation challenges you might encounter
+:::
+
 This cookbook provides a step-by-step guide to integrating Garden SDK for fetching quotes, executing swaps, and tracking them. It walks through building a simple cross-chain bridge in a Next.js environment, enabling seamless swaps between BTC (testnet4) and WBTC (Ethereum Sepolia).
 
 For a fully functional reference, check out the **[Bridge](https://github.com/gardenfi/sdk-demo-app)**—a complete implementation with frontend components, allowing developers to see how these steps integrate into a working application.
@@ -295,3 +299,12 @@ const OrderStatusParser = ()=>{
 </Tabs>
 
 You have now everything needed to build a simple swap application using the Garden SDK.
+
+## Next steps
+
+By following this cookbook, you've implemented the core functionalities of a bitcoin bridge application using Garden SDK. If you are interested  in building further, consider implementing:
+
+- Robust error handling to manage API failures and network disruptions gracefully.
+- Notifications or status updates to keep users informed on swap progress and completion.
+- Expanded asset support to extend swap functionality across more chains and tokens.
+- UI/UX improvements such as progress indicators, transaction history, and user-friendly prompts to create a more intuitive and seamless experience.

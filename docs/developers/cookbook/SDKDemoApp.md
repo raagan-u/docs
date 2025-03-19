@@ -26,7 +26,7 @@ The **GardenProvider** is the core of the SDK integration. It acts as a wrapper 
 - **Wallet connectivity**: Manages wallet connections, transaction signing, and approvals.
 - **Environment configuration**: Switches between testnet and mainnet as needed.
 
-Before interacting with the SDK, wrap your application with the GardenProvider. The provider requires walletClient, which is managed using wagmi. For this, you'll need to:
+Before interacting with the SDK, wrap your application with the GardenProvider. The provider requires walletClient, which is provided by wagmi. For this, you'll need to:
 
 1. Get the walletClient using the useWalletClient hook.
 2. Pass it to your GardenProvider configuration.
@@ -105,6 +105,7 @@ import BigNumber from "bignumber.js";
 const TokenSwap = () => {
   const { getQuote } = useGarden();
   const { swapParams } = swapStore();
+
   const fetchQuote = async (amount: string) => {
     if (!getQuote) return;
 
@@ -128,11 +129,14 @@ const TokenSwap = () => {
 import { SupportedAssets } from "@gardenfi/orderbook";
 import { SwapParams } from "@gardenfi/core";
 import { create } from "zustand";
+
 interface SwapState {
   swapParams: SwapParams;
   setSwapParams: (params: Partial<SwapState["swapParams"]>) => void;
 }
+
 export const swapStore = create<SwapState>((set) => ({
+
   swapParams: {
     fromAsset: SupportedAssets.testnet.ethereum_sepolia_WBTC,
     toAsset: SupportedAssets.testnet.bitcoin_testnet_BTC,
@@ -170,6 +174,7 @@ Here's how you can implement this:
 import { useGarden } from "@gardenfi/react-hooks";
 const TokenSwap = () => {
   const { swapAndInitiate } = useGarden();
+
   // we get the strategyId and receiveAmount from the quote response
   const performSwap = async (strategyId: string, receiveAmount: string) => {
     const response = await swapAndInitiate({
@@ -182,7 +187,9 @@ const TokenSwap = () => {
         strategyId,
       },
     });
+
     console.log(response);
+    
     return response;
   };
 };
@@ -257,13 +264,10 @@ export type MatchedOrder = {
 
 ## Fetch order status
 
-:::note
-Although the [SDK demo app](https://github.com/catalogfi/sdk-demo-app) redirects users to [Garden Explorer](https://explorer.garden.finance/) for order status monitoring, Garden SDK provides hooks to fetch and track order status programmatically.
-:::
-
 Your swap is now initiated, but what's happening with your order? You can keep your users informed! Instead of redirecting users to [Garden Explorer](https://explorer.garden.finance/), you can create a better user experience by tracking the order status right in your app.
 
-The Garden SDK simplifies this with the `ParseOrderStatus` hook, which determines the order's current state. By checking block numbers on both chains, it can identify if the order is:
+The Garden SDK simplifies this with the `ParseOrderStatus` function, which determines the order's current state. By checking block numbers on both chains, it can identify if the order is:
+
 - `Expired` - The user's swap has expired, and they have to refund their funds.
 - `Initiated` - User initiated, waiting for counterparty to initiate.
 - `Redeemed` - User redeemed, counterparty has to redeem.

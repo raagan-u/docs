@@ -1,5 +1,5 @@
 ---
-id: sdk-demo-app
+id: bridge
 ---
 
 

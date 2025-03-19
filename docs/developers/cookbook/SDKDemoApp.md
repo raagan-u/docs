@@ -97,7 +97,7 @@ Let's see the following basic implementation:
 
 <Tabs>
 
-  <TabItem value="provider" label="TokenSwap.tsx">
+  <TabItem value="provider" label="SwapComponent.tsx">
 ```tsx
 import { useGarden } from "@gardenfi/react-hooks";
 import BigNumber from "bignumber.js";
@@ -173,6 +173,7 @@ Here's how you can implement this:
 ```tsx
 import { useGarden } from "@gardenfi/react-hooks";
 const TokenSwap = () => {
+  
   const { swapAndInitiate } = useGarden();
 
   // we get the strategyId and receiveAmount from the quote response
@@ -189,7 +190,6 @@ const TokenSwap = () => {
     });
 
     console.log(response);
-
     return response;
   };
 };

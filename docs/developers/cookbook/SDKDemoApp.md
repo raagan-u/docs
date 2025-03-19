@@ -6,12 +6,12 @@ id: bridge
 # Bridge (using Garden SDK)
 
 :::note
-If you are stuck anywhere integrating the SDK, feel free to join our [Garden Townhall](https://discord.com/invite/kqMBgeAKAh) and reach out to our dev team. They can help you out with any implementation challenges you might encounter
+If you are stuck at any part of the implementation, drop a message in our [Townhall](https://discord.com/invite/kqMBgeAKAh)-our dev team is ready to assist!
 :::
 
-This cookbook provides a step-by-step guide to integrating Garden SDK for fetching quotes, executing swaps, and tracking them. It walks through building a simple cross-chain bridge in a Next.js environment, enabling seamless swaps between BTC (testnet4) and WBTC (Ethereum Sepolia).
+This cookbook provides a step-by-step guide to integrating Garden SDK for fetching quotes, executing swaps, and tracking them. It walks through building a simple cross-chain bridge in a Next.js environment, enabling seamless swaps between BTC (`testnet4`) and WBTC (`Ethereum Sepolia`).
 
-For a fully functional reference, check out the **[Bridge](https://github.com/gardenfi/demo-app-nextjs)**—a complete implementation with frontend components, allowing developers to see how these steps integrate into a working application.
+For a fully functional reference, check out the [Bridge](https://github.com/gardenfi/demo-app-nextjs)—a complete implementation with frontend components, allowing developers to see how these steps integrate into a working application.
 
 ## What you'll build
 
@@ -24,7 +24,7 @@ For a fully functional reference, check out the **[Bridge](https://github.com/ga
 
 ## Setting up the SDK
 
-The **GardenProvider** is the core of the SDK integration. It acts as a wrapper around your application, handling:
+The `GardenProvider` is the core of the SDK integration. It acts as a wrapper around your application, handling:
 
 - **Session management**: Maintains active user sessions and transaction state.
 - **Wallet connectivity**: Manages wallet connections, transaction signing, and approvals.
@@ -32,10 +32,10 @@ The **GardenProvider** is the core of the SDK integration. It acts as a wrapper 
 
 Before interacting with the SDK, wrap your application with the GardenProvider. The provider requires walletClient, which is provided by wagmi. For this, you'll need to:
 
-1. Get the walletClient using the useWalletClient hook.
-2. Pass it to your GardenProvider configuration.
+1. Get the [walletClient](https://wagmi.sh/react/api/hooks/useWalletClient) using the `useWalletClient` hook.
+2. Pass it to your `GardenProvider` configuration.
 
-Here's how you can set up the Garden Provider:
+Here's how you set it up:
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -53,6 +53,7 @@ const getStorage = (): Storage => {
   if (typeof window !== "undefined") {
     return localStorage;
   }
+
   return {
     getItem: () => null,
     setItem: () => {},
@@ -90,14 +91,14 @@ export default GardenProviderWrapper;
 
 Now that you have your `walletClient`, you can use it to initialize the `GardenProvider`. Before diving into swap, your app needs to fetch real-time quotes for their swap params `fromAsset`, `toAsset`, `amount`.
 
-Here's how you can fetch real-time quotes for your swap. The `getQuote` hook from Garden SDK helps you get the current USD values and exchange rates between any two supported assets. You'll need to provide:
+The `getQuote` hook from Garden SDK provides real-time USD values and exchange rates for any two [supported assets](../SupportedChains.mdx). You'll need to provide:
 
 - `fromAsset`: The token you want to swap from.
 - `toAsset`: The token you want to receive.
 - `amount`: The amount you want to swap.
 - `isExactOut`: Whether you're specifying the input or output amount.
 
-Let's see the following basic implementation:
+Here's how you implement:
 
 <Tabs>
 
@@ -163,7 +164,7 @@ Now that you have the quotes, it's time to execute the swap. Garden SDK provides
 
 Here's what it does:
 1. Creates your swap order.
-2. Waits for it to be matched with a suitable counterparty.
+2. Waits for it to be matched with a right [solver](../../home/fundamentals/introduction/Solvers.md).
 3. Automatically initiates the swap if you're on an EVM chain.
 
 You'll need to provide the swap parameters (including the quote details you got earlier). The hook will return either a matched order or an error message if something goes wrong. 

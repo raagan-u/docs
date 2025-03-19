@@ -11,7 +11,7 @@ If you are stuck anywhere integrating the SDK, feel free to join our [Garden Tow
 
 This cookbook provides a step-by-step guide to integrating Garden SDK for fetching quotes, executing swaps, and tracking them. It walks through building a simple cross-chain bridge in a Next.js environment, enabling seamless swaps between BTC (testnet4) and WBTC (Ethereum Sepolia).
 
-For a fully functional reference, check out the **[Bridge](https://github.com/gardenfi/sdk-demo-app)**—a complete implementation with frontend components, allowing developers to see how these steps integrate into a working application.
+For a fully functional reference, check out the **[Bridge](https://github.com/gardenfi/demo-app-nextjs)**—a complete implementation with frontend components, allowing developers to see how these steps integrate into a working application.
 
 ## What you'll build
 
@@ -157,7 +157,7 @@ export const swapStore = create<SwapState>((set) => ({
 </TabItem>
 </Tabs>
 
-## Execute swap
+## Executing swap
 
 Now that you have the quotes, it's time to execute the swap. Garden SDK provides the `swapAndInitiate` hook that handles the entire swap process for you. 
 
@@ -266,7 +266,7 @@ export type MatchedOrder = {
 </Tabs>
 
 
-## Fetch order status
+## Fetching order status
 
 Your swap is now initiated, but what's happening with your order? You can keep your users informed! Instead of redirecting users to [Garden Explorer](https://explorer.garden.finance/), you can create a better user experience by tracking the order status right in your app.
 

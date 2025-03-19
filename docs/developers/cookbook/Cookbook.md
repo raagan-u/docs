@@ -6,7 +6,7 @@ id: cookbook
 
 import DocCardList from '@theme/DocCardList';
 
-Learn, experiment, and get inspired to develop cool products and  experiences on top of Garden using these cookbooks. Each guide walks you through real-world use cases, helping you integrate Garden SDK efficiently.
+Learn, experiment, and get inspired to develop cool products and  experiences on top of Garden using these cookbooks. Each guide walks you through some use cases, helping you integrate Garden SDK efficiently.
 
 
 <DocCardList
@@ -15,7 +15,7 @@ items={[
 type: "link",
 href: "./bridge",
 label: "Bridge (using Garden SDK)",
-description: "A beginner-friendly cookbook for Garden SDK",
+description: "Build a bitcoin bridge in Nextjs using Garden SDK",
 docId: "developers/cookbook/bridge",
 }
 ]}

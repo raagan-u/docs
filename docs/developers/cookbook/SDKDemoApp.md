@@ -6,7 +6,7 @@ id: bridge
 # Bridge (using Garden SDK)
 
 :::note
-If you are stuck anywhere integrating the SDK, feel free to join our [Garden Townhall](https://discord.com/invite/kqMBgeAKAh) and reach out to our dev team. They can help you out with any implementation challenges you might encounter
+If you are stuck at any part of the implementation, drop a message in our [Townhall](https://discord.com/invite/kqMBgeAKAh)-our dev team is ready to assist!
 :::
 
 This cookbook provides a step-by-step guide to integrating Garden SDK for fetching quotes, executing swaps, and tracking them. It walks through building a simple cross-chain bridge in a Next.js environment, enabling seamless swaps between BTC (`testnet4`) and WBTC (`Ethereum Sepolia`).

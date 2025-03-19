@@ -102,7 +102,7 @@ Let's see the following basic implementation:
 import { useGarden } from "@gardenfi/react-hooks";
 import BigNumber from "bignumber.js";
 
-const TokenSwap = () => {
+const SwapComponent = () => {
   const { getQuote } = useGarden();
   const { swapParams } = swapStore();
 
@@ -189,7 +189,7 @@ const TokenSwap = () => {
     });
 
     console.log(response);
-    
+
     return response;
   };
 };

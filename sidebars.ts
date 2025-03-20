@@ -257,7 +257,7 @@ const sidebars: SidebarsConfig = {
 
     {
       type: "category",
-      label: "Cookbook",
+      label: "Cookbooks",
       link: { type: "doc", id: "developers/cookbook/cookbook" },
       items: ["developers/cookbook/bridge"],
     },

@@ -18,8 +18,8 @@ With over a billion dollars in volume facilitated, Garden stands apart from othe
 
 Buy and sell Bitcoin with ease. Garden simplifies trustless bridging, making the process seamless and secure. If you're new to Garden, these guides will walk you through your first swap:
 
-* [How to swap BTC to WBTC](../home/basics/guides/swap/BtcWbtc.md)
-* [How to swap WBTC to BTC](../home/basics/guides/swap/WbtcBtc.md)
+- [How to swap BTC to WBTC](../home/basics/guides/swap/BtcWbtc.md)
+- [How to swap WBTC to BTC](../home/basics/guides/swap/WbtcBtc.md)
 
 To learn how your swap is executed under the hood by Garden protocol, read the [intent lifecycle](fundamentals/how-it-works/IntentFlow.md).
 
@@ -27,15 +27,15 @@ To learn how your swap is executed under the hood by Garden protocol, read the [
 
 Garden is a community-focused project that values and supports developers in creating innovative Bitcoin cross-chain applications using its composable development stack. If you're a developer interested in building or integrating with Garden, here are some key resources to get started:
 
-* [API](../developers/api/GardenAPI.md): A straightforward guide to understanding and utilizing Garden's API.
-* [SDK](../developers/Developers.md): A practical introduction to working with the Garden SDK.
-* Cookbook: Explore projects developed by our team and partners for inspiration.
+- [API](../developers/api/GardenAPI.md): A straightforward guide to understanding and utilizing Garden's API.
+- [SDK](../developers/sdk/Sdk.md): A practical introduction to working with the Garden SDK.
+- Cookbook: Explore projects developed by our team and partners for inspiration.
 
-For hands-on exploration, head over to the [Developers](../developers/Developers.md) section to dive into the Garden ecosystem.
+For hands-on exploration, head over to the [Developers](../developers/Overview.md) section to dive into the Garden ecosystem.
 
 ### Provide​ <a href="#provide" id="provide"></a>
 
-Provide liquidity to Garden and earn fees by becoming a [solver](fundamentals/introduction/Solvers.md) for the Garden protocol. If you are interested, reach out to us in the [townhall](https://discord.com/invite/Fp4ZmZZrFu) to discuss the next steps.
+Provide liquidity to Garden and earn fees by becoming a [solver](fundamentals/introduction/Solvers.md) for the Garden protocol. If you are interested, reach out to us in the [townhall](https://discord.com/invite/kqMBgeAKAh) to discuss the next steps.
 
 ### Stake <a href="#stake" id="stake"></a>
 

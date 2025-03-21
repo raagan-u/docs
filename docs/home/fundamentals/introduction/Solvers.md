@@ -24,4 +24,4 @@ To become a solver, here's what you need:
 * Solvers should have the ability to run arbitrage bots, manage liquidity, and maintain 24/7 operational uptime to meet the demands of intent execution.
 * Adequate liquidity and tools for rebalancing assets are essential to efficiently execute intents.
 
-Please reach out to us in the [townhall](https://discord.com/invite/Fp4ZmZZrFu) for help with onboarding.
+Please reach out to us in the [townhall](https://discord.com/invite/kqMBgeAKAh) for help with onboarding.

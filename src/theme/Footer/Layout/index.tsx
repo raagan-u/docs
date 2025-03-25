@@ -65,7 +65,7 @@ export default function FooterLayout({
                     </a>
                     <a
                         target="_blank"
-                        href="https://garden.finance/privacy.pdf"
+                        href="https://garden.finance/GardenFinancePrivacyPolicy.pdf"
                         className="link"
                     >
                         Privacy Policy

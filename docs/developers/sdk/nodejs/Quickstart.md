@@ -71,16 +71,7 @@ pnpm add viem @catalogfi/wallets
 
 ## Set Up Wallets and Providers
 
-After installation, start by setting up wallets for Ethereum and Starknet. for Bitcoin, you don't need to setup wallet.
-
-- **Ethereum Wallet:**
-    - Use the `viem` function `createWalletClient` to create the Ethereum wallet client.
-    - First, convert your private key into an account using `privateKeyToAccount`.
-    - Pass the account, the Ethereum chain (e.g., `sepolia`), and the transport method using `http()` to `createWalletClient`.
-
-- **Starknet Wallet:**
-    - Use the `starknet` library’s `RpcProvider` to create a provider. You can either use the default RPC node URL by leaving the arguments empty or specify your own RPC node URL by passing it as a parameter.
-    - Create a Starknet wallet using the `Account` class by passing the provider, wallet address, and private key.
+After installation, set up wallets only for the chains you need. Ethereum and Starknet require wallet setup, but Bitcoin does not.
 
 ```typescript
 import {
@@ -90,21 +81,19 @@ import {
 } from '@catalogfi/wallets';
 import { createWalletClient, http } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
-import { sepolia } from 'viem/chains';
+import { arbitrumSepolia } from 'viem/chains';
 import { RpcProvider, Account } from 'starknet';
 
 // Ethereum wallet setup
-const account = privateKeyToAccount(`0x<YOUR_PRIVATE_KEY>`);
-
+const account = privateKeyToAccount(`<YOUR_EVM_PRIVATE_KEY>`);
 const ethereumWalletClient = createWalletClient({
   account,
-  chain: sepolia,
+  chain: arbitrumSepolia,
   transport: http(),
 });
 
 //Starknet wallet setup
 const starknetProvider = new RpcProvider(); // using default node url
-
 const starknetWallet = new Account(
   starknetProvider,
   <YOUR_STARKNET_ADDRESS>,
@@ -114,68 +103,58 @@ const starknetWallet = new Account(
 
 ---
 
-## Configure Garden core
+## Configure garden instance
 
+To initialize the **Garden** instance, you need to create a digest key. You can either generate a random key or provide your own digest key.
 For more details, see [DigestKey](../reference/classes/DigestKey.md).
 
-To initialize the **Garden** instance, you need to create a digest key. You can either generate a random key or provide your own digest key. For more details, refer to the link provided above.
+### Two ways to initialize `Garden`
 
-### There are two Ways to Instantiate `Garden`:
+**Using wallets:**
 
-  -  **Using wallets**  
-    Use `Garden.from()` to quickly initialize the instance. This involves passing the wallets as arguments. Set the environment (e.g., `testnet`)and provide the `digestKey` and wallets you defined above.
+```typescript
+  // Initialize Garden with wallets
+  import { Garden, DigestKey } from '@gardenfi/core';
+  import { Environment } from '@gardenfi/utils';
 
-    ```typescript
-      // Initialize Garden with wallets
-      import { Garden, DigestKey } from '@gardenfi/core';
-      import { Environment } from '@gardenfi/utils';
+  const digestKey = DigestKey.from(<YOUR_DIGEST_KEY>);
 
-      const digestKey = DigestKey.from(<YOUR_DIGEST_KEY>);
+  const garden = Garden.from({
+    environment: Environment.TESTNET,
+    digestKey,
+    wallets: {
+      evm: ethereumWalletClient,
+      starknet: starknetWallet
+    }
+  });
+```
 
-      const garden = Garden.from({
-        environment: Environment.TESTNET,
-        digestKey,
-        wallets: {
-          evm: ethereumWalletClient,
-          starknet: starknetWallet
-        }
-      });
-    ```
-  - **Manual Instantiation with Custom HTLC Implementation**
-      In the second approach, which is a manual method, you can provide your own implementation of HTLC (Hashed Time-Locked Contract). This custom implementation will be used to initiate and redeem transactions. For reference, check the second implementation provided in the snippet. you can refer to [IEVMHTLC](../interfaces#ievmhtlc) and [IStarknetHTLC](../interfaces#istarknethtlc) interfaces for more details. 
+**Manual initiation with custom HTLC implementation:**
 
-      To manually instantiate `Garden`, you will need to set the relayer URL, specify the environment, and provide the digest key. You’ll also have to define custom implementations for handling transactions on different chains like Ethereum and Starknet.
+In this approach, you manually implement your own HTLC (Hashed Time-Locked Contract) to initiate and redeem transactions. For reference, check the second implementation in the snippet. You can also refer to the [IEVMHTLC](../interfaces#ievmhtlc) and [IStarknetHTLC](../interfaces#istarknethtlc) interfaces for more details.
 
-    ```typescript
-      // Second way to instantiate garden
+```typescript
+  // With custom HTLC implementation
+  import { Garden } from '@gardenfi/core';
+  import { Environment } from '@gardenfi/utils';
 
-      const garden = new Garden({
-        api: RELAYER_URL,
-        environment: Environment.TESTNET,
-        digestKey.val.digestKey,
-        quote: new Quote(QUOTE_SERVER_URL),
-        htlc: {
-          evm: new EvmRelay(
-            RELAYER_URL,
-            evmWallet,
-            Siwe.fromDigestKey(
-              new Url(RELAYER_URL),
-              digestKey.val.digestKey,
-            ),
-          ),
-          starknet: new StarknetRelay(STARKNET_RELAY_URL, starknetWallet),
-        },
-      });
-    ```
-
+  const garden = new Garden({
+    environment: Environment.TESTNET,
+    digestKey.val.digestKey,
+    htlc: {
+      evm: <IEVMHTLC>,
+      starknet: <IStarknetHTLC>,
+    },
+  });
+```
 
 ## Create a Swap
 
-  - Select the Assets and set the amount to be send. you can choose `fromAsset` and `toAsset` from `SupportedAssets` in `@gardenfi/core`by printing the `SupportedAssets` object.
-  - get quote.you will get the strategy id and amount you will receive.
-  - call `swap()` function to create the order.
+- Use `SupportedAssets` from `@gardenfi/orderbook` to select assets based on the chain.
+- Fetch a quote and choose a strategy.
+- Call the `swap()` function to create an order.
 
-  ```typescript
+```typescript
 import { Quote, SwapParams } from '@gardenfi/core';
 import { Asset, SupportedAssets } from '@gardenfi/orderbook';
 
@@ -183,70 +162,69 @@ import { Asset, SupportedAssets } from '@gardenfi/orderbook';
 
 const fromAsset = SupportedAssets.testnet.ethereum_sepolia_WBTC;
 const toAsset = SupportedAssets.testnet.bitcoin_testnet_BTC;
-/* 
-  Asset selection examples based on the chain:
-  - Ethereum Sepolia: SupportedAssets.testnet.ethereum_sepolia_WBTC
-  - Bitcoin Testnet: SupportedAssets.testnet.bitcoin_testnet_BTC
-  - Starknet Testnet: SupportedAssets.testnet.starknet_testnet_ETH
+/*
+Asset selection examples based on the chain:
+- Ethereum Sepolia: SupportedAssets.testnet.ethereum_sepolia_WBTC
+- Bitcoin Testnet: SupportedAssets.testnet.bitcoin_testnet_BTC
+- Starknet Testnet: SupportedAssets.testnet.starknet_testnet_ETH
 */
 
 const sendAmount = '1000000';
 
 // helper function to create the order pair
 const constructOrderpair = (fromAsset: Asset, toAsset: Asset) =>
-`${fromAsset.chain}:${fromAsset.atomicSwapAddress}::${toAsset.chain}:${toAsset.atomicSwapAddress}`;
+  `${fromAsset.chain}:${fromAsset.atomicSwapAddress}::${toAsset.chain}:${toAsset.atomicSwapAddress}`;
 
-  const orderPair = constructOrderpair(
-    orderConfig.fromAsset,
-    orderConfig.toAsset
-  );
+const orderPair = constructOrderpair(
+  orderConfig.fromAsset,
+  orderConfig.toAsset
+);
 
 // Get the quote for the send amount and order pair
-  const quoteResult = await garden.quote.getQuote(
-    orderPair,
-    Number(orderConfig.sendAmount),
-    false
-  );
+const quoteResult = await garden.quote.getQuote(
+  orderPair,
+  Number(orderConfig.sendAmount),
+  false
+);
 
-  if (quoteResult.error) {
-    throw new Error(quoteResult.error);
-  }
+if (quoteResult.error) {
+  throw new Error(quoteResult.error);
+}
 
 // choose a quote
 const firstQuote = Object.entries(quoteResult.val.quotes)[0];
 
 const [_strategyId, quoteAmount] = firstQuote;
 
-  const swapParams: SwapParams = {
-    fromAsset,
-    toAsset,
-    sendAmount,
-    receiveAmount: quoteAmount,
-    additionalData: {
+const swapParams: SwapParams = {
+  fromAsset,
+  toAsset,
+  sendAmount,
+  receiveAmount: quoteAmount,
+  additionalData: {
     strategyId: _strategyId,
-    btcAddress: <YOUR_BITCOIN_TESTNET_ADDRESS>, // provide this only when the source chain and destination chain is bitcoin
-    },
-  };
+    // provide btcAddress only when the source chain and destination chain is bitcoin
+    btcAddress?: <YOUR_BITCOIN_TESTNET_ADDRESS>,
+  },
+};
 
 const swapResult = await garden.swap(swapParams);
 
-  if (swapResult.error) {
-    throw new Error(swapResult.error);
-  }
+if (swapResult.error) {
+  throw new Error(swapResult.error);
+}
 
-console.log('Order created with id', swapResult.val.create_order.create_id);
+const order = swapResult.val;
+console.log('✅ Order created successfully, id: ', order.create_order.create_id);
 ```
 
 ## Initiate the swap
 
-This is a manual implementation where you need to initiate the order based on the selected source chain.  
-- If source chain is EVM, use the `evmHTLC` function in `garden` to initiate the order.  
-- If source chain is Starknet, initiate the order using `starknetHTLC`.  
-- If source chain is Bitcoin, there's no need to initiate — simply deposit the funds to `order.source_swap.swap_id`.
+After creating an order, you need to send funds to the HTLC contract. The implementation will vary depending on the chain.
 
 <Tabs>
 <TabItem value="EVM -> BTC" label="EVM -> BTC">
-```typescript
+```ts
 // Use the EVM relay service for gasless initiates
 // The relay handles transaction execution on behalf of the user.
 // Initiate the swap.
@@ -259,18 +237,21 @@ const order = swapResult.val;
 const initRes = await garden.evmHTLC.initiate(order);
 
 if (initRes.error) {
-  console.log(`Error encountered for account: ${ethereumWalletClient.account.address}`);
-  throw new Error(initRes.error);
+console.log(`Error encountered for account: ${ethereumWalletClient.account.address}`);
+throw new Error(initRes.error);
 }
+
 ````
 </TabItem>
+
 <TabItem value="BTC -> EVM" label="BTC -> EVM">
 ```typescript
-const order = swapResult.val; // deposit the funds into *order.source_swap.swap_id*
+const order = swapResult.val; // deposit the funds into order.source_swap.swap_id
+const depositAddress = order.source_swap.swap_id;
 ```
 
-:::note  
-When swapping from BTC to any other asset, deposit the fund into `order.source_swap.swap_id`.  
+:::note
+When swapping BTC for any other asset, deposit the funds into order.source_swap.swap_id.
 :::
 </TabItem>
 
@@ -288,10 +269,12 @@ const order = swapResult.val;
 const initRes = await garden.starknetHTLC.initiate(order);
 
 if (initRes.error) {
-  console.log(`Error encountered for account: ${starknetWallet.address}`);
-  throw new Error(initRes.error);
+console.log(`Error encountered for account: ${starknetWallet.address}`);
+throw new Error(initRes.error);
 }
-```
+
+````
+
 </TabItem>
 
 <TabItem value="EVM -> STARKNET" label="EVM -> STARKNET">
@@ -308,9 +291,10 @@ const order = swapResult.val;
 const initRes = await garden.evmHTLC.initiate(order);
 
 if (initRes.error) {
-  console.log(`Error encountered for account: ${ethereumWalletClient.account.address}`);
-  throw new Error(initRes.error);
+console.log(`Error encountered for account: ${ethereumWalletClient.account.address}`);
+throw new Error(initRes.error);
 }
+
 ````
 </TabItem>
 </Tabs>
@@ -318,6 +302,7 @@ if (initRes.error) {
 ## Settle the swap
 
 Garden handles the swap settlement automatically. You only need to call the `execute` function.
+It continuously polls for the order status and calls redeem when the status becomes redeemable.
 
 ```typescript
 // Automatically manages the execution of redeems or refunds.

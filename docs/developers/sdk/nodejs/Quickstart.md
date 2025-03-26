@@ -174,23 +174,9 @@ To initialize the **Garden** instance, you need to create a digest key. You can 
 
 ## Create a Swap
 
-### Steps to Create a Swap:
-  1. **Select the Assets and set the amount to be send:**  
-      - Choose `fromAsset` and `toAsset` from `SupportedAssets` in `@gardenfi/core`.  
-      - You can explore all available assets by printing the `SupportedAssets` object.  
-      - To get the asset of your choice, use the network name in lowercase, replace spaces with underscores, and append the token symbol. 
-      - Define the amount of the asset you want to send.
-  2. **Construct the Order Pair:**  
-      - Use the `constructOrderpair` function to create the order pair using the selected `fromAsset` and `toAsset`.
-  3. **Get a Quote:**  
-      - Retrieve a quote for the specified order pair and amount.
-  4. **Extract Strategy ID and Quote Amount:**  
-      - Obtain the strategy ID and the quote amount, which will determine the amount you will receive upon a successful swap.
-  5. **Set Swap Parameters:**  
-      - Define the `swapParams` and pass them to the `swap()` function to initiate the swap.
-
-The following snippet demonstrates the complete swap creation process:
-
+  - Select the Assets and set the amount to be send. you can choose `fromAsset` and `toAsset` from `SupportedAssets` in `@gardenfi/core`by printing the `SupportedAssets` object.
+  - get quote.you will get the strategy id and amount you will receive.
+  - call `swap()` function to create the order.
 
   ```typescript
 import { Quote, SwapParams } from '@gardenfi/core';
@@ -255,6 +241,11 @@ console.log('Order created with id', swapResult.val.create_order.create_id);
 ```
 
 ## Initiate the swap
+
+This is a manual implementation where you need to initiate the order based on the selected source chain.  
+- If source chain is EVM, use the `evmHTLC` function in `garden` to initiate the order.  
+- If source chain is Starknet, initiate the order using `starknetHTLC`.  
+- If source chain is Bitcoin, there's no need to initiate — simply deposit the funds to `order.source_swap.swap_id`.
 
 <Tabs>
 <TabItem value="EVM -> BTC" label="EVM -> BTC">

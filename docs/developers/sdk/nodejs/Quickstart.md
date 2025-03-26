@@ -118,16 +118,16 @@ For more details, see [DigestKey](../reference/classes/DigestKey.md).
 <Tabs>
 <TabItem value="WBTC to BTC" label="WBTC to BTC">
   ```typescript
-  import { Quote, SwapParams } from '@gardenfi/core';
-  import { Asset, SupportedAssets } from '@gardenfi/orderbook';
+import { Quote, SwapParams } from '@gardenfi/core';
+import { Asset, SupportedAssets } from '@gardenfi/orderbook';
 
 // Try printing out the SupportedAssets object to see the other assets you can use
 const orderConfig = {
-fromAsset:
-SupportedAssets.testnet.ethereum_sepolia_WBTC,
-toAsset:
-SupportedAssets.testnet.bitcoin_testnet_BTC,
-sendAmount: '1000000', // 0.01 Bitcoin
+  fromAsset:
+  SupportedAssets.testnet.ethereum_sepolia_WBTC,
+  toAsset:
+  SupportedAssets.testnet.bitcoin_testnet_BTC,
+  sendAmount: '1000000', // 0.01 Bitcoin
 };
 
 // helper function to create the order pair
@@ -135,19 +135,19 @@ const constructOrderpair = (fromAsset: Asset, toAsset: Asset) =>
 `${fromAsset.chain}:${fromAsset.atomicSwapAddress}::${toAsset.chain}:${toAsset.atomicSwapAddress}`;
 
 const orderPair = constructOrderpair(
-orderConfig.fromAsset,
-orderConfig.toAsset
+  orderConfig.fromAsset,
+  orderConfig.toAsset
 );
 
 // Get the quote for the send amount and order pair
 const quoteResult = await garden.quote.getQuote(
-orderPair,
-Number(orderConfig.sendAmount),
-false
+  orderPair,
+  Number(orderConfig.sendAmount),
+  false
 );
 
 if (quoteResult.error) {
-throw new Error(quoteResult.error);
+  throw new Error(quoteResult.error);
 }
 
 // choose a quote
@@ -156,13 +156,13 @@ const firstQuote = Object.entries(quoteResult.val.quotes)[0];
 const [_strategyId, quoteAmount] = firstQuote;
 
 const swapParams: SwapParams = {
-...orderConfig,
-receiveAmount: quoteAmount,
-additionalData: {
-strategyId: \_strategyId,
-// Bitcoin receiving address where the swapped BTC will be sent
-btcAddress: <YOUR_BITCOIN_TESTNET_WALLET_ADDRESS>,
-},
+  ...orderConfig,
+  receiveAmount: quoteAmount,
+  additionalData: {
+  strategyId: \_strategyId,
+  // Bitcoin receiving address where the swapped BTC will be sent
+  btcAddress: <YOUR_BITCOIN_TESTNET_WALLET_ADDRESS>,
+  },
 };
 
 // This creates the order on chain and then returns the matched order

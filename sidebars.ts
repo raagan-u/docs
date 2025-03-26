@@ -191,7 +191,7 @@ const sidebars: SidebarsConfig = {
           label: "Reference",
           link: {
             type: "doc",
-            id: "developers/sdk/classes/quote",
+            id: "developers/sdk/reference/classes/quote",
           },
           items: [
             {
@@ -199,18 +199,19 @@ const sidebars: SidebarsConfig = {
               label: "Classes",
               link: {
                 type: "doc",
-                id: "developers/sdk/classes/quote",
+                id: "developers/sdk/reference/classes/quote",
               },
               items: [
-                "developers/sdk/classes/quote",
-                "developers/sdk/classes/orders-provider",
-                "developers/sdk/classes/orderbook",
-                "developers/sdk/classes/secret-manager",
-                "developers/sdk/classes/async-result",
-                "developers/sdk/classes/event-broker",
-                "developers/sdk/classes/garden",
-                "developers/sdk/classes/evm-relay",
-                "developers/sdk/classes/block-number-fetcher",
+                "developers/sdk/reference/classes/quote",
+                "developers/sdk/reference/classes/orders-provider",
+                "developers/sdk/reference/classes/orderbook",
+                "developers/sdk/reference/classes/secret-manager",
+                "developers/sdk/reference/classes/async-result",
+                "developers/sdk/reference/classes/digest-key",
+                "developers/sdk/reference/classes/event-broker",
+                "developers/sdk/reference/classes/garden",
+                "developers/sdk/reference/classes/evm-relay",
+                "developers/sdk/reference/classes/block-number-fetcher",
               ],
             },
             {

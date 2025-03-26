@@ -5,7 +5,7 @@ title: DigestKey
 
 # Digest Key
 
-The `DigestKey` class derives a user ID from a given digest key and ensures its validity, primarily for authentication and identity verification.
+The `Digest Key` in Garden is a 32-byte cryptographic key that serves as a unique identifier for users, designed for authentication, identity, and secret management in atomic swaps. It is used for authentication via JWTs, enabling secure access, and for identity, allowing order processing and unique user identification. Additionally, it plays a critical role in managing secrets for atomic swaps. This key functions as a Garden account, but it is strictly non-custodial, with no funds ever being associated with it or moved through it.
 
 ```ts
 import { DigestKey } from '@gardenfi/core';

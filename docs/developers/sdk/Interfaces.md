@@ -121,3 +121,23 @@ interface IHTLCWallet {
   refund(receiver?: string): Promise<string>;
 }
 ```
+## IEVMHTLC
+
+```ts
+interface IEVMHTLC {
+  htlcActorAddress(): string;
+  initiate(order: MatchedOrder): AsyncResult<string, string>;
+  redeem(order: MatchedOrder, secret: string): AsyncResult<string, string>;
+  refund(order: MatchedOrder): AsyncResult<string, string>;
+}
+```
+
+## IStarknetHTLC
+```ts
+interface IStarknetHTLC {
+  htlcActorAddress(): string;
+  initiate(order: MatchedOrder): AsyncResult<string, string>;
+  redeem(order: MatchedOrder, secret: string): AsyncResult<string, string>;
+  refund(order: MatchedOrder): AsyncResult<string, string>;
+}
+```

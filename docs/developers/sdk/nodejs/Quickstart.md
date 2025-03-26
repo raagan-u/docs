@@ -120,56 +120,53 @@ For more details, see [DigestKey](../reference/classes/DigestKey.md).
 
 To initialize the **Garden** instance, you need to create a digest key. You can either generate a random key or provide your own digest key. For more details, refer to the link provided above.
 
-### Two Ways to Instantiate `Garden`:
+### There are two Ways to Instantiate `Garden`:
 
-1. **Using the Static `.from()` Method:**  
-   - Use `Garden.from()` to initialize the instance.
-   - Set the `environment` (e.g., `Environment.TESTNET`, `Environment.MAINNET`, or `Environment.LOCALNET`).
-   - Pass the `digestKey` and the configured wallet clients in the `wallets` property (e.g., `evm` and `starknet` wallets).
+  -  **Using wallets**  
+    Use `Garden.from()` to quickly initialize the instance. This involves passing the wallets as arguments. Set the environment (e.g., `testnet`)and provide the `digestKey` and wallets you defined above.
 
+    ```typescript
+      // Initialize Garden with wallets
+      import { Garden, DigestKey } from '@gardenfi/core';
+      import { Environment } from '@gardenfi/utils';
 
-  ```typescript
-    // First way to instantiate garden
-    import { Garden, DigestKey } from '@gardenfi/core';
-    import { Environment } from '@gardenfi/utils';
+      const digestKey = DigestKey.from(<YOUR_DIGEST_KEY>);
 
-    const digestKey = DigestKey.from(<YOUR_DIGEST_KEY>);
+      const garden = Garden.from({
+        environment: Environment.TESTNET,
+        digestKey,
+        wallets: {
+          evm: ethereumWalletClient,
+          starknet: starknetWallet
+        }
+      });
+    ```
+  - **Manual Instantiation with Custom HTLC Implementation**
+      In the second approach, which is a manual method, you can provide your own implementation of HTLC (Hashed Time-Locked Contract). This custom implementation will be used to initiate and redeem transactions. For reference, check the second implementation provided in the snippet. you can refer to [IEVMHTLC](../interfaces#ievmhtlc) and [IStarknetHTLC](../interfaces#istarknethtlc) interfaces for more details. 
 
-    const garden = Garden.from({
-      environment: Environment.TESTNET,
-      digestKey,
-      wallets: {
-        evm: ethereumWalletClient,
-        starknet: starknetWallet
-      }
-    });
-  ```
-2. ### Manual Instantiation with Custom HTLC Implementation
-    In the second approach, which is a manual method, you can provide your own implementation of HTLC (Hashed Time-Locked Contract). This custom implementation will be used to initiate and redeem transactions. For reference, check the second implementation provided in the snippet. you can refer to [IEVMHTLC](../interfaces#ievmhtlc) and [IStarknetHTLC](../interfaces#istarknethtlc) interfaces for more details. 
+      To manually instantiate `Garden`, you will need to set the relayer URL, specify the environment, and provide the digest key. You’ll also have to define custom implementations for handling transactions on different chains like Ethereum and Starknet.
 
-    To manually instantiate `Garden`, you will need to set the relayer URL, specify the environment, and provide the digest key. You’ll also have to define custom implementations for handling transactions on different chains like Ethereum and Starknet.
+    ```typescript
+      // Second way to instantiate garden
 
-  ```typescript
-    // Second way to instantiate garden
-
-    const garden = new Garden({
-      api: RELAYER_URL,
-      environment: Environment.TESTNET,
-      digestKey.val.digestKey,
-      quote: new Quote(QUOTE_SERVER_URL),
-      htlc: {
-        evm: new EvmRelay(
-          RELAYER_URL,
-          evmWallet,
-          Siwe.fromDigestKey(
-            new Url(RELAYER_URL),
-            digestKey.val.digestKey,
+      const garden = new Garden({
+        api: RELAYER_URL,
+        environment: Environment.TESTNET,
+        digestKey.val.digestKey,
+        quote: new Quote(QUOTE_SERVER_URL),
+        htlc: {
+          evm: new EvmRelay(
+            RELAYER_URL,
+            evmWallet,
+            Siwe.fromDigestKey(
+              new Url(RELAYER_URL),
+              digestKey.val.digestKey,
+            ),
           ),
-        ),
-        starknet: new StarknetRelay(STARKNET_RELAY_URL, starknetWallet),
-      },
-    });
-  ```
+          starknet: new StarknetRelay(STARKNET_RELAY_URL, starknetWallet),
+        },
+      });
+    ```
 
 
 ## Create a Swap
@@ -319,6 +316,8 @@ if (initRes.error) {
 </Tabs>
 
 ## Settle the swap
+
+Garden handles the swap settlement automatically. You only need to call the `execute` function.
 
 ```typescript
 // Automatically manages the execution of redeems or refunds.

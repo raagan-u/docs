@@ -64,7 +64,7 @@ First, you need to attest the quote by submitting the `strategy_id` obtained fro
 
 ```bash
 curl -X 'POST' \
-  'https://api.garden.finance/testnet/orders/gasless/order' \
+  'https://api.garden.finance/testnet/prices/quote/attested' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -100,7 +100,7 @@ After attesting the quote, send the response from the attested quote to this end
 
 ```bash
 curl -X 'POST' \
-  'https://api.garden.finance/testnet/orders/gasless/create-order' \
+  'https://api.garden.finance/testnet/orders/gasless/order' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer <authorization_token>' \

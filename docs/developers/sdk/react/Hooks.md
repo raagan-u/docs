@@ -5,7 +5,7 @@ title: Hooks
 
 # useGarden
 
-The `useGarden` hook is a comprehensive, pre-packaged React hook that simplifies the integration of Garden SDK into your dApp. It encapsulates the functionality of both `useOrderbook` and `useSecretManager` while exposing a unified API to handle all core interactions, from order management to secret handling.
+The `useGarden` hook is a comprehensive, pre-packaged React hook that simplifies the integration of Garden SDK into your dApp. It encapsulates the functionality of both `useOrderbook` and `useDigestKey` while exposing a unified API to handle all core interactions, from order management to secret handling.
 
 ## Return Type
 
@@ -46,19 +46,7 @@ Each order has a `status` field that can be used to determine its current status
 
 ### getQuote
 
-`(params: QuoteParams) => AsyncResult<QuoteResponse, string>`
+`(params: QuoteParams) => Promise<Result<QuoteResponse, string>>`
 
 Fetches a quote for the given parameters, including the USD values of the assets. Returns the quote details or an error message.
 
-### isExecuting
-
-`boolean`
-
-Indicates whether secret manager is currently being initialized.
-
-### isExecutorRequired
-
-`boolean`
-
-Indicates whether an executor is required for the order.
-This becomes true when there are pending orders and the secret manager is not initialized.

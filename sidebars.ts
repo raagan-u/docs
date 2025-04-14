@@ -220,13 +220,13 @@ const sidebars: SidebarsConfig = {
               label: "Types",
               link: {
                 type: "doc",
-                id: "developers/sdk/types/types",
+                id: "developers/sdk/reference/types/types",
               },
               items: [
-                "developers/sdk/types/order",
-                "developers/sdk/types/quote",
-                "developers/sdk/types/pagination",
-                "developers/sdk/types/garden-props"
+                "developers/sdk/reference/types/order",
+                "developers/sdk/reference/types/quote",
+                "developers/sdk/reference/types/pagination",
+                "developers/sdk/reference/types/garden-props"
               ],
             },
             {

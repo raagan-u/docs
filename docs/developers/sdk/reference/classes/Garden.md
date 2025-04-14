@@ -22,16 +22,16 @@ import { Garden } from '@gardenfi/core';
 ## Constructor
 
 ```ts
-new Garden(config: GardenConfig): IGarden
+new Garden(config: GardenConfig): IGardenJS
 ```
 
 **Parameters:**
 
-- `config` ([GardenConfig](../types/GardenConfig.md)): The configuration object for the Garden instance.
+- `config` ([GardenConfig](../../types/GardenProps.md)): The configuration object for the Garden instance.
 
 **Returns:**
 
-- [`IGarden`](../Interfaces.md#igardenjs)
+- [`IGardenJS`](../../Interfaces.md#igardenjs)
 
 ---
 
@@ -82,10 +82,18 @@ Returns [Orderbook](./Orderbook.md) instance.
 ### evmRelay
 
 ```ts
-get evmRelay(): IEVMRelay
+get evmHTLC(): IEVMHTLC | undefined
 ```
 
 Returns [EvmRelay](./EvmRelay.md) instance.
+
+### starknetRelay
+
+```ts
+get starknetHTLC(): IStarknetHTLC | undefined
+```
+
+Returns [starknetRelay](./starknetRelay.md) instance.
 
 ### quote
 
@@ -149,7 +157,7 @@ Emitted when an order action is successfully completed.
 **Parameters:**
 
 - `order` ([MatchedOrder](../types/Order.md#matchedorder)): The successfully processed order
-- `action` ([OrderActions](../Enumerations.md#orderactions)): The type of action that was completed
+- `action` ([OrderActions](../../Enumerations.md#orderactions)): The type of action that was completed
 - `result` (string): Details about the successful operation
 
 ### `onPendingOrdersChanged`

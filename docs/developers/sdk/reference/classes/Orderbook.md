@@ -5,7 +5,7 @@ title: Orderbook
 
 # Orderbook
 
-The `Orderbook` class extends [IOrdersProvider](../types/IOrderProvider.md) and allows creating and managing orders easily.
+The `Orderbook` class extends [IOrdersProvider](../../Interfaces.md#iordersprovider) and allows creating and managing orders easily.
 
 ## Usage
 
@@ -21,11 +21,11 @@ new Orderbook(orderbookConfig: OrderbookConfig): IOrderbook
 
 **Parameters:**
 
-- `orderbookConfig` ([OrderbookConfig](../types/OrderbookConfig.md)): Configuration object containing the orderbook's base URL, wallet client, and authentication details.
+- `url`: orderbook service's base URL.
 
 **Returns:**
 
-- [`IOrderbook`](../Interfaces.md#iorderbook)
+- [`IOrderbook`](../../Interfaces.md#iorderbook)
 
 ---
 
@@ -43,18 +43,79 @@ Creates a new order.
 
 **Parameters:**
 
-- `order` (CreateOrderRequestWithAdditionalData): The order details to be created.
+- `order` ([CreateOrderRequestWithAdditionalData](../types/Order.md#createorderrequestwithadditionaldata)): The order details to be created.
 
 **Returns:**
 
 - `AsyncResult<string, string>`: The result containing the order ID on success or an error message.
 
-### fetchOrders
+### getOrder
 
 ```ts
-fetchOrders<T extends boolean>(
+  getOrder<T extends boolean>(
+    id: string,
+    matched: T,
+  ): AsyncResult<T extends true ? MatchedOrder : CreateOrder, string>;
+```
+
+Retrieves a specific order by its `id`, based on whether it's matched or unmatched.
+
+**Parameters:**
+
+- `id`: The `createId` of the order.
+- `matched`: A boolean indicating whether to fetch a matched (`true`) or unmatched (`false`) order.
+
+**Returns:**
+
+- An `AsyncResult` containing either a [`MatchedOrder`](../types/Order.md#matchedorder) or a [`CreateOrder`](../types/Order.md#createorder) depending on the `matched` value.
+
+### getMatchedOrders
+
+```ts
+getMatchedOrders(
+    address: string,
+    pending: boolean,
+    paginationConfig?: PaginationConfig,
+  ): AsyncResult<PaginatedData<MatchedOrder>, string>;
+```
+
+Fetches all matched orders for a given `address`, with an option to filter by pending status.
+
+**Parameters:**
+
+- `address`: The address for which the matched orders are retrieved.
+- `pending`: If true, returns only pending matched orders.
+- [`paginationConfig`](../types/Pagination.md#paginationconfig): Optional pagination configuration for results.
+
+**Returns:**
+
+- [`AsyncResult<PaginatedData<MatchedOrder>, string>`](../types/Order.md#matchedorder)
+
+### getUnMatchedOrders
+
+```ts
+  getUnMatchedOrders(
+    address: string,
+    paginationConfig?: PaginationConfig,
+  ): AsyncResult<PaginatedData<CreateOrder>, string>;
+```
+
+Fetches all unmatched orders for a given `address`, with optional pagination configuration.
+
+**Parameters:**
+
+- `address`: The address for which the unmatched orders are retrieved.
+- [`paginationConfig`](../types/Pagination.md#paginationconfig): Optional pagination configuration.
+
+**Returns:**
+
+- [`AsyncResult<PaginatedData<CreateOrder>, string>`](../types/Order.md#createorder)
+
+### getOrders
+
+```ts
+getOrders<T extends boolean>(
   matched: T,
-  pending?: boolean,
   paginationConfig?: PaginationConfig,
 ): AsyncResult<
   PaginatedData<T extends true ? MatchedOrder : CreateOrder>,
@@ -62,38 +123,60 @@ fetchOrders<T extends boolean>(
 >;
 ```
 
-Fetches orders from the orderbook. Returns either matched or unmatched orders based on the matched parameter. It is a wrapper for the [`getOrders`](./OrdersProvider.md#getorders) method in the OrdersProvider class to abstract the address parameter.
+Retrieves either matched or unmatched orders based on the `matched` parameter, with optional pagination.
 
 **Parameters:**
 
-- `matched` (boolean): true to fetch matched orders, false for unmatched orders.
-- `pending` (boolean, optional): Filter for pending orders. Defaults to false.
-- `paginationConfig` ([PaginationConfig](../types/pagination.md), optional): Configuration for pagination.
+- `matched`: If true, returns matched orders; otherwise, returns unmatched orders.
+- [`paginationConfig`](../types/Pagination.md#paginationconfig): Optional pagination configuration.
 
 **Returns:**
 
-- [`AsyncResult<PaginatedData<MatchedOrder | CreateOrder>, string>`](../types/Order.md#matchedorder): The result containing the paginated list of orders.
+- [`AsyncResult<PaginatedData<T extends true ? MatchedOrder : CreateOrder>, string>`](../types/Order.md#matchedorder)
 
-### subscribeToOrders
+### subscribeOrders
 
 ```ts
-subscribeToOrders(
+subscribeOrders<T extends boolean>(
+  account: string,
+  matched: T,
   interval: number,
-  cb: (orders: PaginatedData<MatchedOrder>) => Promise<void>,
-  paginationConfig?: PaginationConfig,
+  cb: (
+    orders: PaginatedData<T extends true ? MatchedOrder : CreateOrder>,
+  ) => Promise<void>,
   pending?: boolean,
+  paginationConfig?: PaginationConfig,
 ): Promise<() => void>;
 ```
 
-Subscribes to order updates by polling the orderbook at a specified interval. The callback function is invoked with the received list of matched orders. Returns a function to unsubscribe. This is a wrapper for the [`subscribeOrders`](./OrdersProvider.md#subscribeorders) method in the OrdersProvider class to abstract the address parameter.
+Subscribes to an account’s orders by polling at a specified interval.
+The method continuously fetches orders at the given interval and invokes the provided callback with the received orders.
 
 **Parameters:**
 
-- `interval` (number): The interval (in milliseconds) at which updates are fetched.
-- `cb` (function): Callback invoked with the updated list of matched orders.
-- `paginationConfig` ([PaginationConfig](../types/pagination.md), optional): Configuration for pagination.
-- `pending` (boolean, optional): Filter for pending orders.
+- `account`: The account to subscribe to.
+- `matched`: If true, subscribes to matched orders; otherwise, subscribes to unmatched orders.
+- `interval`: The interval (in milliseconds) to fetch orders.
+- `cb`: The callback to execute when the orders are updated.
+- `pending`: Optional flag to include pending orders.
+- [`paginationConfig`](../types/Pagination.md#paginationconfig): Optional pagination configuration.
 
 **Returns:**
 
-- `Promise<() => void>`: A promise that resolves to an unsubscribe function.
+- A promise that resolves to a function that can be called to unsubscribe from the updates.
+
+### getOrdersCount
+
+```ts
+getOrdersCount(address: string): AsyncResult<number, string>
+```
+
+Fetches the number of orders associated with a given `address`, typically used for nonce calculation.
+
+**Parameters:**
+
+- `address`: The address for which the order count is fetched.
+
+**Returns:**
+
+- `AsyncResult<number, string>`

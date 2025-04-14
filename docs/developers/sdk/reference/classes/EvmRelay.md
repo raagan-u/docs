@@ -10,27 +10,27 @@ The `EvmRelay` class provides functionality to interact with the Garden Finance 
 ## Constructor
 
 ```ts
-new EvmRelay(url: string | Url, auth: IAuth): IEvmRelay
+new EvmRelay(url: string | Url, wallet: walletClient, auth: IAuth): IEVMHTLC | undefined
 ```
 
 **Parameters:**
 
 - `url` (string | Url): The base URL of the relay server.
+- `walletClient` ([WalletClient](https://viem.sh/docs/clients/wallet.html)): The wallet client used to sign the transaction.
 - `auth` ([IAuth](../types/IAuth.md)): An authentication object used to fetch tokens for authorized requests.
 
 **Returns:**
 
-- [`IEvmRelay`](../Interfaces.md#ihtlcwallet))
+- [`IEVMHTLC`](../../Interfaces.md#ievmhtlc)
 
 ---
 
 ## Methods
 
-### init
+### initiate
 
 ```ts
-init(
-  walletClient: WalletClient,
+initiate(
   order: MatchedOrder,
 ): AsyncResult<string, string>;
 ```
@@ -39,12 +39,11 @@ Initiates an atomic swap by validating the order, preparing the required data, a
 
 **Parameters:**
 
-- `walletClient` ([WalletClient](https://viem.sh/docs/clients/wallet.html)): The wallet client used to sign the transaction.
-- `order` ([MatchedOrder](../types/Order.md#matchedorder)): The order to be initialized.
+- `order` ([MatchedOrder](../../types/Order.md#matchedorder)): The order to be initialized.
 
 **Returns:**
 
-- [`AsyncResult<string, string>`](../types/AsyncResult.md) - transaction hash
+- [`AsyncResult<string, string>`](../classes/AsyncResult.md) - transaction hash
 
 ### redeem
 
@@ -61,4 +60,8 @@ Redeems an atomic swap by submitting the secret to the relay server.
 
 **Returns:**
 
-- [`AsyncResult<string, string>`](../types/AsyncResult.md) - transaction hash
+- [`AsyncResult<string, string>`](../classes/AsyncResult.md) - transaction hash
+
+### refund
+
+Refunds are automatically done by the relayer.

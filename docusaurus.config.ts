@@ -2,6 +2,7 @@ import { themes as prismThemes } from 'prism-react-renderer';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import { sidebarItemsGenerator } from './sidebar';
+import rehypeExternalLinks from 'rehype-external-links';
 
 const config: Config = {
   title: 'Garden Docs',
@@ -53,7 +54,22 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           sidebarItemsGenerator: sidebarItemsGenerator,
           remarkPlugins: [require('remark-math')],
-          rehypePlugins: [require('rehype-katex')],
+          rehypePlugins: [
+            require('rehype-katex'),
+            [
+              rehypeExternalLinks,
+              {
+                rel: ['noopener'],
+                test: (element) => {
+                  // Only apply to garden.finance links
+                  return (
+                    element.tagName === 'a' &&
+                    element.properties?.href?.includes('garden.finance')
+                  );
+                },
+              },
+            ],
+          ],
         },
         blog: false,
         theme: {
@@ -138,12 +154,10 @@ const config: Config = {
           title: 'Application',
           items: [
             {
-              label: 'Swap',
-              to: 'https://garden.finance/swap',
+              html: "<a href='https://garden.finance/swap' target='_blank' rel='noopener' class='footer__link-item'>Swap</a>",
             },
             {
-              label: 'Stake',
-              to: 'https://garden.finance/stake',
+              html: "<a href='https://app.garden.finance/stake' target='_blank' rel='noopener' class='footer__link-item'>Stake</a>",
             },
           ],
         },

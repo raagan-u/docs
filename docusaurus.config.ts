@@ -138,12 +138,10 @@ const config: Config = {
           title: 'Application',
           items: [
             {
-              label: 'Swap',
-              to: 'https://garden.finance/swap',
+              html: "<a href='https://garden.finance/swap' target='_blank' rel='noopener' class='footer__link-item'>Swap</a>",
             },
             {
-              label: 'Stake',
-              to: 'https://garden.finance/stake',
+              html: "<a href='https://app.garden.finance/stake' target='_blank' rel='noopener' class='footer__link-item'>Stake</a>",
             },
           ],
         },

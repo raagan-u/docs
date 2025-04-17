@@ -9,13 +9,15 @@ title: Interfaces
 
 ```ts
 interface IGardenJS {
-  get orderbookUrl(): string;
-  get evmRelay(): IEVMRelay;
+  get evmHTLC(): IEVMHTLC | undefined;
+  get starknetHTLC(): IStarknetHTLC | undefined;
   get quote(): IQuote;
   get btcWallet(): IBitcoinWallet | undefined;
   get orderbook(): IOrderbook;
   get blockNumberFetcher(): IBlockNumberFetcher;
   get secretManager(): ISecretManager;
+  get auth(): IAuth;
+  get digestKey(): DigestKey;
   swap(params: SwapParams): AsyncResult<MatchedOrder, string>;
   execute(): Promise<() => void>;
 }
@@ -80,23 +82,40 @@ interface IOrderProvider {
 ```ts
 interface IOrderbook extends IOrderProvider {
   createOrder(
-    order: CreateOrderRequestWithAdditionalData
+    order: CreateOrderRequestWithAdditionalData,
+    auth: IAuth
   ): AsyncResult<string, string>;
-  fetchOrders<T extends boolean>(
+  getOrder<T extends boolean>(
+    id: string,
+    matched: T
+  ): AsyncResult<T extends true ? MatchedOrder : CreateOrder, string>;
+  getMatchedOrders(
+    address: string,
+    status: Status,
+    paginationConfig?: PaginationConfig
+  ): AsyncResult<PaginatedData<MatchedOrder>, string>;
+  getUnMatchedOrders(
+    address: string,
+    paginationConfig?: PaginationConfig
+  ): AsyncResult<PaginatedData<CreateOrder>, string>;
+  getOrders<T extends boolean>(
     matched: T,
-    pending?: boolean,
     paginationConfig?: PaginationConfig
   ): AsyncResult<
     PaginatedData<T extends true ? MatchedOrder : CreateOrder>,
     string
   >;
-  subscribeToOrders(
+  subscribeOrders<T extends boolean>(
+    account: string,
+    matched: T,
     interval: number,
-    cb: (orders: PaginatedData<MatchedOrder>) => Promise<void>,
-    paginationConfig?: PaginationConfig,
-    pending?: boolean
+    cb: (
+      orders: PaginatedData<T extends true ? MatchedOrder : CreateOrder>
+    ) => Promise<void>,
+    status?: Status,
+    paginationConfig?: PaginationConfig
   ): Promise<() => void>;
-  getUserOrdersCount(): AsyncResult<number, string>;
+  getOrdersCount(address: string): AsyncResult<number, string>;
 }
 ```
 
@@ -106,8 +125,16 @@ interface IOrderbook extends IOrderProvider {
 interface ISecretManager extends EventBroker<SecretManagerEvents> {
   readonly isInitialized: boolean;
   initialize: () => AsyncResult<string, string>;
-  getMasterPrivKey: () => AsyncResult<string, string>;
+  getDigestKey: () => AsyncResult<string, string>;
   generateSecret: (nonce: number) => AsyncResult<Secret, string>;
+}
+```
+
+## IBlockNumberFetcher
+
+```ts
+interface IblockNumberFetcher {
+  fetchBlockNumbers(): AsyncResult<Response, string>;
 }
 ```
 

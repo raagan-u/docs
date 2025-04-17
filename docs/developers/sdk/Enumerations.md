@@ -67,3 +67,13 @@ Represents the different network environments in which the system can operate.
 | `MAINNET`  | `'mainnet'`  |
 | `TESTNET`  | `'testnet'`  |
 | `LOCALNET` | `'localnet'` |
+
+## `Status`
+
+Represents the different statuses of an order.
+
+| **Name**    | **Value**     |
+| ----------- | ------------- |
+| `all`       | `'all'`       |
+| `pending`   | `'pending'`   |
+| `fulfilled` | `'fulfilled'` |

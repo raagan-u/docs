@@ -114,8 +114,8 @@ For more details, see [DigestKey](../reference/classes/DigestKey.md).
 
 ```typescript
   // Initialize Garden with wallets
-  import { Garden, DigestKey } from '@gardenfi/core';
-  import { Environment } from '@gardenfi/utils';
+  import { Garden } from '@gardenfi/core';
+  import { Environment, DigestKey } from '@gardenfi/utils';
 
   const digestKey = DigestKey.from(<YOUR_DIGEST_KEY>);
 
@@ -176,14 +176,14 @@ const constructOrderpair = (fromAsset: Asset, toAsset: Asset) =>
   `${fromAsset.chain}:${fromAsset.atomicSwapAddress}::${toAsset.chain}:${toAsset.atomicSwapAddress}`;
 
 const orderPair = constructOrderpair(
-  orderConfig.fromAsset,
-  orderConfig.toAsset
+  fromAsset,
+  toAsset
 );
 
 // Get the quote for the send amount and order pair
 const quoteResult = await garden.quote.getQuote(
   orderPair,
-  Number(orderConfig.sendAmount),
+  Number(sendAmount),
   false
 );
 

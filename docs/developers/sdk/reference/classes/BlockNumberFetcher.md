@@ -20,7 +20,7 @@ new BlockNumberFetcher(url: string, network: Environment): IBlockNumberFetcher
 
 **Returns:**
 
-- [IBlockNumberFetcher](../types/IBlockNumberFetcher.md)
+- [IBlockNumberFetcher](../../Interfaces.md#iblocknumberfetcher)
 
 ---
 

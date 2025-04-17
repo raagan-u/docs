@@ -71,7 +71,6 @@ To install wagmi dependencies:
 
 Integrate Garden into your React app by wrapping it with the **GardenProvider**. This enables interaction with the protocol and handles session management.
 
-- `store`: Persists session data (e.g., in `localStorage` or `sessionStorage`).
 - `environment`: Specifies the network (`mainnet` or `testnet`).
   <Tabs>
   <TabItem value="app.tsx" label="app.tsx" default>
@@ -88,9 +87,10 @@ Integrate Garden into your React app by wrapping it with the **GardenProvider**.
           return (
             <GardenProvider
               config={{
-                store: localStorage,
                 environment: Environment.TESTNET,
-                walletClient: walletClient,
+                wallets: {
+                  evm: walletClient
+                }
               }}
             >
               <Swap />
@@ -200,7 +200,7 @@ This is the lifecycle of a swap:
           // Select a quote and save it
           const [_strategyId, quoteAmount] = Object.entries(quote.val.quotes)[0];
           setQuote({
-            strategyId: \_strategyId,
+            strategyId: _strategyId,
             quoteAmount: quoteAmount,
           });
         };

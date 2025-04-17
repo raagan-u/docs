@@ -211,6 +211,7 @@ const sidebars: SidebarsConfig = {
                 "developers/sdk/reference/classes/event-broker",
                 "developers/sdk/reference/classes/garden",
                 "developers/sdk/reference/classes/evm-relay",
+                "developers/sdk/reference/classes/starknet-relay",
                 "developers/sdk/reference/classes/block-number-fetcher",
               ],
             },
@@ -219,15 +220,13 @@ const sidebars: SidebarsConfig = {
               label: "Types",
               link: {
                 type: "doc",
-                id: "developers/sdk/types/types",
+                id: "developers/sdk/reference/types/types",
               },
               items: [
-                "developers/sdk/types/order",
-                "developers/sdk/types/quote",
-                "developers/sdk/types/pagination",
-                "developers/sdk/types/IQuote",
-                "developers/sdk/types/IOrderbook",
-                "developers/sdk/types/ISecretManager",
+                "developers/sdk/reference/types/order",
+                "developers/sdk/reference/types/quote",
+                "developers/sdk/reference/types/pagination",
+                "developers/sdk/reference/types/garden-props"
               ],
             },
             {

@@ -9,7 +9,6 @@ title: Interfaces
 
 ```ts
 interface IGardenJS {
-  get orderbookUrl(): string;
   get evmHTLC(): IEVMHTLC | undefined;
   get starknetHTLC(): IStarknetHTLC | undefined;
   get quote(): IQuote;
@@ -84,24 +83,24 @@ interface IOrderProvider {
 interface IOrderbook extends IOrderProvider {
   createOrder(
     order: CreateOrderRequestWithAdditionalData,
-    auth: IAuth,
+    auth: IAuth
   ): AsyncResult<string, string>;
   getOrder<T extends boolean>(
     id: string,
-    matched: T,
+    matched: T
   ): AsyncResult<T extends true ? MatchedOrder : CreateOrder, string>;
   getMatchedOrders(
     address: string,
-    pending: boolean,
-    paginationConfig?: PaginationConfig,
+    status: Status,
+    paginationConfig?: PaginationConfig
   ): AsyncResult<PaginatedData<MatchedOrder>, string>;
   getUnMatchedOrders(
     address: string,
-    paginationConfig?: PaginationConfig,
+    paginationConfig?: PaginationConfig
   ): AsyncResult<PaginatedData<CreateOrder>, string>;
   getOrders<T extends boolean>(
     matched: T,
-    paginationConfig?: PaginationConfig,
+    paginationConfig?: PaginationConfig
   ): AsyncResult<
     PaginatedData<T extends true ? MatchedOrder : CreateOrder>,
     string
@@ -111,10 +110,10 @@ interface IOrderbook extends IOrderProvider {
     matched: T,
     interval: number,
     cb: (
-      orders: PaginatedData<T extends true ? MatchedOrder : CreateOrder>,
+      orders: PaginatedData<T extends true ? MatchedOrder : CreateOrder>
     ) => Promise<void>,
-    pending?: boolean,
-    paginationConfig?: PaginationConfig,
+    status?: Status,
+    paginationConfig?: PaginationConfig
   ): Promise<() => void>;
   getOrdersCount(address: string): AsyncResult<number, string>;
 }

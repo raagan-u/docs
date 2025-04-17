@@ -64,4 +64,4 @@ Redeems an atomic swap by submitting the secret to the relay server.
 
 ### refund
 
-Refunds are automatically done by the relayer.
+Refunds are automatically handled by the relayer.

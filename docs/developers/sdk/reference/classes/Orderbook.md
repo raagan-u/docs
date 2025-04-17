@@ -74,7 +74,7 @@ Retrieves a specific order by its `id`, based on whether it's matched or unmatch
 ```ts
 getMatchedOrders(
     address: string,
-    pending: boolean,
+    status: Status,
     paginationConfig?: PaginationConfig,
   ): AsyncResult<PaginatedData<MatchedOrder>, string>;
 ```
@@ -84,7 +84,7 @@ Fetches all matched orders for a given `address`, with an option to filter by pe
 **Parameters:**
 
 - `address`: The address for which the matched orders are retrieved.
-- `pending`: If true, returns only pending matched orders.
+- [`status`](../../Enumerations.md#status): The status of the orders to be retrieved.
 - [`paginationConfig`](../types/Pagination.md#paginationconfig): Optional pagination configuration for results.
 
 **Returns:**
@@ -144,7 +144,7 @@ subscribeOrders<T extends boolean>(
   cb: (
     orders: PaginatedData<T extends true ? MatchedOrder : CreateOrder>,
   ) => Promise<void>,
-  pending?: boolean,
+  status?: Status,
   paginationConfig?: PaginationConfig,
 ): Promise<() => void>;
 ```
@@ -158,7 +158,7 @@ The method continuously fetches orders at the given interval and invokes the pro
 - `matched`: If true, subscribes to matched orders; otherwise, subscribes to unmatched orders.
 - `interval`: The interval (in milliseconds) to fetch orders.
 - `cb`: The callback to execute when the orders are updated.
-- `pending`: Optional flag to include pending orders.
+- [`status`](../../Enumerations.md#status): Optional status to filter orders.
 - [`paginationConfig`](../types/Pagination.md#paginationconfig): Optional pagination configuration.
 
 **Returns:**

@@ -183,7 +183,7 @@ const config: Config = {
             },
             {
               label: 'Explorer',
-              to: 'https://main--symphonious-chaja-a69e12.netlify.app/',
+              to: 'https://explorer.garden.finance/',
             },
           ],
         },

@@ -259,7 +259,7 @@ const sidebars: SidebarsConfig = {
       type: "category",
       label: "Cookbooks",
       link: { type: "doc", id: "developers/cookbook/cookbook" },
-      items: ["developers/cookbook/bridge"],
+      items: ["developers/cookbook/bridge", "developers/cookbook/integrate"],
     },
   ],
 };

@@ -17,6 +17,13 @@ href: "./bridge",
 label: "Bridge (using Garden SDK)",
 description: "Build a bitcoin bridge in Nextjs using Garden SDK",
 docId: "developers/cookbook/bridge",
+},
+{
+type: "link",
+href: "./integrate",
+label: "Integrate (using Garden API)",
+description: "Build a terminal ui app using garden api",
+docId: "developers/cookbook/integrate",
 }
 ]}
 />

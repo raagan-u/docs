@@ -6,7 +6,7 @@ id: integrate
 
 This cookbook walks you through how to integrate Garden into your wallet backend, bridge aggregator, or an infrastructure service, using our API. You’ll learn how to authenticate users, create and initiate cross-chain swaps, track and redeem them on the destination chain. If you’re unsure between using the SDK or APIs, see this comparison.
 We’ll focus on a complete swap flow from Bitcoin Testnet4 (tBTC) to Arbitrum Sepolia (WBTC) and show how to coordinate with Garden APIs at each step.
-If you prefer a working reference, check out our  demo at https://github.com/catalogfi/api-cookbook-demo. .
+If you prefer a working reference, check out our  demo at [Integrate](https://github.com/gardenfi/api-cookbook-demo).
 
 ## Authentication
 Before placing or interacting with orders, your system needs to authenticate the user. Garden supports two authentication options:

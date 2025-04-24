@@ -8,7 +8,7 @@ id: integrate
 If you are stuck at any part of the implementation, drop a message in our [Townhall](https://discord.com/invite/kqMBgeAKAh)-our dev team is ready to assist!
 :::
 
-This cookbook walks you through how to integrate Garden into your wallet backend, bridge aggregator, or an infrastructure service, using our API. You’ll learn how to authenticate users, create and initiate cross-chain swaps, track and redeem them on the destination chain. If you’re unsure between using the SDK or APIs, see this comparison.
+This cookbook walks you through how to integrate Garden into your wallet backend, bridge aggregator, or an infrastructure service, using our API. You’ll learn how to authenticate users, create and initiate cross-chain swaps, track and redeem them on the destination chain. If you’re unsure between using the SDK or APIs, see this [comparison](../Overview.md#choosing-between-sdk-and-api).
 We’ll focus on a complete swap flow from Bitcoin Testnet4 (tBTC) to Arbitrum Sepolia (WBTC) and show how to coordinate with Garden APIs at each step.
 
 For a fully functional reference, check out the [Integrate](https://github.com/gardenfi/api-cookbook-demo)—a complete implementation with terminal UI developed in RUST, allowing developers to see how these steps integrate into a working application.
@@ -20,7 +20,7 @@ Before placing or interacting with orders, your system needs to authenticate the
 Garden uses Sign-In with Ethereum (SIWE) to verify wallet ownership for each user.
 
 1. **Request a nonce**  
-Generate a unique, single-use nonce as a challenge:
+Generate a unique, single-use nonce as a challenge.
 
 Endpoint:
 ```
@@ -35,7 +35,7 @@ Expected response:
 }
 ```
 
-2. **Sign the nonce**
+2. **Sign the nonce**  
 The user signs the nonce with their EVM wallet, generating a structured SIWE message. This is done by creating a local signer instance (e.g., using the 'PrivateKeySigner' from the Alloy crate in Rust), which uses the user's private key to cryptographically sign the message. The signed message ensures that:
 
 - The nonce is unique and prevents replay attacks.
@@ -93,7 +93,7 @@ Expected response:
 ### Option 2: API key authentication
 API keys provide a convenient authentication method for developers who prefer handling authentication through in-house systems or need persistent access without requiring users to sign messages repeatedly.
 
-1. Visit Garden’s SDK dashboard.
+1. Visit Garden’s [SDK dashboard](https://dev.garden.finance/).
 2. Authenticate using SIWE.
 3. Create an application by providing:
    - Application name
@@ -110,7 +110,7 @@ api-key: <your_api_key>
 
 ## Order lifecycle
 
-This section mirrors the swap lifecycle and shows how each step maps to specific API calls.
+This section mirrors the swap lifecycle and shows how each step maps to specific [API](../api/GardenAPI.md) calls.
 
 At a simple level, when a user requests to swap assets, the process starts by retrieving a price quote for the intended order pair, which includes the source chain, source asset, destination chain, destination asset, and amount. After confirming the quote, the order is attested and validated by Garden's API, followed by final order creation via the `/relayer/create-order` endpoint.
 
@@ -121,12 +121,12 @@ For a detailed breakdown of the entire order lifecycle, including status transit
 The first step in creating an order is to show all the options. Use the `/quote/strategies` endpoint to get all supported pairs from Garden. Each pair is marked by a unique ‘id’.
 
 Endpoint:
-```
+```bash
 GET /quote/strategies
 ```
 
 Example response:
-```
+```json
 {
   "status": "Ok",
   "result": {
@@ -171,7 +171,7 @@ bitcoin_testnet:primary::arbitrum_sepolia:0x795Dcb58d1cd4789169D5F938Ea05E17ecEB
 Request solver quotes for expected output (or required input) amount using the selected `order pair` and specifying the `amount` in sats.
 
 Endpoint:
-```
+```bash
 GET /price?order_pair=<source_chain:source_asset::dest_chain::dest_asset>&amount=<desired_in_amount>&exact_out=boolean
 ```
 `exact_out` allows you to choose between specifying what you want to spend or what you want to receive.
@@ -186,7 +186,7 @@ price?order_pair=bitcoin_testnet:primary::arbitrum_sepolia:0x795Dcb58d1cd4789169
 ```
 
 And, an example response:
-```
+```json
 {
   "status": "Ok",
   "result": {

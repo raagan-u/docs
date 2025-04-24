@@ -11,10 +11,10 @@ If you prefer a working reference, check out our  demo at [Integrate](https://gi
 ## Authentication
 Before placing or interacting with orders, your system needs to authenticate the user. Garden supports two authentication options:
 
-## Option 1: Direct SIWE authentication
+### Option 1: Direct SIWE authentication
 Garden uses Sign-In with Ethereum (SIWE) to verify wallet ownership for each user.
 
-### 1. Request a nonce
+1. **Request a nonce**  
 Generate a unique, single-use nonce as a challenge:
 
 Endpoint:
@@ -30,7 +30,7 @@ Expected response:
 }
 ```
 
-### 2. Sign the nonce
+2. **Sign the nonce**
 The user signs the nonce with their EVM wallet, generating a structured SIWE message. This is done by creating a local signer instance (e.g., using the 'PrivateKeySigner' from the Alloy crate in Rust), which uses the user's private key to cryptographically sign the message. The signed message ensures that:
 
 - The nonce is unique and prevents replay attacks.
@@ -60,7 +60,7 @@ Nonce: a34f6521d29cb6f0febbef3c0799f1b8213f85162fa206a535e5e11424c87b43
 Issued At: 2025-04-09T07:29:20.203Z
 ```
 
-### 3. Verify the signed message
+3. **Verify the signed message**
 Send the signed message to obtain a JSON web token (JWT).
 
 Endpoint:
@@ -85,7 +85,7 @@ Expected response:
 }
 ```
 
-## Option 2: API key authentication
+### Option 2: API key authentication
 API keys provide a convenient authentication method for developers who prefer handling authentication through in-house systems or need persistent access without requiring users to sign messages repeatedly.
 
 1. Visit Garden’s SDK dashboard.
@@ -120,8 +120,8 @@ Endpoint:
 GET /quote/strategies
 ```
 
-```
 Example response:
+```
 {
   "status": "Ok",
   "result": {

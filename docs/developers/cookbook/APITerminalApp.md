@@ -311,7 +311,7 @@ Expected response:
 ### 5. Initiate order
 The order initiation process begins when the user initiates the swap on the source chain. For EVM-based chains, this is done by making a request to the `/relayer/initiate` endpoint.  The process is different for the Bitcoin chain as it works through scripts.
 
-Initiation on EVM
+**Initiation on EVM:**
 
 To initiate the transaction, the user must sign the HTLC initiation message using their wallet provider's EIP-712 typed data signing method. This signature authorizes the HTLC contract to lock tokens in escrow according to the specified parameters. The signature returned from this operation will be used for contract initialization.
 
@@ -351,7 +351,7 @@ Expected response:
   "status": "Ok"
 }
 ```
-Initiation on Bitcoin
+**Initiation on Bitcoin:**
 
 On Bitcoin chain, there are two ways to initiate:
 
@@ -407,7 +407,7 @@ Expected response:
 
 You can also fetch additional order data through the following endpoints:
 
-```
+
 - `GET /orders/id/:id/unmatched`: Get an unmatched order by ID 
 - `GET /orders/id/:id/matched`: Get a matched order by ID
 - `GET /orders/user/:user/unmatched`: Get all unmatched orders for a user
@@ -415,19 +415,18 @@ You can also fetch additional order data through the following endpoints:
 - `GET /orders/user/:user/count`: Get order count for a user
 - `GET /orders/matched`: Get all matched orders
 - `GET /orders/unmatched`: Get all unmatched orders
-```
 
 ### 7. Redeem asset
 
 The redemption step finalizes the swap by allowing the user to claim the assets on the destination chain after the order has been successfully initiated and confirmed.
 
-Pre-requisites
+**Prerequisites:**
 
-- The swap must be complete on the source chain, and assets must be ready on the destination chain.
+- The swap must be complete on the `source chain`, and assets must be ready on the `destination chain`.
 - The destination chain must show an `initiate_tx_hash` under `destination_swap`.
-- The secret generated during order creation must be revealed.
+- The `secret` generated during order creation must be revealed.
 
-Retrieving order details
+**Retrieving order details:**
 
 To begin, poll the `/orders/id/:id/matched` endpoint to fetch the latest order status. Once the `destination_swap.initiate_tx_hash` is present, the destination HTLC has been funded and is ready for redemption.
 
@@ -441,8 +440,7 @@ POST relayer/redeem
 
 Example request: 
 
-```
-json
+```json
 {
     "order_id" : "<order_id>",
     "secret": "<secret>",
@@ -451,36 +449,30 @@ json
 ```
 
 Expected response:
-```
+```json
 {
   status: "Ok",
-  result: <redeem_transaction_hash>
+  result: "<redeem_transaction_hash>"
 }
 ```
 
-Redemption on Bitcoin
-For Bitcoin-based swaps, redemption involves constructing and signing a transaction with the appropriate witness data.
-Option 1: The HTLC on Bitcoin is constructed using the `destination_swap` details from `/orders/id/:id/matched`. To redeem:
-Use the secret from order creation.
+**Redemption on Bitcoin:**  
 
+For Bitcoin-based swaps, redemption involves constructing and signing a transaction with the appropriate witness data.  
 
-Generate the required witness data:
+Option 1: The HTLC on Bitcoin is constructed using the `destination_swap` details from `/orders/id/:id/matched`. 
 
+To redeem:
+- Use the secret from order creation.
+- Generate the required witness data:
+  - Secret value
+  - Redeem leaf bytes
+  - Control block bytes
+- Construct and sign the Bitcoin transaction.
+- Submit the transaction to the Bitcoin network. 
 
-Secret value
-
-
-Redeem leaf bytes
-
-
-Control block bytes
-
-
-Construct and sign the Bitcoin transaction.
-
-
-Submit the transaction to the Bitcoin network.
 Option 2: If you prefer not to handle Bitcoin fees, you can use Garden’s relayer service for gasless redemption by sending the transaction hex bytes in the specified format..
+
 Endpoint:
 ```
 POST /bitcoin/redeem
@@ -490,14 +482,14 @@ Example request:
 
 ```json
 {
-  "order_id": <order_id>,
-  "redeem_tx_bytes": <transaction_hex_of_the_constructed_redeem_txn>
+  "order_id": "<order_id>",
+  "redeem_tx_bytes": "<transaction_hex_of_the_constructed_redeem_txn>"
 }
 ```
 Expected response:
-```
+```json
 {
   status: "Ok",
-  result: <redeem_transaction_hash>
+  result: "<redeem_transaction_hash>"
 }
 ```

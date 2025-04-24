@@ -11,7 +11,7 @@ If you are stuck at any part of the implementation, drop a message in our [Townh
 This cookbook walks you through how to integrate Garden into your wallet backend, bridge aggregator, or an infrastructure service, using our API. You’ll learn how to authenticate users, create and initiate cross-chain swaps, track and redeem them on the destination chain. If you’re unsure between using the SDK or APIs, see this [comparison](../Overview.md#choosing-between-sdk-and-api).
 We’ll focus on a complete swap flow from Bitcoin Testnet4 (tBTC) to Arbitrum Sepolia (WBTC) and show how to coordinate with Garden APIs at each step.
 
-For a fully functional reference, check out the [Integrate](https://github.com/gardenfi/api-cookbook-demo)—a complete implementation with terminal UI developed in RUST, allowing developers to see how these steps integrate into a working application.
+For a fully functional reference, check out this [page](https://github.com/gardenfi/api-cookbook-demo)—a complete implementation with terminal UI developed in RUST, allowing developers to see how these steps integrate into a working application.
 
 ## Authentication
 Before placing or interacting with orders, your system needs to authenticate the user. Garden supports two authentication options:
@@ -65,7 +65,7 @@ Nonce: a34f6521d29cb6f0febbef3c0799f1b8213f85162fa206a535e5e11424c87b43
 Issued At: 2025-04-09T07:29:20.203Z
 ```
 
-3. **Verify the signed message**
+3. **Verify the signed message**  
 Send the signed message to obtain a JSON web token (JWT).
 
 Endpoint:
@@ -114,7 +114,7 @@ This section mirrors the swap lifecycle and shows how each step maps to specific
 
 At a simple level, when a user requests to swap assets, the process starts by retrieving a price quote for the intended order pair, which includes the source chain, source asset, destination chain, destination asset, and amount. After confirming the quote, the order is attested and validated by Garden's API, followed by final order creation via the `/relayer/create-order` endpoint.
 
-For a detailed breakdown of the entire order lifecycle, including status transitions, check out the order lifecycle. For a deeper understanding of the Garden protocol, read the intent flow.
+For a detailed breakdown of the entire [order lifecycle](../core/OrderLifecycle.md), including status transitions, check out the order lifecycle. For a deeper understanding of the Garden protocol, read the [intent flow](../../home/fundamentals/introduction/Intents.md).
 
 ### 1. Get supported pairs
 
@@ -430,7 +430,8 @@ The redemption step finalizes the swap by allowing the user to claim the assets 
 
 To begin, poll the `/orders/id/:id/matched` endpoint to fetch the latest order status. Once the `destination_swap.initiate_tx_hash` is present, the destination HTLC has been funded and is ready for redemption.
 
-Redemption on EVM chain
+Redemption on **EVM** chain:  
+
 Use the `/relayer/redeem` endpoint to submit the redemption request. This includes the secret that proves the user has the right to claim the funds.
 
 Endpoint:
@@ -493,3 +494,5 @@ Expected response:
   result: "<redeem_transaction_hash>"
 }
 ```
+
+You have now everything needed to integrate Garden swaps into your application using our APIs...

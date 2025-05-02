@@ -6,8 +6,7 @@ id: cookbook
 
 import DocCardList from '@theme/DocCardList';
 
-Learn, experiment, and get inspired to develop cool products and  experiences on top of Garden using these cookbooks. Each guide walks you through some use cases, helping you integrate Garden SDK efficiently.
-
+Learn, experiment, and get inspired to develop cool products and experiences on top of Garden using these cookbooks. Each guide walks you through some use cases, helping you integrate Garden SDK efficiently.
 
 <DocCardList
 items={[
@@ -22,7 +21,7 @@ docId: "developers/cookbook/bridge",
 type: "link",
 href: "./integrate",
 label: "Integrate (using Garden API)",
-description: "Build a terminal ui app using garden api",
+description: "Build a terminal UI app using Garden API",
 docId: "developers/cookbook/integrate",
 }
 ]}

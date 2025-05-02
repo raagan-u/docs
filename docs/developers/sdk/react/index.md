@@ -32,6 +32,13 @@ type: "link",
 href: "/developers/sdk/react/get-order",
 label: "Get order",
 docId: "developers/sdk/react/get-order",
+},
+{
+type: "link",
+href: "/developers/cookbook/bridge",
+label: "Cookbook",
+docId: "developers/cookbook/bridge",
+description: "Build a bitcoin bridge in Nextjs using Garden SDK"
 }
 ]}
 />

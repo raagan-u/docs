@@ -14,7 +14,7 @@ items={[
 type: "link",
 href: "./bridge",
 label: "Bridge (using Garden SDK)",
-description: "Build a bitcoin bridge in Nextjs using Garden SDK",
+description: "Build a Bitcoin bridge in Nextjs using Garden SDK",
 docId: "developers/cookbook/bridge",
 },
 {

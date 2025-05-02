@@ -38,7 +38,7 @@ type: "link",
 href: "/developers/cookbook/bridge",
 label: "Cookbook",
 docId: "developers/cookbook/bridge",
-description: "Build a bitcoin bridge in Nextjs using Garden SDK"
+description: "Build a Bitcoin bridge in Nextjs using Garden SDK"
 }
 ]}
 />

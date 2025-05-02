@@ -24,5 +24,12 @@ label: "Garden API",
 description: "Ideal for server-side and Node.js environments.",
 docId: "developers/api/garden-api",
 },
+{
+type: "link",
+href: "../cookbook/integrate",
+label: "Cookbook",
+description: "Build a terminal UI app using Garden API",
+docId: "developers/api/garden-api",
+},
 ]}
 />

@@ -121,7 +121,7 @@ For more details, see [DigestKey](../reference/classes/DigestKey.md).
 
   const garden = Garden.from({
     environment: Environment.TESTNET,
-    digestKey,
+    digestKey.val.digestKey,
     wallets: {
       evm: ethereumWalletClient,
       starknet: starknetWallet
@@ -187,7 +187,7 @@ const quoteResult = await garden.quote.getQuote(
   false
 );
 
-if (quoteResult.error) {
+if (!quoteResult.ok) {
   throw new Error(quoteResult.error);
 }
 
@@ -210,7 +210,7 @@ const swapParams: SwapParams = {
 
 const swapResult = await garden.swap(swapParams);
 
-if (swapResult.error) {
+if (!swapResult.ok) {
   throw new Error(swapResult.error);
 }
 
@@ -236,9 +236,9 @@ After creating an order, you need to send funds to the HTLC contract. The implem
 const order = swapResult.val;
 const initRes = await garden.evmHTLC.initiate(order);
 
-if (initRes.error) {
-console.log(`Error encountered for account: ${ethereumWalletClient.account.address}`);
-throw new Error(initRes.error);
+if (!initRes.ok) {
+  console.log(`Error encountered for account: ${ethereumWalletClient.account.address}`);
+  throw new Error(initRes.error);
 }
 
 ````
@@ -268,9 +268,9 @@ When swapping BTC for any other asset, deposit the funds into order.source_swap.
 const order = swapResult.val;
 const initRes = await garden.starknetHTLC.initiate(order);
 
-if (initRes.error) {
-console.log(`Error encountered for account: ${starknetWallet.address}`);
-throw new Error(initRes.error);
+if (!initRes.ok) {
+  console.log(`Error encountered for account: ${starknetWallet.address}`);
+  throw new Error(initRes.error);
 }
 
 ````
@@ -290,9 +290,9 @@ throw new Error(initRes.error);
 const order = swapResult.val;
 const initRes = await garden.evmHTLC.initiate(order);
 
-if (initRes.error) {
-console.log(`Error encountered for account: ${ethereumWalletClient.account.address}`);
-throw new Error(initRes.error);
+if (!initRes.ok) {
+  console.log(`Error encountered for account: ${ethereumWalletClient.account.address}`);
+  throw new Error(initRes.error);
 }
 
 ````

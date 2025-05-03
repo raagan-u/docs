@@ -192,8 +192,8 @@ This is the lifecycle of a swap:
             toAsset: outputAsset,
             amount: amount.toNumber(),
             isExactOut: false,
-            });
-            if (quote.error) {
+          });
+          if (!quote.ok) {
             return alert(quote.error);
           }
 
@@ -219,7 +219,7 @@ This is the lifecycle of a swap:
             strategyId: quote.strategyId,
             },
           });
-          if (order.error) {
+          if (!order.ok) {
             return alert(order.error);
           }
 

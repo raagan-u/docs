@@ -61,7 +61,7 @@ export const Ok = <T>(val: T): Ok<T>;
 Creates a failed Result with the given error value.
 
 ```ts
-export const Err = <E>(error: E, ...optionalMsg: (E extends string ? any : never)[]): Err<E>;
+export const Err = <E>(error: E, ...optionalMsg?: string[]): Err<E>;
 ```
 
 **parameters**

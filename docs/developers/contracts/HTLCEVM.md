@@ -143,7 +143,7 @@ Creates a new order on behalf of a signer who authorized the operation via EIP-7
 
 ## redeem
 
-Allows the redeemer to claim the locked tokens by providing the correct secret that hashes to the secretHash.
+Allows anyone with valid secret to call and transfer the locked tokens to the redeemer.
 
 | Parameter | Description                                                                |
 | --------- | -------------------------------------------------------------------------- |
@@ -160,7 +160,7 @@ Returns locked tokens to the initiator after the timelock period has expired.
 
 ## instantRefund
 
-Returns locked tokens to the initiator before the timelock expires, if authorized by the redeemer via signature.
+Returns locked tokens to the initiator before the timelock expires, only if authorized by the redeemer via signature.
 
 | Parameter | Description                                                      |
 | --------- | ---------------------------------------------------------------- |

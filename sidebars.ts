@@ -264,6 +264,11 @@ const sidebars: SidebarsConfig = {
           id: "developers/contracts/htlc-evm",
           label: "HTLC (EVM)",
         },
+        {
+          type: "doc",
+          id: "developers/contracts/atomic-swap-btc",
+          label: "HTLC (BTC)"
+        }
       ],
     },
     "developers/supported-chains",

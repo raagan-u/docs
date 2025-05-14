@@ -2,7 +2,7 @@
 id: htlc-evm
 ---
 
-# Atomic swaps (EVM)
+# Atomic swap (EVM)
 
 ## Architecture
 

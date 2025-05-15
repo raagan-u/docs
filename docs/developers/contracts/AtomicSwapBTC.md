@@ -2,13 +2,13 @@
 id: atomic-swap-btc
 ---
 
-# Atomic swaps (BTC)
+# Atomic swap (BTC)
 
 :::note
 The article assumes that the reader has knowledge of taproot in bitcoin and does not cover the construction of transactions.
 :::
 
-## Intro
+## Introduction
 
 Unlike Ethereum, Bitcoin does not have the concept of contracts. Instead, it has scripts.
 In the following sections, let's explore on how we can implement the functions like `initiate`, `redeem`, `refund` and `instant refund`.
@@ -69,7 +69,7 @@ The redeem process involves:
 
 Let's understand this through a high-level function similar to an EVM contract:
 
-```jsx
+```go
 func Redeem(htlc *HTLC, secret []byte, signature []byte) {
     if sha256(secret) != htlc.SecretHash || recover(sig) != htlc.RedeemerPubkey {
         panic("script verification failed")
@@ -118,7 +118,6 @@ After EQUALVERIFY:     After Push pubkey:     After CHECKSIG:
                         |   signature    |
                         +----------------+
 ```
-
 Important notes:
 
 - The stack grows and shrinks from the top (top element is consumed first)
@@ -146,7 +145,7 @@ The refund process involves:
 
 Let's look at the high-level function:
 
-```jsx
+```go
 func Refund(htlc *HTLC, currentBlockHeight uint32, initiatedBlockHeight uint32, signature []byte) {
     if currentBlockHeight - initiateBlockHeight > htlc.Timelock {
         panic("not expired")
@@ -220,7 +219,7 @@ The instant refund process involves:
 
 Let's understand this through a high-level function similar to an EVM contract:
 
-```jsx
+```go
 func InstantRefund(htlc *HTLC, initiatorSignature []byte, redeemerSignature []byte) {
     if recover(initiatorSignature) != htlc.InitiatorPubkey {
         panic("invalid initiator signature")
@@ -256,7 +255,7 @@ OP_NUMEQUAL;
 
 Stack visualization:
 
-```
+```txt
 Initial State:              After Push initiatorPubkey:   After First CHECKSIG:
 +----------------------+    +----------------------+    +----------------------+
 | initiatorSignature   |    | initiatorPubkey      |    | 1 or 0              |

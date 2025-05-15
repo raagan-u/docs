@@ -19,8 +19,7 @@ docId: "developers/contracts/htlc-evm",
 type: "link",
 href: "./atomic-swap-btc",
 label: "Atomic swap (BTC)",
-description: "Unlike Ethereum, Bitcoin does not have the concept of contracts. Instead, it has scripts.
-In the following sections, let's explore on how we can implement the functions like `initiate`, `redeem`, `refund` and `instant refund`.",
+description: "Unlike Ethereum, Bitcoin does not have the concept of contracts. Instead, it has scripts. In the following sections, let's explore on how we can implement the functions like `initiate`, `redeem`, `refund` and `instant refund`.",
 docId: "developers/contracts/atomic-swap-btc",
 }
 ]}

@@ -1,8 +1,8 @@
 {
     "post": {
         "operationId": "redeemBitcoin",
-        "summary": "Redeems bitcoin.",
-        "description": "Redeems bitcoin token swap by submitting the secret associated with the swap. The request also specifies the side of execution to finalize the transaction.",
+        "summary": "Redeems bitcoin transaction.",
+        "description": "Redeems bitcoin by submitting the transaction hex bytes associated with the swap.",
         "servers": [
             {
                 "url": "https://testnet.api.garden.finance/relayer",

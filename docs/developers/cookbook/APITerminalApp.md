@@ -172,7 +172,7 @@ Request solver quotes for expected output (or required input) amount using the s
 
 Endpoint:
 ```bash
-GET /price?order_pair=<source_chain:source_asset::dest_chain::dest_asset>&amount=<desired_in_amount>&exact_out=boolean
+GET /quote/?order_pair=<source_chain:source_asset::dest_chain::dest_asset>&amount=<desired_in_amount>&exact_out=boolean
 ```
 `exact_out` allows you to choose between specifying what you want to spend or what you want to receive.
 

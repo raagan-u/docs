@@ -7,11 +7,11 @@
         "servers": [
             {
                 "url": "https://testnet.api.garden.finance/auth",
-                "description": "Testnet - Auth"
+                "description": "Testnet - Auth server"
             },
             {
                 "url": "https://api.garden.finance/auth",
-                "description": "Mainnet - Auth"
+                "description": "Mainnet - Auth server"
             }
         ],
         "responses": {

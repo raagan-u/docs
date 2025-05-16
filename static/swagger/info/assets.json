@@ -6,11 +6,11 @@
         "security": [],
         "servers": [
             {
-                "url": "https://api.garden.finance/mainnet/info",
+                "url": "https://api.garden.finance/info",
                 "description": "Mainnet - Info server"
             },
             {
-                "url": "https://api.garden.finance/testnet/info",
+                "url": "https://testnet.api.garden.finance/info",
                 "description": "Testnet - Info server"
             }
         ],

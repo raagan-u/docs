@@ -1,8 +1,8 @@
 {
-    "get": {
-        "operationId": "getAllMatchedOrders",
-        "summary": "Get all matched orders.",
-        "description": "This endpoint retrieves all matched orders, where `Orderbook` has picked up the order. Pagination is optional for limiting the results.",
+    "post": {
+        "operationId": "bitcoinInstantRefund",
+        "summary": "Add bitcoin instant refund SACP.",
+        "description": "This endpoint updates the order's additional_data with the instant_refund_tx_bytes in case of transaction failure.",
         "servers": [
             {
                 "url": "https://testnet.api.garden.finance/orders",
@@ -15,27 +15,18 @@
         ],
         "parameters": [
             {
-                "name": "page",
-                "in": "query",
+                "name": "id",
+                "in": "path",
+                "required": true,
                 "schema": {
-                    "type": "integer",
-                    "default": 1
+                    "type": "string"
                 },
-                "description": "Page number for pagination."
-            },
-            {
-                "name": "per_page",
-                "in": "query",
-                "schema": {
-                    "type": "integer",
-                    "default": 10
-                },
-                "description": "Number of items per page."
+                "description": "The create ID of the matched order."
             }
         ],
         "responses": {
             "200": {
-                "description": "The paginated matched orders.",
+                "description": "Instant refund SACP added successfully.",
                 "content": {
                     "application/json": {
                         "schema": {
@@ -51,7 +42,8 @@
                                     "description": "An enum representing the possible outcomes of the endpoint, indicating whether the request was successful."
                                 },
                                 "result": {
-                                    "$ref": "./components/schemas.json#/components/schemas/MatchedOrderVerbose"
+                                    "type": "string",
+                                    "example": "Instant refund SACP added"
                                 }
                             }
                         }
@@ -59,7 +51,7 @@
                 }
             },
             "400": {
-                "description": "Bad Request. Invalid or missing parameters.",
+                "description": "Bad Request. (Order not initiated/ Expected source chain to be bitcoin, bitcoin_regtest or bitcoin_testnet/ Invalid source swap amount/ Failed to decode Bitcoin transaction/ Input txid does not match expected transaction hash/ Failed to convert transaction hex to bytes.)",
                 "content": {
                     "application/json": {
                         "schema": {
@@ -76,7 +68,7 @@
                                 },
                                 "error": {
                                     "type": "string",
-                                    "example": "Invalid pagination parameters"
+                                    "example": "Order not initiated"
                                 }
                             }
                         }

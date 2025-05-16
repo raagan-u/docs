@@ -2,16 +2,16 @@
     "get": {
         "operationId": "getNonce",
         "summary": "Generate nonce.",
-        "description": "The `/auth/nonce` endpoint generates a unique `nonce` that serves as a one-time challenge for the user. This nonce is used during the authentication process, requiring the user to `sign` it with their `private key` to prove their identity.",
+        "description": "The `/siwe/challenges` endpoint generates a unique `nonce` that serves as a one-time challenge for the user. This nonce is used during the authentication process, requiring the user to `sign` it with their `private key` to prove their identity.",
         "security": [],
         "servers": [
             {
-                "url": "https://api.garden.finance/testnet/orders",
-                "description": "Testnet - Auth, Gasless, Orderbook server"
+                "url": "https://testnet.api.garden.finance/auth",
+                "description": "Testnet - Auth"
             },
             {
-                "url": "https://api.garden.finance/mainnet/orders",
-                "description": "Mainnet - Auth, Gasless, Orderbook server"
+                "url": "https://api.garden.finance/auth",
+                "description": "Mainnet - Auth"
             }
         ],
         "responses": {
@@ -51,7 +51,7 @@
                                 "status": {
                                     "type": "string",
                                     "example": "Error",
-                                    "description": "An enum representing the possible outcomes of the `/auth/nonce` endpoint, indicating whether the nonce generation was successful.",
+                                    "description": "An enum representing the possible outcomes of the `/auth/siwe/challenges` endpoint, indicating whether the nonce generation was successful.",
                                     "enum": [
                                         "Ok",
                                         "Error"

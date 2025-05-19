@@ -10,21 +10,12 @@ You can fetch the transaction history and statuses directly using the `orderBook
 
 ```typescript
 ```typescript
-getOrders(
-  matched: T,
-  paginationOptions?: {
-    page?: number;
-    per_page?: number;
-  }
-) => {
-  data: T[];
-  page: number;
-  total_pages: number;
-  total_items: number;
-  per_page: number;
-}
+getOrder(
+  id: string,
+  matched: T
+) : AsyncResult<T extends true ? MatchedOrder : CreateOrder, string>
 ```
-
+- **`id`**: The order Id.
 - **`matched`**: Determines the type of orders to fetch.
 
   - `true`: Fetch matched orders.
@@ -37,19 +28,18 @@ getOrders(
 ## Usage
 
 ```tsx
-import { OrdersProvider } from '@gardenfi/orderbook';
+const orderId = <YOUR_ORDER_ID>
+const orderbookApi = "https://orderbookv2.garden.finance"
+const orderbook = new Orderbook(new Url(orderbookApi));
 
-const ORDERBOOK_API = "https://orderbookv2.garden.finance/";
-const orderbookProvider = new OrdersProvider(ORDERBOOK_API);
-
-const fetchOrders = async () => {
+const fetchOrder = async (orderId: string) => {
   try {
-    const res = await orderBook.getOrders(true, { per_page: 10 });
-    console.log('Fetched Orders:', res);
+    const res = await garden.orderBook.getOrder(orderId, true);
+    console.log('Fetched Order:', res);
   } catch (error) {
-    console.error('Error fetching orders:', error);
+    console.error('Error fetching order:', error);
   }
 };
 
-fetchOrders();
+fetchOrder(orderId);
 ```

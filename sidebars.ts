@@ -169,8 +169,6 @@ const sidebars: SidebarsConfig = {
           items: [
             "developers/sdk/react/quickstart",
             "developers/sdk/react/hooks",
-            "developers/sdk/react/settle-order",
-            "developers/sdk/react/get-order",
           ],
         },
         {
@@ -203,7 +201,6 @@ const sidebars: SidebarsConfig = {
               },
               items: [
                 "developers/sdk/reference/classes/quote",
-                "developers/sdk/reference/classes/orders-provider",
                 "developers/sdk/reference/classes/orderbook",
                 "developers/sdk/reference/classes/secret-manager",
                 "developers/sdk/reference/classes/async-result",

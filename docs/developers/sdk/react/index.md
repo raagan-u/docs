@@ -23,18 +23,6 @@ docId: "developers/sdk/react/hooks",
 },
 {
 type: "link",
-href: "/developers/sdk/react/settle-order",
-label: "Settle order",
-docId: "developers/sdk/react/settle-order",
-},
-{
-type: "link",
-href: "/developers/sdk/react/get-order",
-label: "Get order",
-docId: "developers/sdk/react/get-order",
-},
-{
-type: "link",
 href: "/developers/cookbook/bridge",
 label: "Cookbook",
 docId: "developers/cookbook/bridge",

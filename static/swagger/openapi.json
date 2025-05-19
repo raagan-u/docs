@@ -31,16 +31,20 @@
       "description": "Testnet - Quote server"
     },
     {
+      "url": "https://testnet.api.garden.finance/info",
+      "description": "Testnet - Info server"
+    },
+    {
       "url": "https://api.garden.finance/orders",
-      "description": "Testnet - Orderbook server"
+      "description": "Mainnet - Orderbook server"
     },
     {
       "url": "https://api.garden.finance/auth",
-      "description": "Testnet - Auth server"
+      "description": "Mainnet - Auth server"
     },
     {
       "url": "https://api.garden.finance/relayer",
-      "description": "Testnet - Gasless server"
+      "description": "Mainnet - Gasless server"
     },
     {
       "url": "https://api.garden.finance/quote",
@@ -49,10 +53,6 @@
     {
       "url": "https://api.garden.finance/info",
       "description": "Mainnet - Info server"
-    },
-    {
-      "url": "https://testnet.api.garden.finance/info",
-      "description": "Testnet - Info server"
     }
   ],
   "security": [],

@@ -15,40 +15,40 @@
   },
   "servers": [
     {
-      "url": "https://testnet.api.garden.finance/orders",
-      "description": "Testnet - Orderbook server"
-    },
-    {
       "url": "https://testnet.api.garden.finance/auth",
       "description": "Testnet - Auth server"
-    },
-    {
-      "url": "https://testnet.api.garden.finance/relayer",
-      "description": "Testnet - Gasless server"
     },
     {
       "url": "https://testnet.api.garden.finance/quote",
       "description": "Testnet - Quote server"
     },
     {
-      "url": "https://testnet.api.garden.finance/info",
-      "description": "Testnet - Info server"
+      "url": "https://testnet.api.garden.finance/orders",
+      "description": "Testnet - Orderbook server"
     },
     {
-      "url": "https://api.garden.finance/orders",
-      "description": "Mainnet - Orderbook server"
+      "url": "https://testnet.api.garden.finance/relayer",
+      "description": "Testnet - Gasless server"
+    },
+    {
+      "url": "https://testnet.api.garden.finance/info",
+      "description": "Testnet - Info server"
     },
     {
       "url": "https://api.garden.finance/auth",
       "description": "Mainnet - Auth server"
     },
     {
-      "url": "https://api.garden.finance/relayer",
-      "description": "Mainnet - Gasless server"
-    },
-    {
       "url": "https://api.garden.finance/quote",
       "description": "Mainnet - Quote server"
+    },
+    {
+      "url": "https://api.garden.finance/orders",
+      "description": "Mainnet - Orderbook server"
+    },
+    {
+      "url": "https://api.garden.finance/relayer",
+      "description": "Mainnet - Gasless server"
     },
     {
       "url": "https://api.garden.finance/info",

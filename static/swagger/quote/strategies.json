@@ -5,11 +5,11 @@
     "description": "Retrieves a list of all available strategies.",
     "servers": [
       {
-        "url": "https://api.garden.finance/testnet/prices",
+        "url": "https://testnet.api.garden.finance/quote",
         "description": "Testnet - Quote server"
       },
       {
-        "url": "https://api.garden.finance/mainnet/prices",
+        "url": "https://api.garden.finance/quote",
         "description": "Mainnet - Quote server"
       }
     ],

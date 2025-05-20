@@ -18,7 +18,7 @@ Use this endpoint to get a unique single-time nonce.
 
 ```bash
 curl -X 'GET' \
-  'https://api.garden.finance/testnet/orders/auth/nonce' \
+  'https://testnet.api.garden.finance/auth/siwe/challenges' \
   -H 'accept: application/json'
 ```
 
@@ -28,7 +28,7 @@ The retrieved nonce should be included in a message formatted according to EIP-4
 
 ```bash
 curl -X 'POST' \
-  'https://api.garden.finance/testnet/orders/auth/verify' \
+  'https://testnet.api.garden.finance/auth/siwe/tokens' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -44,7 +44,7 @@ Use this endpoint to fetch pricing for a given `OrderPair` and amount. The respo
 
 ```bash
 curl -X 'GET' \
- 'https://api.garden.finance/testnet/prices/price?order_pair=<order_pair>&amount=<amount>&exact_out=<true/false>' \
+ 'https://testnet.api.garden.finance/quote?order_pair=<order_pair>&amount=<amount>&exact_out=<true/false>' \
   -H 'accept: application/json'
 ```
 
@@ -64,7 +64,7 @@ First, you need to attest the quote by submitting the `strategy_id` obtained fro
 
 ```bash
 curl -X 'POST' \
-  'https://api.garden.finance/testnet/prices/quote/attested' \
+  'https://testnet.api.garden.finance/quote/attested' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -92,7 +92,7 @@ curl -X 'POST' \
 
 - `bitcoin_optional_recipient`(optional): The user's Bitcoin address, to be provided if either the source or destination asset is Bitcoin.
 - `timelock`: The timelock value should be provided in the source chain's block numbers, calculated based on the block time for a 24-hour period.
-- `nonce`: The nonce is a unique identifier used to manage secrets. To generate a secret, we sign this nonce with the user's wallet. While the nonce can technically be any random string, in Garden we use it as the total number of orders placed so far, plus one. You can find the number of orders by checking the [`/user/count`](./GardenAPI.md) endpoint.
+- `nonce`: The nonce is a unique identifier used to manage secrets. To generate a secret, we sign this nonce with the user's wallet. While the nonce can technically be any random string, in Garden we use it as the total number of orders placed so far, plus one. You can find the number of orders by checking the [`/user/{user}/count`](./GardenAPI.md) endpoint of Orderbook.
 
 ### Create order
 
@@ -100,7 +100,7 @@ After attesting the quote, send the response from the attested quote to this end
 
 ```bash
 curl -X 'POST' \
-  'https://api.garden.finance/testnet/orders/gasless/order' \
+  'https://testnet.api.garden.finance/relayer/create-order' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer <authorization_token>' \
@@ -117,7 +117,7 @@ Retrieve the order details using the order ID.
 
 ```bash
 curl -X 'GET' \
-  'https://api.garden.finance/testnet/orders/orders/id/matched/<order_id>' \
+  'https://testnet.api.garden.finance/orders/id/<order_id>/matched' \
   -H 'accept: application/json'
 ```
 
@@ -136,9 +136,10 @@ To initiate the order using the relay service, the user must sign a message foll
 
 ```bash
 curl -X 'POST' \
-  'https://api.garden.finance/testnet/orders/gasless/initiate' \
+  'https://testnet.api.garden.finance/relayer/initiate' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer <authorization_token>' \
   -d '{
   "order_id": "<order_id>",
   "signature": "<signature>",
@@ -148,17 +149,33 @@ curl -X 'POST' \
 
 ## Order redemption
 
-Poll the order details at regular intervals to check if the solver has initiated the swap. If you see a transaction hash in `order.destination_swap.initiate_tx_hash`, it means the filler has initiated the order, and you can proceed to redeem the order.
+Poll the order details at regular intervals to check if the solver has initiated the swap. If you see a transaction hash 
+in `order.destination_swap.initiate_tx_hash`, it means the filler has initiated the order, and you can proceed 
+to redeem the order.
 
-For Bitcoin, you need to manually redeem the funds by creating a transaction and setting the witness to the secret, which will unlock the funds.
-
-For EVM chains, you can either redeem directly through the contract or use our relay service. If using the relay service, simply submit the secret, and our relayer will handle the redemption process for you.
+For Bitcoin, you can either manually redeem the funds by creating a transaction by using the secret from order creation and create witness data(secret,redeem leaf bytes, controlblock bytes) which will unlock the funds or use our relay service. If using the relay service, simply submit the redeem transaction(in bytes) and our relayer will handle the redemption process for you.
 
 ```bash
 curl -X 'POST' \
-  'https://api.garden.finance/testnet/order/gasless/redeem' \
+  'https://testnet.api.garden.finance/relayer/bitcoin/redeem' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer <authorization_token>' \
+  -d '{
+  "order_id": "<order_id>",
+  "redeem_tx_bytes": "<redeem_tx_bytes>",
+}'
+```
+
+For EVM chains, you can either redeem directly through the contract or use our relay service. If using the relay service, 
+simply submit the secret, and our relayer will handle the redemption process for you.
+
+```bash
+curl -X 'POST' \
+  'https://testnet.api.garden.finance/relayer/redeem' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer <authorization_token>' \
   -d '{
   "order_id": "<order_id>",
   "secret": "<secret>",

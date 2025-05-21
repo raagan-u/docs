@@ -39,13 +39,13 @@ To install the required Garden packages:
 
 </Tabs>
 
-### wagmi dependencies
+### Wagmi dependencies
 
 To install wagmi dependencies:
 <Tabs>
 <TabItem value="npm" label="npm">
     ```bash
-      npm install @tanstack/react-query wagmi
+    npm install @tanstack/react-query wagmi
     ```
 
     </TabItem>
@@ -67,13 +67,13 @@ To install wagmi dependencies:
 
 ---
 
-### starknet dependencies
+### Starknet dependencies
 
 To install starknet dependencies:
 <Tabs>
 <TabItem value="npm" label="npm">
     ```bash
-      npm install @starknet-react/core starknet starknetkit
+    npm install @starknet-react/core starknet starknetkit
     ```
 
     </TabItem>
@@ -93,7 +93,7 @@ To install starknet dependencies:
 
 </Tabs>
 
-## 2. Setup your React app.
+## 2. Setup your react app.
 
 Integrate Garden into your React app by wrapping it with the **GardenProvider**. This enables interaction with the protocol and handles session management.
 

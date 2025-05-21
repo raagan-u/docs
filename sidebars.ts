@@ -223,7 +223,8 @@ const sidebars: SidebarsConfig = {
                 "developers/sdk/reference/types/order",
                 "developers/sdk/reference/types/quote",
                 "developers/sdk/reference/types/pagination",
-                "developers/sdk/reference/types/garden-props"
+                "developers/sdk/reference/types/garden-props",
+                "developers/sdk/reference/types/swap-params",
               ],
             },
             {

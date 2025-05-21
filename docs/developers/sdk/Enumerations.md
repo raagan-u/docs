@@ -24,6 +24,13 @@ The `Chains` enumeration represents a set of predefined blockchain networks used
 | `base_sepolia`      | `'base_sepolia'`      |
 | `bera_testnet`      | `'bera_testnet'`      |
 | `citrea_testnet`    | `'citrea_testnet'`    |
+| `bera`              | `'bera'`              |
+| `monad_testnet`              | `'monad_testnet'`              |
+| `starknet`              | `'starknet'`              |
+| `starknet_sepolia`              | `'bstarknet_sepolia`              |
+| `starknet_devnet`              | `'starknet_devnet'`              |
+| `hyperliquid_testnet`              | `'hyperliquid_testnet'`              |
+| `hyperliquid`              | `'hyperliquid'`              |
 
 ### Type: `Chain`
 

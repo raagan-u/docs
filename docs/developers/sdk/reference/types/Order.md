@@ -29,7 +29,7 @@ The Swap type represents the details of a swap transaction on a specific blockch
 | updated_at             | string                                 | Timestamp when the swap was last updated                 |
 | deleted_at             | string \| null                         | Timestamp when the swap was deleted, or null if active   |
 | swap_id                | string                                 | Unique identifier for the swap                           |
-| chain                  | [Chain](../Enumerations.md#type-chain) | The blockchain network where the swap occurs             |
+| chain                  | [Chain](../../Enumerations.md#type-chain) | The blockchain network where the swap occurs             |
 | asset                  | string                                 | The asset being swapped                                  |
 | initiator              | string                                 | Address of the party initiating the swap                 |
 | redeemer               | string                                 | Address of the party redeeming the swap                  |
@@ -66,8 +66,8 @@ The `CreateOrderRequest` type represents the details of an order creation reques
 
 | Property                      | Type                                   | Description                                                                                      |
 | ----------------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| source_chain                  | [Chain](../Enumerations.md#type-chain) | The blockchain network for the source asset                                                      |
-| destination_chain             | [Chain](../Enumerations.md#type-chain) | The blockchain network for the destination asset                                                 |
+| source_chain                  | [Chain](../../Enumerations.md#type-chain) | The blockchain network for the source asset                                                      |
+| destination_chain             | [Chain](../../Enumerations.md#type-chain) | The blockchain network for the destination asset                                                 |
 | source_asset                  | string                                 | The asset being sent                                                                             |
 | destination_asset             | string                                 | The asset being received                                                                         |
 | initiator_source_address      | string                                 | The address of the initiator on the source chain, or the public key if the chain is Bitcoin      |

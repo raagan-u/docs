@@ -9,9 +9,9 @@ The `Garden` class serves as a high-level wrapper around the core modules of the
 
 **Key Features**
 
-- **Swap Creation**: Facilitates the creation of new orders through the `swap` method.
-- **Swap Execution**: Allows for the execution of orders via the `execute` method.
-- **Modular Access**: Provides access to underlying modules (`quote`, `orderbook`, `secretManager`, and `EVMRelay`) for advanced interactions if needed.
+- Facilitates the creation of new orders through the `swap` method.
+- Allows for the execution of orders via the `execute` method.
+- Provides access to underlying modules (`quote`, `orderbook`, `secretManager`, and `EVMRelay`) for advanced interactions if needed.
 
 ## Usage
 
@@ -22,18 +22,35 @@ import { Garden } from '@gardenfi/core';
 ## Constructor
 
 ```ts
-new Garden(config: GardenConfig): IGardenJS
+new Garden(config: GardenConfigWithHTLCs): IGardenJS
 ```
 
 **Parameters:**
 
-- `config` ([GardenConfig](../../types/GardenProps.md)): The configuration object for the Garden instance.
+- `config` ([GardenConfigWithHTLCs](../types/GardenProps.md)): The configuration object for the Garden instance.
 
 **Returns:**
 
 - [`IGardenJS`](../../Interfaces.md#igardenjs)
 
 ---
+
+## Static function
+
+### fromWallets
+
+```ts
+static fromWallets(config: GardenConfigWithWallets): Garden
+```
+The `fromWallets` function lets you initialize the `Garden` instance using wallets instead of HTLCs.
+
+**Parameters:**
+
+- `config` ([GardenConfigWithWallets](../types/GardenProps.md#gardenconfigwithwallets)): The configuration object for the Garden instance.
+
+**Returns:**
+
+- [`IGardenJS`](../../Interfaces.md#igardenjs)
 
 ## Methods
 

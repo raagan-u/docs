@@ -66,20 +66,20 @@ const sidebars: SidebarsConfig = {
       link: { type: "doc", id: "home/basics/guides/swap/swap" },
 
       items: [
-        {
-          type: "category",
-          label: "Act 1",
-          link: { type: "doc", id: "home/basics/guides/swap/act-1-swap" },
-          items: [
-            "home/basics/guides/swap/btc-wbtc",
-            "home/basics/guides/swap/wbtc-btc",
-            "home/basics/guides/swap/wbtc-wbtc",
-            "home/basics/guides/swap/btc-ibtc",
-            "home/basics/guides/swap/ibtc-btc",
-            "home/basics/guides/swap/btc-swbtc",
-            "home/basics/guides/swap/swbtc-btc",
-          ],
-        },
+        // {
+        //   type: "category",
+        //   label: "Act 1",
+        //   link: { type: "doc", id: "home/basics/guides/swap/act-1-swap" },
+        //   items: [
+        //     "home/basics/guides/swap/btc-wbtc",
+        //     "home/basics/guides/swap/wbtc-btc",
+        //     "home/basics/guides/swap/wbtc-wbtc",
+        //     "home/basics/guides/swap/btc-ibtc",
+        //     "home/basics/guides/swap/ibtc-btc",
+        //     "home/basics/guides/swap/btc-swbtc",
+        //     "home/basics/guides/swap/swbtc-btc",
+        //   ],
+        // },
         {
           type: "category",
           label: "Act 2",

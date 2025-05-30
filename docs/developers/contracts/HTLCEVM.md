@@ -14,64 +14,32 @@ For a deeper understanding of atomic swaps and their role in Garden, read [atomi
 
 ## Contract guarantees
 
-The contract ensures the following guarantees:
+- Orders can only be redeemed with the correct secret that generates the secret hash.
+- Initiators can refund their tokens after the timelock expires if not redeemed.
+- Once an order is fulfilled, it cannot be refunded or redeemed again.
+- All order parameters are validated :
+  - Redeemer cannot be a zero address.
+  - Timelock must be greater than zero.
+  - Amount must be greater than zero.
+  - Initiator and redeemer must be different addresses.
 
-- **Security**: Orders can only be redeemed with the correct secret that generates the secret hash
-- **Timelock Protection**: Initiators can refund their tokens after the timelock expires if not redeemed
-- **Irreversibility**: Once an order is fulfilled, it cannot be refunded or redeemed again
-- **Parameter Validation**: All order parameters are validated:
-  - Redeemer cannot be a zero address
-  - Timelock must be greater than zero
-  - Amount must be greater than zero
-  - Initiator and redeemer must be different addresses
-
-# Order lifecycle
+## Order lifecycle
 
 ### Initiation
-
-The initiation phase locks tokens into the contract:
-
-1. Initiator calls `initiate()` or a third party calls `initiateWithSignature()`
-2. The contract validates all parameters
-3. A unique `orderID` is generated from the chain ID, secret hash, and initiator address
-4. Tokens are transferred from the initiator to the contract
-5. The order details are stored in the contract
-6. An `Initiated` event is emitted
+The initiation phase locks tokens into the contract. Initiator calls `initiate()` or a third party calls `initiateWithSignature()`. The contract validates all parameters. A unique `orderID` is generated from the chain ID, secret hash, and initiator address. Tokens are then transferred from the initiator to the contract. The order details are stored in the contract and an `Initiated` event is emitted.
 
 ### Redemption
-
-The redemption phase releases tokens to the redeemer:
-
-1. Redeemer provides the `orderID` and the secret
-2. The contract verifies that the secret provided is correct
-3. The order is marked as fulfilled
-4. Tokens are transferred to the redeemer
-5. A `Redeemed` event is emitted
+The redemption phase releases tokens to the redeemer. Redeemer provides the `orderID` and the secret. The contract verifies that the secret provided is correct. If yes, then the order is marked as fulfilled. Tokens are transferred to the redeemer and a `Redeemed` event is emitted.
 
 ### Refund
-
-The refund phase returns tokens to the initiator:
-
-1. After the timelock period expires, the initiator calls `refund()`
-2. The contract verifies the timelock has expired
-3. The order is marked as fulfilled
-4. Tokens are transferred back to the initiator
-5. A `Refunded` event is emitted
+The refund phase returns tokens back to the initiator. After the timelock period expires, the initiator calls `refund()`. The contract verifies if the timelock has expired. The order is then marked as fulfilled. Tokens are transferred back to the initiator and a `Refunded` event is emitted.
 
 ### Instant refund
+It allows early termination of the contract. Redeemer signs a refund permission. Initiator or any party calls `instantRefund()` with the redeemer's signature. Contract verifies the signature is from the redeemer and then the order is marked as fulfilled. Tokens are transferred back to the initiator and a `Refunded` event is emitted.
 
-This allows for early termination of the contract:
+## Data types and storage
 
-1. Redeemer signs a refund permission
-2. Initiator or any party calls `instantRefund()` with the redeemer's signature
-3. Contract verifies the signature is from the redeemer
-4. The order is marked as fulfilled
-5. Tokens are transferred back to the initiator
-6. A `Refunded` event is emitted
-
-# Data types and storage
-
-## Order struct
+### Order struct
 
 ```solidity
 struct Order {
@@ -93,7 +61,7 @@ struct Order {
 | timelock    | Number of blocks that must elapse before a refund is possible |
 | amount      | Amount of tokens locked in the order                          |
 
-## Storage
+### Storage
 
 The contract uses the following storage variables:
 
@@ -102,9 +70,9 @@ The contract uses the following storage variables:
 - `_INITIATE_TYPEHASH`: Type hash constant for EIP-712 signatures for initiations
 - `_REFUND_TYPEHASH`: Type hash constant for EIP-712 signatures for refunds
 
-# Contract functions
+## Contract functions
 
-## Constructor
+### Constructor
 
 ```solidity
 constructor(address token_, string memory name, string memory version)
@@ -118,7 +86,7 @@ Initializes the contract with the ERC20 token address and the domain separator f
 | name      | Name for the EIP-712 domain separator              |
 | version   | Version for the EIP-712 domain separator           |
 
-## initiate
+### initiate
 
 Creates a new order with the caller as the initiator. Transfers tokens from the initiator to the contract.
 
@@ -129,7 +97,7 @@ Creates a new order with the caller as the initiator. Transfers tokens from the 
 | amount     | Amount of tokens to lock in the contract                                  |
 | secretHash | SHA-256 hash of the secret that the redeemer must provide to claim tokens |
 
-## initiateWithSignature
+### initiateWithSignature
 
 Creates a new order on behalf of a signer who authorized the operation via EIP-712 signature. The signer becomes the initiator.
 
@@ -141,7 +109,7 @@ Creates a new order on behalf of a signer who authorized the operation via EIP-7
 | secretHash | SHA-256 hash of the secret that the redeemer must provide to claim tokens |
 | signature  | EIP-712 signature from the initiator authorizing the order creation       |
 
-## redeem
+### redeem
 
 Allows anyone with valid secret to call and transfer the locked tokens to the redeemer.
 
@@ -150,7 +118,7 @@ Allows anyone with valid secret to call and transfer the locked tokens to the re
 | orderID   | ID of the order to redeem                                                  |
 | secret    | Original secret value that hashes to the secretHash used in order creation |
 
-## refund
+### refund
 
 Returns locked tokens to the initiator after the timelock period has expired.
 
@@ -158,7 +126,7 @@ Returns locked tokens to the initiator after the timelock period has expired.
 | --------- | ------------------------- |
 | orderID   | ID of the order to refund |
 
-## instantRefund
+### instantRefund
 
 Returns locked tokens to the initiator before the timelock expires, only if authorized by the redeemer via signature.
 
@@ -167,9 +135,9 @@ Returns locked tokens to the initiator before the timelock expires, only if auth
 | orderID   | ID of the order to refund immediately                            |
 | signature | EIP-712 signature from the redeemer authorizing the early refund |
 
-# Events
+## Events
 
-## Initiated
+### Initiated
 
 Emitted when a new order is created.
 
@@ -179,7 +147,7 @@ Emitted when a new order is created.
 | secretHash | Hash of the secret needed for redemption |
 | amount     | Amount of tokens locked in the order     |
 
-## Redeemed
+### Redeemed
 
 Emitted when an order is redeemed.
 
@@ -189,7 +157,7 @@ Emitted when an order is redeemed.
 | secretHash | Hash of the secret used for redemption           |
 | secret     | The actual secret value provided by the redeemer |
 
-## Refunded
+### Refunded
 
 Emitted when an order is refunded (either after timelock expiry or instantly with permission).
 
@@ -197,26 +165,16 @@ Emitted when an order is refunded (either after timelock expiry or instantly wit
 | --------- | ------------------------ |
 | orderID   | ID of the refunded order |
 
-# Security considerations
+## Security considerations
 
-## Order identification
+### Order identification
+Order IDs are deterministically calculated as ` sha256(abi.encode(block.chainid, secretHash, initiator)) ` to ensure uniqueness, preventing replay attacks across different chains and duplicate orders with the same parameters.
 
-- Order IDs are deterministically calculated as `sha256(abi.encode(block.chainid, secretHash, initiator))` to ensure uniqueness
-- This prevents replay attacks across different chains and duplicate orders with the same parameters
+### Signature verification
+The contract uses EIP-712 typed structured data for secure, user-friendly signatures, enabling gas-efficient meta-transactions for both order creation and early refunds.
 
-## Signature verification
+### Order validation
+The contract prevents orders with duplicate IDs. It verifies that initiator and redeemer addresses are different and ensures that all numerical parameters (timelock, amount) must be non-zero as well as the redeemer address cannot be zero.
 
-- The contract uses EIP-712 typed structured data for secure, user-friendly signatures
-- This enables gas-efficient meta-transactions for both order creation and early refunds
-
-## Order validation
-
-- The contract prevents orders with duplicate IDs
-- It verifies that initiator and redeemer addresses are different
-- All numerical parameters (timelock, amount) must be non-zero
-- The redeemer address cannot be zero
-
-## Error messages
-
-- Clear, specific error messages for all failure cases
-- Distinct checks for expired orders, fulfilled orders, and validation errors
+### Error messages
+The contract implements comprehensive error handling with clear, specific error messages for all failure cases. Additionally, it performs distinct validation checks for various order states including expired orders, fulfilled orders, and other validation criteria.

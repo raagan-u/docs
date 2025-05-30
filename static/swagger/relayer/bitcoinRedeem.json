@@ -1,0 +1,144 @@
+{
+    "post": {
+        "operationId": "redeemBitcoin",
+        "summary": "Redeems bitcoin transaction.",
+        "description": "Redeems bitcoin by submitting the transaction hex bytes associated with the swap.",
+        "servers": [
+            {
+                "url": "https://testnet.api.garden.finance/relayer",
+                "description": "Testnet - Gasless server"
+            },
+            {
+                "url": "https://api.garden.finance/relayer",
+                "description": "Mainnet - Gasless server"
+            }
+        ],
+        "security": [
+            {
+                "bearer": []
+            }
+        ],
+        "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "order_id": {
+                                "type": "string",
+                                "description": "The unique order ID.",
+                                "example": "dab96...cbb4324a3874f78f2fa2faaea6ac714fba7028776fc6c96c41"
+                            },
+                            "redeem_tx_bytes": {
+                                "type": "string",
+                                "description": "The raw transaction hex of constructed redeem transaction.",
+                                "example": "020000180a...68d080073867cf0235f2639162e676a0f099d62236f1a9a22dad"
+                            }
+                        },
+                        "required": [
+                            "order_id",
+                            "redeem_tx_bytes"
+                        ]
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "Bitcoin redeemed successfully",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "enum": [
+                                        "Ok",
+                                        "Error"
+                                    ],
+                                    "example": "Ok",
+                                    "description": "An enum representing the possible outcomes of the endpoint, indicating whether the request was successful."
+                                },
+                                "result": {
+                                    "type": "string",
+                                    "description": "Transaction hash",
+                                    "example": "0x4e9f6b8c3a3d7b92e5f789cc83dfac35f6a12348b7d0e9c1a4e5b6a8f7c123d4"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "400": {
+                "description": "Bad request, invalid input data",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "enum": [
+                                        "Ok",
+                                        "Error"
+                                    ],
+                                    "example": "Error",
+                                    "description": "An enum representing the possible outcomes of the endpoint, indicating whether the request was successful."
+                                },
+                                "error": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "description": "The numeric status code indicating the type of error or response.",
+                                            "example": 400
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "description": "A descriptive message providing details about the error or response.",
+                                            "example": "Order already redeemed."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "401": {
+                "description": "Bad request - Unauthorized"
+            },
+            "500": {
+                "description": "Internal server error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "enum": [
+                                        "Ok",
+                                        "Error"
+                                    ],
+                                    "example": "Error",
+                                    "description": "An enum representing the possible outcomes of the endpoint, indicating whether the request was successful."
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "description": "Error message",
+                                    "example": "internal error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "tags": [
+            "Gasless"
+        ]
+    }
+}

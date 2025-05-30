@@ -5,12 +5,12 @@
         "description": "Redeems a token swap by submitting the secret associated with the swap. The request also specifies the side of execution to finalize the transaction.",
         "servers": [
             {
-                "url": "https://api.garden.finance/testnet/orders",
-                "description": "Testnet - Auth, Gasless, Orderbook server"
+                "url": "https://testnet.api.garden.finance/relayer",
+                "description": "Testnet - Gasless server"
             },
             {
-                "url": "https://api.garden.finance/mainnet/orders",
-                "description": "Mainnet - Auth, Gasless, Orderbook server"
+                "url": "https://api.garden.finance/relayer",
+                "description": "Mainnet - Gasless server"
             }
         ],
         "security": [

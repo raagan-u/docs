@@ -1,0 +1,83 @@
+{
+    "post": {
+        "operationId": "bitcoinInstantRefund",
+        "summary": "Add bitcoin instant refund SACP.",
+        "description": "This endpoint updates the order's additional_data with the instant_refund_tx_bytes in case of transaction failure.",
+        "servers": [
+            {
+                "url": "https://testnet.api.garden.finance/orders",
+                "description": "Testnet - Orderbook server"
+            },
+            {
+                "url": "https://api.garden.finance/orders",
+                "description": "Mainnet - Orderbook server"
+            }
+        ],
+        "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                },
+                "description": "The create ID of the matched order."
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "Instant refund SACP added successfully.",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "enum": [
+                                        "Ok",
+                                        "Error"
+                                    ],
+                                    "example": "Ok",
+                                    "description": "An enum representing the possible outcomes of the endpoint, indicating whether the request was successful."
+                                },
+                                "result": {
+                                    "type": "string",
+                                    "example": "Instant refund SACP added"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "400": {
+                "description": "Bad Request. (Order not initiated/ Expected source chain to be bitcoin, bitcoin_regtest or bitcoin_testnet/ Invalid source swap amount/ Failed to decode Bitcoin transaction/ Input txid does not match expected transaction hash/ Failed to convert transaction hex to bytes.)",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "example": "Error",
+                                    "enum": [
+                                        "Ok",
+                                        "Error"
+                                    ],
+                                    "description": "An enum representing the possible outcomes of the endpoint, indicating whether the request was successful."
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "example": "Order not initiated"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "tags": [
+            "Orderbook"
+        ]
+    }
+}

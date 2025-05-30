@@ -15,27 +15,43 @@
   },
   "servers": [
     {
-      "url": "https://api.garden.finance/testnet/orders",
-      "description": "Testnet - Auth, Gasless, Orderbook server"
+      "url": "https://api.garden.finance/auth",
+      "description": "Mainnet - Auth server"
     },
     {
-      "url": "https://api.garden.finance/testnet/prices",
-      "description": "Testnet - Quote server"
-    },
-    {
-      "url": "https://api.garden.finance/mainnet/orders",
-      "description": "Mainnet - Auth, Gasless, Orderbook server"
-    },
-    {
-      "url": "https://api.garden.finance/mainnet/prices",
+      "url": "https://api.garden.finance/quote",
       "description": "Mainnet - Quote server"
     },
     {
-      "url": "https://api.garden.finance/mainnet/info",
+      "url": "https://api.garden.finance/orders",
+      "description": "Mainnet - Orderbook server"
+    },
+    {
+      "url": "https://api.garden.finance/relayer",
+      "description": "Mainnet - Gasless server"
+    },
+    {
+      "url": "https://api.garden.finance/info",
       "description": "Mainnet - Info server"
     },
     {
-      "url": "https://api.garden.finance/testnet/info",
+      "url": "https://testnet.api.garden.finance/auth",
+      "description": "Testnet - Auth server"
+    },
+    {
+      "url": "https://testnet.api.garden.finance/quote",
+      "description": "Testnet - Quote server"
+    },
+    {
+      "url": "https://testnet.api.garden.finance/orders",
+      "description": "Testnet - Orderbook server"
+    },
+    {
+      "url": "https://testnet.api.garden.finance/relayer",
+      "description": "Testnet - Gasless server"
+    },
+    {
+      "url": "https://testnet.api.garden.finance/info",
       "description": "Testnet - Info server"
     }
   ],
@@ -44,22 +60,22 @@
     {
       "name": "Auth",
       "x-displayName": "Auth",
-      "description": "The Auth API provides a secure and seamless authentication mechanism using the Sign-In with Ethereum (<a target=\"_blank\" href=\"https://eips.ethereum.org/EIPS/eip-4361\"><b>SIWE</b></a>) protocol. The /auth/nonce endpoint generates a unique, one-time-use `nonce` to ensure integrity and prevent replay attacks. Users sign a message containing this nonce and relevant metadata with their Ethereum private key. The signed message is then submitted to the /auth/verify endpoint, which `validates` the signature and confirms the user's identity without compromising their private key.\n\n> **Note:** You can obtain an API key through either the Auth section or the Dev Dashboard."
+      "description": "The Auth API provides a secure and seamless authentication mechanism using the Sign-In with Ethereum (<a target=\"_blank\" href=\"https://eips.ethereum.org/EIPS/eip-4361\"><b>SIWE</b></a>) protocol. The /siwe/challenges endpoint generates a unique, one-time-use `nonce` to ensure integrity and prevent replay attacks. Users sign a message containing this nonce and relevant metadata with their Ethereum private key. The signed message is then submitted to the /siwe/tokens endpoint, which `validates` the signature and confirms the user's identity without compromising their private key.\n\n> **Note:** You can obtain an API key through either the Auth section or the Dev Dashboard."
     },
     {
       "name": "Quote",
       "x-displayName": "Quote",
-      "description": "The Quote API provides a suite of endpoints designed to facilitate `real-time pricing`, `attested quotes`, and Garden's `quotes` for cross-chain swaps. It includes endpoints such as /fiat, which offers the current USD price for a given order pair, and /quote/attested, providing a time-sensitive quote valid until a specific point. The /quote/strategies endpoint lists available strategies for swaps, while /price requests the quote server for the price of a particular order pair and amount."
-    },
+      "description": "The Quote API provides a suite of endpoints designed to facilitate `real-time pricing`, `attested quotes`, and Garden's `quotes` for cross-chain swaps. It includes endpoints such as /fiat, which offers the current USD price for a given order pair, and /attested, providing a time-sensitive quote valid until a specific point. The /strategies endpoint lists available strategies for swaps, while / requests the quote server for the price of a particular order pair and amount."
+    },  
     {
       "name": "Orderbook",
       "x-displayName": "Orderbook",
-      "description": "The Orderbook API provides robust endpoints for managing and tracking orders in the Garden ecosystem. It allows users to query both `unmatched` and `matched` orders, filtered by all, specific `user ID`s, or `order ID`s. Unmatched orders represent those initiated by users but not yet picked up by the Orderbook, while matched orders signify successful solver allocation."
+      "description": "The Orderbook API provides robust endpoints for managing and tracking orders in the Garden ecosystem. It allows users to query both `unmatched` and `matched` orders, filtered by all, specific `user ID`s, or `order ID`s. Unmatched orders represent those initiated by users but not yet picked up by the Orderbook, while matched orders signify successful solver allocation. It also allows user to add instant refund SACP for a bitcoin transaction."
     },
     {
       "name": "Gasless",
       "x-displayName": "Gasless",
-      "description": "The Gasless API group streamlines the order lifecycle by offering endpoints for `order initiation`, `settlement`, `creation`, and `instant refunds`, all secured with `authentication`. This group eliminates the need for users to manage gas fees, enhancing accessibility and ease of use. By facilitating `HTLC`-based fund redemption and instant cancellations, it ensures a seamless, trustless, and user-friendly experience for cross-chain transactions."
+      "description": "The Gasless API group streamlines the order lifecycle by offering endpoints for `order initiation`, `settlement`, `creation`, all secured with `authentication`. This group eliminates the need for users to manage gas fees, enhancing accessibility and ease of use. By facilitating `HTLC`-based fund redemption and instant cancellations, it ensures a seamless, trustless, and user-friendly experience for cross-chain transactions."
     },
     {
       "name": "Info",
@@ -68,59 +84,62 @@
     }
   ],
   "paths": {
-    "/auth/nonce": {
-      "$ref": "./auth/nonce.json"
+    "/siwe/challenges": {
+      "$ref": "./auth/siwe/challenges.json"
     },
-    "/auth/verify": {
-      "$ref": "./auth/verify.json"
+    "/siwe/tokens": {
+      "$ref": "./auth/siwe/tokens.json"
     },
-    "/gasless/order/initiate": {
+    "/initiate": {
       "$ref": "./relayer/initiateSwapWithSign.json"
     },
-    "/gasless/order/settlement": {
+    "/redeem": {
       "$ref": "./relayer/redeemSwap.json"
     },
-    "/gasless/order": {
+    "/create-order": {
       "$ref": "./relayer/createOrder.json"
     },
-    "/gasless/order/refund": {
-      "$ref": "./relayer/instantRefund.json"
+    "/bitcoin/redeem": {
+      "$ref": "./relayer/bitcoinRedeem.json"
     },
     "/health": {
       "$ref": "./relayer/checkHealth.json"
     },
-    "/orders/unmatched": {
+    "/unmatched": {
       "$ref": "./auctionhouse/unmatchedOrders.json"
     },
-    "/orders/matched": {
+    "/matched": {
       "$ref": "./auctionhouse/matchedOrders.json"
     },
-    "/orders/id/{id}/unmatched": {
+    "/id/{id}/unmatched": {
       "$ref": "./auctionhouse/unmatchedOrdersById.json"
     },
-    "/orders/id/{id}/matched": {
+    "/id/{id}/matched": {
       "$ref": "./auctionhouse/matchedOrdersById.json"
     },
-    "/orders/user/{user}/unmatched": {
+    "/user/{user}/unmatched": {
       "$ref": "./auctionhouse/unmatchedOrdersByUser.json"
     },
-    "/orders/user/{user}/matched": {
+    "/user/{user}/matched": {
       "$ref": "./auctionhouse/matchedOrdersByUser.json"
     },
-    "/orders/user/{user}/count": {
+    "/user/{user}/count": {
       "$ref": "./auctionhouse/ordersCountByUser.json"
+    },
+    "/bitcoin/{id}/instant-refund": {
+      "$ref": "./auctionhouse/bitcoinInstantRefund.json"
     },
     "/fiat": {
       "$ref": "./quote/fiat.json"
     },
-    "/quote/attested": {
-      "$ref": "./quote/quote.json"
+    "/attested": {
+      "$ref": "./quote/attested.json"
     },
-    "/quote/strategies": {
+    "/strategies": {
       "$ref": "./quote/strategies.json"
     },
-    "/price": {
-      "$ref": "./quote/price.json"
+    "/": {
+      "$ref": "./quote/quote.json"
     },
     "/assets": {
       "$ref": "./info/assets.json"

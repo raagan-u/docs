@@ -6,6 +6,8 @@ id: contracts
 
 import DocCardList from '@theme/DocCardList';
 
+Find detailed description of smart contracts being used in Garden ecosystem.
+
 <DocCardList
 items={[
 {

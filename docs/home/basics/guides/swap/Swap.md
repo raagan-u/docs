@@ -11,7 +11,7 @@ items={
 [{
 type: "link",
 href: "./beta-act-2-swap",
-label: "Act 2",
+label: "Swap guide",
 docId: "home/basics/guides/swap/beta-act-2-swap",
 }]
 }

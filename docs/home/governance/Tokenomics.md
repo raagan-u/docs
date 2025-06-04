@@ -26,6 +26,13 @@ SEED empowers holders to actively shape the Garden ecosystem:
 * **Team**: 15% (22,000,000 SEED) allocated to the Garden team, subject to a 24-month cliff from TGE and subsequent streaming.
 * **Investors**: 19.6% (29,000,000 SEED) allocated to early backers, subject to a 24-month cliff from TGE and subsequent streaming.
 
+### Contract addresses
+
+| Chain | Address |
+| --- | --- |
+| Ethereum| [`0x5eed99d066a8CaF10f3E4327c1b3D8b673485eED`](https://etherscan.io/address/0x5eed99d066a8CaF10f3E4327c1b3D8b673485eED)|
+| Arbitrum | [`0x86f65121804D2Cdbef79F9f072D4e0c2eEbABC08`](https://arbiscan.io/address/0x86f65121804D2Cdbef79F9f072D4e0c2eEbABC08)|
+
 ### Emission schedule <a href="#seed-emission-schedule" id="seed-emission-schedule"></a>
 
 _\[as of January 21, 2025]_[_​_](https://docs.garden.finance/home/basics/tokenomics/#seed-emission-schedule)

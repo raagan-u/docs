@@ -1,0 +1,39 @@
+---
+id : atomic-swaps
+---
+
+# Atomic swaps
+
+Atomic swaps are trustless peer-to-peer swaps that are used for settlement between user and the solver chosen to implement their intent. The atomic nature of these swaps comes from the fact that they are designed in a way to either complete the swap or not do it at all, there is no intermediate state. As a result, users and solvers don't lose control of their asset at any point of the swap process. Traditional bridges require you to give up control of your asset during the bridging process to the custodian (WBTC), intermediary network (Threshold, Thorchain), or a multisig (Avalanche bridge).
+
+Garden uses **Hash Time Locked Contracts** (HTLCs) to implement atomic swaps. As the name suggests, they are used to enforce time-bound conditions for transferring assets between two parties. They require the receiver of a transaction to acknowledge receiving the payment by generating a cryptographic proof within a certain timeframe. This proof is a response to a cryptographic challenge embedded in the contract, typically involving a hash function. If the receiver fails to provide the correct proof within the specified time, the transaction is automatically reversed, returning the assets to the sender. This is better explained with an example and flow chart.
+
+## &#x20;How do atomic swaps work?
+
+Let's take our case, user gives an intent to swap. The auction house selects a solver for this. After executing the intent, the solver and the user have to settle (swap) their assets.
+
+<figure><img src="/assets/atomic_swap.png" alt="" /><figcaption></figcaption></figure>
+
+1. User deposits asset A into a transparent vault on chain A.
+2. Solver checks the deposited amount and, if it matches the expected amount, deposits asset B into an identical transparent vault on chain B.
+3. User (client UI) verifies the amount deposited by the solver and, if correct, opens the vault to collect asset B on chain B.
+4. Solver can now collect asset A from the user's vault on chain A; the swap is complete.
+
+This is what we call a happy flow where everything runs as expected. In the next section, failure scenarios in this system and Garden's safeguards against them will be explained.
+
+## Scenarios and safeguards
+
+1. **Lock Asset A and B happens, but claim asset B doesn't happen**
+
+<figure><img src="/assets/fail_s1.png" alt=""/><figcaption></figcaption></figure>
+
+* **Penalty:** Stakers are slashed 1% of the intent value.
+* **Solver resolution:** Refund of Asset B after 24 hours, plus slashed SEED as compensation.
+* **User resolution:** Refund of Asset A after 48 hours.
+
+2. **Lock Asset B doesn't happen**
+
+<figure><img src="/assets/fail_s2.png" alt=""/><figcaption></figcaption></figure>
+
+* **Penalty:** Solver and stakers are slashed 0.5% of the intent value.
+* **User resolution:** Refund of Asset A after 48 hours, plus slashed SEED as compensation.

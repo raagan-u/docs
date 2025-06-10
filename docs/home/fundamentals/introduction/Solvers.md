@@ -14,8 +14,6 @@ Solvers address key challenges in decentralized systems. They enhance liquidity 
 3. Each solver provides their best quote back to the order book, which selects the most competitive option for optimal user pricing.
 4. Once chosen, solvers fulfill the user’s intent by leveraging their tools and liquidity.
 
-Currently, Garden doesn’t impose any protocol fee for users or solvers.
-
 ## How to become a solver?
 
 To become a solver, here's what you need:

@@ -36,4 +36,4 @@ Garden APIs are designed for broader application environments, such as wallets, 
 
 Before diving into full-fledged development, familiarize yourself with the [fundamentals](../home/fundamentals/introduction/Introduction.md) and the [intent flow](../home/fundamentals/how-it-works/IntentFlow.md) as you explore the quick start guides shared above.
 
-For more in-depth examples, explore the [Cookbook](./cookbook/Cookbook.md).
+For more in-depth examples, explore the [Cookbook](./cookbook/Cookbook.md). 

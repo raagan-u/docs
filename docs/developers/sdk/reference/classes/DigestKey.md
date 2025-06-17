@@ -43,16 +43,9 @@ DigestKey.from(digestKey: string): Result<DigestKey, string>
 ```
 Validates the provided 32-byte cryptographic key and returns a `DigestKey` instance if valid, or an error message if invalid.
 
-**Returns:**
-
-- `Result<DigestKey, string>`
-
 ### generateRandom
 ```ts
 DigestKey.generateRandom(): Result<DigestKey, string>
 ```
 Generates a random digest key and returns a valid `DigestKey` instance or an error message if generation fails.
 
-**Returns:**
-
-- `Result<DigestKey, string>`

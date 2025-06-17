@@ -17,7 +17,7 @@ The `QuoteResponse` type represents the response from the quote API. It contains
 
 ## Strategies
 
-The `Strategies` type represents a mapping of [`OrderPair`](../Enumerations.md#orderpair) identifiers to their corresponding strategy details. Each strategy provides specific limits and fees associated with it. The structure is as follows:
+The `Strategies` type represents a mapping of [`OrderPair`](../../Enumerations.md#orderpair) identifiers to their corresponding strategy details. Each strategy provides specific limits and fees associated with it. The structure is as follows:
 
 **Type Definition**
 
@@ -35,7 +35,7 @@ export type Strategies = Record<
 
 **Explanation**
 
-- Key: A string representing the [`OrderPair`](../Enumerations.md#orderpair) for which the strategy is applicable.
+- Key: A string representing the [`OrderPair`](../../Enumerations.md#orderpair) for which the strategy is applicable.
 - Value: An object containing the following properties:
 
 | Property  | Type   | Description                                            |

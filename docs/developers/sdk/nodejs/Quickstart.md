@@ -69,7 +69,7 @@ pnpm add viem @catalogfi/wallets
 
 ---
 
-## Set Up Wallets and Providers
+## Set up wallets and providers
 
 After installation, set up wallets only for the chains you need. Ethereum and Starknet require wallet setup, but Bitcoin does not.
 
@@ -119,9 +119,9 @@ For more details, see [DigestKey](../reference/classes/DigestKey.md).
 
   const digestKey = DigestKey.from(<YOUR_DIGEST_KEY>);
 
-  const garden = Garden.from({
+  const garden = Garden.fromWallets({
     environment: Environment.TESTNET,
-    digestKey,
+    digestKey: digestKey.val,
     wallets: {
       evm: ethereumWalletClient,
       starknet: starknetWallet
@@ -148,7 +148,7 @@ In this approach, you manually implement your own HTLC (Hashed Time-Locked Contr
   });
 ```
 
-## Create a Swap
+## Create a swap
 
 - Use `SupportedAssets` from `@gardenfi/orderbook` to select assets based on the chain.
 - Fetch a quote and choose a strategy.
@@ -187,7 +187,7 @@ const quoteResult = await garden.quote.getQuote(
   false
 );
 
-if (quoteResult.error) {
+if (!quoteResult.ok) {
   throw new Error(quoteResult.error);
 }
 
@@ -210,7 +210,7 @@ const swapParams: SwapParams = {
 
 const swapResult = await garden.swap(swapParams);
 
-if (swapResult.error) {
+if (!swapResult.ok) {
   throw new Error(swapResult.error);
 }
 
@@ -236,9 +236,9 @@ After creating an order, you need to send funds to the HTLC contract. The implem
 const order = swapResult.val;
 const initRes = await garden.evmHTLC.initiate(order);
 
-if (initRes.error) {
-console.log(`Error encountered for account: ${ethereumWalletClient.account.address}`);
-throw new Error(initRes.error);
+if (!initRes.ok) {
+  console.log(`Error encountered for account: ${ethereumWalletClient.account.address}`);
+  throw new Error(initRes.error);
 }
 
 ````
@@ -268,9 +268,9 @@ When swapping BTC for any other asset, deposit the funds into order.source_swap.
 const order = swapResult.val;
 const initRes = await garden.starknetHTLC.initiate(order);
 
-if (initRes.error) {
-console.log(`Error encountered for account: ${starknetWallet.address}`);
-throw new Error(initRes.error);
+if (!initRes.ok) {
+  console.log(`Error encountered for account: ${starknetWallet.address}`);
+  throw new Error(initRes.error);
 }
 
 ````
@@ -290,9 +290,9 @@ throw new Error(initRes.error);
 const order = swapResult.val;
 const initRes = await garden.evmHTLC.initiate(order);
 
-if (initRes.error) {
-console.log(`Error encountered for account: ${ethereumWalletClient.account.address}`);
-throw new Error(initRes.error);
+if (!initRes.ok) {
+  console.log(`Error encountered for account: ${ethereumWalletClient.account.address}`);
+  throw new Error(initRes.error);
 }
 
 ````

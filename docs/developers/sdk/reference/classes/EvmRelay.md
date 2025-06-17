@@ -17,7 +17,7 @@ new EvmRelay(url: string | Url, wallet: walletClient, auth: IAuth): IEVMHTLC | u
 
 - `url` (string | Url): The base URL of the relay server.
 - `walletClient` ([WalletClient](https://viem.sh/docs/clients/wallet.html)): The wallet client used to sign the transaction.
-- `auth` ([IAuth](../types/IAuth.md)): An authentication object used to fetch tokens for authorized requests.
+- `auth` ([IAuth](../../Interfaces.md#iauth)): An authentication object used to fetch tokens for authorized requests.
 
 **Returns:**
 

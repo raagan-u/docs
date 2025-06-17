@@ -39,13 +39,13 @@ To install the required Garden packages:
 
 </Tabs>
 
-### wagmi dependencies
+### Wagmi dependencies
 
 To install wagmi dependencies:
 <Tabs>
 <TabItem value="npm" label="npm">
     ```bash
-      npm install @tanstack/react-query wagmi
+    npm install @tanstack/react-query wagmi
     ```
 
     </TabItem>
@@ -67,7 +67,33 @@ To install wagmi dependencies:
 
 ---
 
-## 2. Setup your React app.
+### Starknet dependencies
+
+To install starknet dependencies:
+<Tabs>
+<TabItem value="npm" label="npm">
+    ```bash
+    npm install @starknet-react/core starknet starknetkit
+    ```
+
+    </TabItem>
+    <TabItem value="yarn" label="yarn">
+
+    ```bash
+    yarn add @starknet-react/core starknet starknetkit
+    ```
+
+    </TabItem>
+    <TabItem value="pnpm" label="pnpm">
+
+    ```bash
+    pnpm add @starknet-react/core starknet starknetkit
+    ```
+    </TabItem>
+
+</Tabs>
+
+## 2. Setup your react app.
 
 Integrate Garden into your React app by wrapping it with the **GardenProvider**. This enables interaction with the protocol and handles session management.
 
@@ -78,18 +104,21 @@ Integrate Garden into your React app by wrapping it with the **GardenProvider**.
         ```tsx
         import { GardenProvider } from '@gardenfi/react-hooks';
         import { Environment } from '@gardenfi/utils';
+        import { useAccount } from "@starknet-react/core";
         import { useWalletClient } from 'wagmi';
         import { Swap } from './Swap';
 
         function App() {
           const { data: walletClient } = useWalletClient();
+          const { account: starknetWallet } = useAccount();
 
           return (
             <GardenProvider
               config={{
                 environment: Environment.TESTNET,
                 wallets: {
-                  evm: walletClient
+                  evm: walletClient,
+                  starknet: starkentWallet
                 }
               }}
             >
@@ -110,12 +139,25 @@ Integrate Garden into your React app by wrapping it with the **GardenProvider**.
   import { WagmiProvider } from 'wagmi';
   import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
   import { wagmiConfig } from 'wagmi.ts';
+  import { StarknetConfig } from "@starknet-react/core";
+  import {
+    starknetChains,
+    connectors as starknetConnectors,
+    starknetProviders,
+  } from "./starknetConfig.ts";
 
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
       <WagmiProvider config={wagmiConfig}>
         <QueryClientProvider client={new QueryClient()}>
-          <App />
+          <StarknetConfig
+            chains={starknetChains}
+            provider={starknetProviders}
+            connectors={starknetConnectors}
+            autoConnect
+          >
+            <App />
+          </StarknetConfig>
         </QueryClientProvider>
       </WagmiProvider>
     </React.StrictMode>
@@ -143,6 +185,25 @@ Integrate Garden into your React app by wrapping it with the **GardenProvider**.
         });
         ```
 
+      </TabItem>
+       <TabItem value="starknetConfig.ts" label="starknetConfig.ts">
+
+        ```tsx
+        import { publicProvider } from "@starknet-react/core";
+        import { sepolia, mainnet } from "@starknet-react/chains";
+        import { argent } from "@starknet-react/core";
+        import { braavos } from "@starknet-react/core";
+        import { InjectedConnector } from "starknetkit/injected";
+ 
+        export const connectors = [
+          new InjectedConnector({ options: { id: "argentX" } }),
+          new InjectedConnector({ options: { id: "braavos" } }),
+          new InjectedConnector({ options: { id: "keplr" } }),
+        ];
+
+        export const starknetChains = [mainnet, sepolia];
+        export const starknetProviders = publicProvider();
+        ```
       </TabItem>
 
   </Tabs>
@@ -192,8 +253,8 @@ This is the lifecycle of a swap:
             toAsset: outputAsset,
             amount: amount.toNumber(),
             isExactOut: false,
-            });
-            if (quote.error) {
+          });
+          if (!quote.ok) {
             return alert(quote.error);
           }
 
@@ -219,7 +280,7 @@ This is the lifecycle of a swap:
             strategyId: quote.strategyId,
             },
           });
-          if (order.error) {
+          if (!order.ok) {
             return alert(order.error);
           }
 

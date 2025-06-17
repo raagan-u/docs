@@ -23,7 +23,7 @@ Garden uses Sign-In with Ethereum (SIWE) to verify wallet ownership for each use
 Generate a unique, single-use nonce as a challenge.
 
 Endpoint:
-```
+```bash
 POST /auth/siwe/challenges
 ```
 
@@ -42,7 +42,7 @@ The user signs the nonce with their EVM wallet, generating a structured SIWE mes
 - The user's private key remains secure.
 
 SIWE message format:
-```
+```bash
 <domain> wants you to sign in with your Ethereum account:
 <account_address>
 Garden.fi
@@ -54,7 +54,7 @@ Issued At: <current_time>
 ```
 
 Here’s an example for testnet:
-```
+```bash
 localhost:4361 wants you to sign in with your Ethereum account:
 0x7E5F4552091A69125d5DfCb7b8C2659029395Bdf
 Garden.fi
@@ -69,7 +69,7 @@ Issued At: 2025-04-09T07:29:20.203Z
 Send the signed message to obtain a JSON web token (JWT).
 
 Endpoint:
-```
+```bash
 POST /auth/siwe/tokens
 ```
 
@@ -104,7 +104,7 @@ API keys provide a convenient authentication method for developers who prefer ha
 
 Include the API key in the request headers under the key "api-key," with the generated key as its value. This replaces the use of JWT bearer tokens for user authentication.
 
-```
+```ts
 api-key: <your_api_key>
 ```
 
@@ -162,7 +162,7 @@ Define `order pair` based on user selection in this format:
 `source_chain:source_asset::destination_chain:destination_asset`
 
 For our tBTC to WBTC (Arbitrum) example, that would be:
- ```
+ ```ts
 bitcoin_testnet:primary::arbitrum_sepolia:0x795Dcb58d1cd4789169D5F938Ea05E17ecEB68cA
 ```
 
@@ -181,7 +181,7 @@ GET /quote/?order_pair=<source_chain:source_asset::dest_chain::dest_asset>&amoun
 
 For our tBTC to WBTC (Arbitrum) example, here’s the request:
 
-```
+```ts
 price?order_pair=bitcoin_testnet:primary::arbitrum_sepolia:0x795Dcb58d1cd4789169D5F938Ea05E17ecEB68cA&amount=10000&exact_out=false
 ```
 
@@ -205,7 +205,7 @@ The response provides asset prices (in USD) from market oracles and solver quote
 Choose from the given quotes and send it to the `/quote/attested` endpoint for Garden to attest the quote. Garden then responds with an attested quote, which includes a `signature` used for further order creation. This attested quote remains valid until the specified `deadline`.
 
 Endpoint:
-```
+```bash
 POST /quote/attested
 ```
 
@@ -269,7 +269,7 @@ Example response:
 When ready, create an order by sending a request to `/relayer/create-order` that includes the `additional data` from the attested quote, along with the previously prepared order details. This request is used to create the order in Garden's orderbook. Upon successful creation, the response will contain the result, which includes the unique `order ID`, allowing you to track and manage the order throughout the process.
 
 Endpoint:
-```
+```bash
 POST /relayer/create-order
 ```
 
@@ -301,7 +301,7 @@ Example request for tBTC to WBTC:
 }
 ```
 Expected response:
-```
+```ts
 {
   "result": <order-id>,
   "status":   "Ok",
@@ -317,7 +317,7 @@ To initiate the transaction, the user must sign the HTLC initiation message usin
 
 HTLC initiation message format: 
 
-```
+```ts
 {
     address redeemer;
     uint256 timelock;
@@ -327,7 +327,7 @@ HTLC initiation message format:
 ```
 
 Endpoint:
-```
+```bash
 POST /relayer/initiate
 ```
 
@@ -365,7 +365,7 @@ The HTLC script address is the swap ID of the source chain swap, which can be fo
 To retrieve the order data for an order ID, make a request to:
 
 Endpoint:
-```
+```bash
 GET /orders/id/:id/matched
 ```
 
@@ -435,7 +435,7 @@ Redemption on **EVM** chain:
 Use the `/relayer/redeem` endpoint to submit the redemption request. This includes the secret that proves the user has the right to claim the funds.
 
 Endpoint:
-```
+```bash
 POST relayer/redeem
 ```
 
@@ -475,7 +475,7 @@ To redeem:
 Option 2: If you prefer not to handle Bitcoin fees, you can use Garden’s relayer service for gasless redemption by sending the transaction hex bytes in the specified format..
 
 Endpoint:
-```
+```bash
 POST /bitcoin/redeem
 ```
 

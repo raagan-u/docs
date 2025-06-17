@@ -137,3 +137,7 @@ html[data-theme='light'] .link:hover {
 [data-theme='dark'] .header-discord-link {
   filter: invert(100%);
 }
+
+.markdown pre {
+  max-width: 768px;
+}

@@ -27,6 +27,22 @@ garden.on('error', (order, error) => {
 garden.on('success', (order, action, txHash) => {
   console.log(`${order} ${action} ${txHash}`);
 });
+
+garden.on('onPendingOrdersChanged', (orders) => {
+  console.log('pending orders :', orders.length);
+  orders.forEach((order) => {
+    console.log('pending order :', order.create_order.create_id);
+  });
+});
+
+garden.on('log', (id, message) => {
+  console.log('log :', id, message);
+});
+
+garden.on('rbf', (order, result) => {
+  console.log('rbf :', order.create_order.create_id, result);
+});
+
 ```
 
 For a detailed understanding of the various statuses and how they progress, refer to the [**Order lifecycle**](../../core/OrderLifecycle.md) documentation.

@@ -184,7 +184,13 @@ const orderPair = constructOrderpair(
 const quoteResult = await garden.quote.getQuote(
   orderPair,
   Number(sendAmount),
-  false
+  false,
+  {
+    // Optional: affiliate fee in basis points (bps), where 1 bps = 0.01%.
+    // This allows affiliates or integrators to earn a commission on each swap.
+    // Example: 30 bps = 0.3% of the source asset value.
+    affiliateFee: 30
+  }
 );
 
 if (!quoteResult.ok) {
@@ -206,6 +212,18 @@ const swapParams: SwapParams = {
     // provide btcAddress only when the source chain and destination chain is bitcoin
     btcAddress?: <YOUR_BITCOIN_TESTNET_ADDRESS>,
   },
+  // Optional: affiliateFee allows integrators to earn a commission per swap
+  // Provide one or more fee splits, specifying recipient address, chain, and asset
+  // Asset must be from the supported set; integrators can choose between USDC and cbBTC
+  affiliateFee?: [
+    {
+        address: <ADDRESS_1>,
+        chain: "ethereum",
+        asset: <USDC_HTLC_ADDRESS>,
+        fee: 10 // in bps
+    },
+    //... Add more splits as needed
+  ]
 };
 
 const swapResult = await garden.swap(swapParams);

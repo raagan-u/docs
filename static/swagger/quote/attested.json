@@ -99,6 +99,36 @@
                     "example": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
                   }
                 }
+              },
+              "affiliate_fees": {
+                "type": "array",
+                "description": "List of affiliate fee distributions. Each entry specifies the recipient address, chain, asset, and fee amount (in bps). Allows splitting fees across multiple recipients or assets.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "address": {
+                      "type": "string",
+                      "description": "Address to which the affiliate fee will be sent.",
+                      "example": "0x5A4b7eD8c2a1F1e34C8e9...6A3C5D2B1f8E7A9C"
+                    },
+                    "chain": {
+                      "type": "string",
+                      "description": "The blockchain on which the fee payout will occur (e.g., ethereum, base).",
+                      "example": "ethereum"
+                    },
+                    "asset": {
+                      "type": "string",
+                      "description": "HTLC contract address of the supported asset used for payout (USDC or cbBTC).",
+                      "example":"0xeae7721d779276eb0f5837e2fe260118724a2ba4"
+                    },
+                    "fee": {
+                      "type": "integer",
+                      "description": "Fee amount in basis points (1 bps = 0.01%).",
+                      "example": 10
+                    }
+                  },
+                  "required": ["address", "fee"]
+                }
               }
             }
           }

@@ -45,6 +45,17 @@
           "description": "The amount for the quote.",
           "example": 100000000
         }
+      },
+      {
+        "name": "affiliate_fee",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "format": "decimal",
+          "description": "Affiliate fee in basis points(bps)",
+          "example": 30
+        }
       }
     ],
     "responses": {

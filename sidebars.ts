@@ -227,6 +227,7 @@ const sidebars: SidebarsConfig = {
         },
       ],
     },
+    "developers/affiliate-fee",
     {
       type: "category",
       label: "Contracts",

@@ -138,6 +138,11 @@ html[data-theme='light'] .link:hover {
   filter: invert(100%);
 }
 
+
 .markdown pre {
-  max-width: 768px;
+  max-width: 845px;
+}
+
+.markdown pre code {
+  max-width: 845px;
 }

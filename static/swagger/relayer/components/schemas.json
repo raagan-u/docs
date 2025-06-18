@@ -65,6 +65,35 @@
                 "type": "string",
                 "description": "A cryptographic hash used to verify the transaction's security.",
                 "example": "c1f286d511fc428a82...e5920f7ff812091cfbee3a5484a087682839"
+            },"affiliate_fees":{
+                "type": "object",
+                "properties":{
+                    "address": {
+                    "type": "string",
+                    "description": "Address to which the affiliate fee will be sent.",
+                    "example": "0x5A4b7eD8c2a1F1e34C8e9...6A3C5D2B1f8E7A9C"
+                    },
+                    "chain": {
+                        "type": "string",
+                        "description": "The blockchain on which the fee payout will occur (e.g., ethereum, base).",
+                        "example": "ethereum"
+                    },
+                    "asset": {
+                        "type": "string",
+                        "description": "HTLC contract address of the supported asset used for payout (USDC or cbBTC).",
+                        "example":"0xeae7721d779276eb0f5837e2fe260118724a2ba4"
+                    },
+                    "fee": {
+                        "type": "integer",
+                        "description": "Fee amount in basis points (1 bps = 0.01%).",
+                        "example": 10
+                    },
+                    "amount": {
+                        "type": "string",
+                        "description": "Portion of affiliate fees per order, paid in the smallest units of the  selected asset",
+                        "example": "100"
+                    }
+                }
             },
             "additional_data": {
                 "type": "object",

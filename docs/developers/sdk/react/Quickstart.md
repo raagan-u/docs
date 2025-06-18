@@ -305,3 +305,5 @@ This is the lifecycle of a swap:
 
 This is because the `GardenProvider` actively polls the transaction status and uses our Gasless API to submit the transaction on-chain to complete the swap. For API integrations, you can customize how you interact with the required API endpoints to manage transaction polling and submission.
 :::
+
+To include affiliate fees in your flow, refer to the implementation [here](../../AffiliateFee.md#react).

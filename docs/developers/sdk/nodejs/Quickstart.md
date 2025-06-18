@@ -336,3 +336,5 @@ garden.on('success', (order, action, txHash) => {
 
 await new Promise((resolve) => setTimeout(resolve, 10000000000));
 ````
+
+To include affiliate fees in your flow, refer to the implementation [here](../../AffiliateFee.md#nodejs).

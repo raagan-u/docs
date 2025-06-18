@@ -61,7 +61,9 @@ Creating an order involves two steps: attesting the quote and then creating the 
 
 ### Attest quote
 
-First, you need to attest the quote by submitting the `strategy_id` obtained from the previous step along with the complete order details, and include the `affiliate_fees` property if affiliates want to charge a fee. This step verifies the quote and all order details, confirming the pricing. In response, you'll receive the same object with added `signature`,` deadline`, and asset price fields inside `additional_data`, which you will use in the next step to create the order. You’ll also receive the finalized `affiliate_fees` breakdown, where the `amount` field specifies the portion of the affiliate fee per order, paid in the smallest units of the selected asset. The order should be created and initiated within the `deadline` to ensure the quote remains valid.
+First, you need to attest the quote by submitting the `strategy_id` obtained from the previous step along with the complete order details. This step verifies the quote and all other details of the order, confirming the pricing. In response, you'll receive the same object with added `signature`, `deadline`, and asset price fields inside `additional_data`, which you will use in the next step to create the order. The order should be created and initiated within the `deadline` to ensure the quote remains valid.
+
+You may also optionally include [affiliate fees](../AffiliateFee.md) in the request body, allowing for fee distribution to one or more affiliates.
 
 ```bash
 curl -X 'POST' \
@@ -94,7 +96,8 @@ curl -X 'POST' \
       "chain": "<chain_2>",
       "asset": "<asset_2>",
       "fee": <affiliate_fee_2>
-    }
+    },
+    ...
   ],
   "additional_data": {
     "strategy_id": "<strategy_id>",

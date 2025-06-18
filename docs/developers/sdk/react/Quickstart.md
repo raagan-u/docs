@@ -220,7 +220,7 @@ This is the lifecycle of a swap:
 
   <Tabs>
     <TabItem value="swap.tsx" label="Swap.tsx" default>
-      ```ts
+      ```tsx
       import { SupportedAssets } from '@gardenfi/orderbook';
       import { useGarden } from '@gardenfi/react-hooks';
       import BigNumber from 'bignumber.js';
@@ -253,12 +253,6 @@ This is the lifecycle of a swap:
             toAsset: outputAsset,
             amount: amount.toNumber(),
             isExactOut: false,
-            options: {
-            // Optional: affiliate fee in basis points (bps), where 1 bps = 0.01%.
-            // This allows affiliates or integrators to earn a commission on each swap.
-            // Example: 30 bps = 0.3% of the source asset value.
-              affiliateFee: 30 
-            },
           });
           if (!quote.ok) {
             return alert(quote.error);
@@ -285,18 +279,6 @@ This is the lifecycle of a swap:
             btcAddress,
             strategyId: quote.strategyId,
             },
-            // Optional: affiliateFee allows integrators to earn a commission per swap
-            // Provide one or more fee splits, specifying recipient address, chain, and asset
-            // Asset must be from the supported set; integrators can choose between USDC and cbBTC
-            affiliateFee: [
-              {
-                address: <ADDRESS_1>,
-                chain: "ethereum",
-                asset: <USDC_HTLC_ADDRESS>,
-                fee: 10 
-              },
-              // Add more splits as needed
-            ]
           });
           if (!order.ok) {
             return alert(order.error);
@@ -323,3 +305,5 @@ This is the lifecycle of a swap:
 
 This is because the `GardenProvider` actively polls the transaction status and uses our Gasless API to submit the transaction on-chain to complete the swap. For API integrations, you can customize how you interact with the required API endpoints to manage transaction polling and submission.
 :::
+
+To include affiliate fees in your flow, refer to the implementation [here](../../AffiliateFee.md#react).

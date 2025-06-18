@@ -41,7 +41,7 @@
         "required": true,
         "schema": {
           "type": "string",
-          "format": "decimal",
+          "format": "integer",
           "description": "The amount for the quote.",
           "example": 100000000
         }
@@ -52,7 +52,7 @@
         "required": false,
         "schema": {
           "type": "string",
-          "format": "decimal",
+          "format": "integer",
           "description": "Optional. The total affiliate fee in basis points (bps) that will be distributed across one or more assets.",
           "example": 30
         }

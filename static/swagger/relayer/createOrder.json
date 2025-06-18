@@ -2,7 +2,7 @@
     "post": {
         "operationId": "createOrder",
         "summary": "Creates a new order.",
-        "description": "Creates a new cross-chain swap order with specified parameters and strategy details.",
+        "description": "Creates a new cross-chain swap order with specified parameters and strategy details. The request body should contain the response from attested quote.",
         "servers": [
             {
                 "url": "https://api.garden.finance/orders",

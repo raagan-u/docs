@@ -53,7 +53,7 @@
         "schema": {
           "type": "string",
           "format": "decimal",
-          "description": "Affiliate fee in basis points(bps)",
+          "description": "Optional. The total affiliate fee in basis points (bps) that will be distributed across one or more assets.",
           "example": 30
         }
       }

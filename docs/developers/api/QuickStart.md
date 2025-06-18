@@ -40,11 +40,11 @@ curl -X 'POST' \
 
 ## Fetch quote
 
-Use this endpoint to fetch pricing for a given `OrderPair` and amount. The response will return an array of objects, where each object contains a `strategy_id` as the key and the corresponding amount as the value. The amount will be in the smallest decimal unit of the source asset or destination asset, depending on the `exact_out` flag. Select a strategy from the response and save the `strategy_id`, as it must be passed in the next steps.
+Use this endpoint to fetch pricing for a given `OrderPair` and amount. The response will return an array of objects, where each object contains a `strategy_id` as the key and the corresponding amount as the value. The amount will be in the smallest decimal unit of the source asset or destination asset, depending on the `exact_out` flag. Select a strategy from the response and save the `strategy_id`, as it must be passed in the next steps.Additionally, Affiliates can use `affiliate_fee` to charge a fee for every asset swap made through their integration.
 
 ```bash
 curl -X 'GET' \
- 'https://testnet.api.garden.finance/quote?order_pair=<order_pair>&amount=<amount>&exact_out=<true/false>' \
+ 'https://testnet.api.garden.finance/quote/?order_pair=<order_pair>&amount=<amount>&exact_out=<true/false>&affiliate_fee=<affiliate_fee_in_bps>' \
   -H 'accept: application/json'
 ```
 
@@ -53,6 +53,7 @@ curl -X 'GET' \
 - `order_pair`: String representation of [OrderPair](../sdk/Enumerations.md#orderpair).
 - `amount`: The amount should be in the smallest unit of the source asset or destination asset depending on the `exact_out` flag.
 - `exact_out`: Indicates whether the quote should be fetched for an exact output amount. If set to `true`, the quote will calculate the required input amount to achieve the specified output. If set to `false`, the quote will calculate the expected output for a given input amount.
+- `affiliate_fee`: Optional. The total affiliate fee in basis points (bps) that will be distributed across one or more assets. This value should equal the total of all per-asset affiliate fees provided in the next step.
 
 ## Create order
 
@@ -60,7 +61,7 @@ Creating an order involves two steps: attesting the quote and then creating the 
 
 ### Attest quote
 
-First, you need to attest the quote by submitting the `strategy_id` obtained from the previous step along with the complete order details. This step verifies the quote and all other details of the order, confirming the pricing. In response, you'll receive the same object with added `signature`, `deadline`, and asset price fields inside `additional_data`, which you will use in the next step to create the order. The order should be created and initiated within the `deadline` to ensure the quote remains valid.
+First, you need to attest the quote by submitting the `strategy_id` obtained from the previous step along with the complete order details, and include the `affiliate_fees` property if affiliates want to charge a fee. This step verifies the quote and all order details, confirming the pricing. In response, you'll receive the same object with added `signature`,` deadline`, and asset price fields inside `additional_data`, which you will use in the next step to create the order. You’ll also receive the finalized `affiliate_fees` breakdown, where the `amount` field specifies the portion of the affiliate fee per order, paid in the smallest units of the selected asset. The order should be created and initiated within the `deadline` to ensure the quote remains valid.
 
 ```bash
 curl -X 'POST' \
@@ -81,6 +82,20 @@ curl -X 'POST' \
   "min_destination_confirmations": "<min_destination_confirmations>",
   "timelock": "<timelock>",
   "secret_hash": "<secret_hash>",
+  "affiliate_fees": [
+    {
+      "address": "<affiliate_address_1>",
+      "chain": "<chain_1>",
+      "asset": "<asset_1>",
+      "fee": <affiliate_fee_1>
+    },
+    {
+      "address": "<affiliate_address_2>",
+      "chain": "<chain_2>",
+      "asset": "<asset_2>",
+      "fee": <affiliate_fee_2>
+    }
+  ],
   "additional_data": {
     "strategy_id": "<strategy_id>",
     "bitcoin_optional_recipient": "<user_bitcoin_address>",

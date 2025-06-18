@@ -6,24 +6,26 @@ id: affiliate-fee
 
 Garden allows partners to charge an affiliate fee for each swap initiated through their SDK or API integration. This fee must be specified when requesting a quote and is charged in addition to protocol and solver fees.
 
-Fees are expressed in basis points (bps), where 1 bps = 0.01%.
-For example, a 30 bps fee equals 0.3% of the source asset value.
-Affiliates can receive rewards in any supported asset listed [here](./SupportedChains.mdx). Fees can be sent entirely to a single address in one asset, or split across multiple addresses and assets.
-For example: a 30 bps fee could be split by sending 10 bps in USDC to an Ethereum address, and 20 bps in WBTC to a Base address.
-:::note
-The asset field must correspond to the Garden HTLC contract address listed for each supported asset.
-:::
+Fees are expressed in basis points (bps), where 1 bps = 0.01%. For example, a 30 bps fee equals 0.3% of the source asset value.
+
+Affiliates can earn rewards in `USDC` or `cbBTC` on [supported chains](./SupportedChains.mdx). Fees can be sent entirely to a single address in one asset, or split across multiple addresses and assets. 
+For example: a 30 bps fee could be split by sending 10 bps in USDC to an Ethereum address, and 20 bps in cbBTC to a Base address.
+
+The amount of each asset the affiliate will receive is calculated based on prices at the time of the quote and is also stored in the order data. 
+
+All affiliate fees collected during the week are distributed to the specified addresses at the end of the week.
 
 ## Implementation using API
 
-To apply an affiliate fee via API, include the affiliate_fee parameter when requesting a quote:
+To apply an affiliate fee via API, include the `affiliate_fee` parameter when requesting a quote:
 ```shell
 curl -X 'GET' \
   'https://testnet.api.garden.finance/quote/?order_pair=<order_pair>&amount=<amount>&exact_out=<true/false>&affiliate_fee=30' \
   -H 'accept: application/json'
 ```
 In this example, we’ve added a 30 bps affiliate fee.
-To define how and where fees are paid out, include the affiliate_fees field when **attesting a quote**. An attested quote confirms the swap price and must be followed by order creation within a fixed time window.
+
+To define how and where fees are paid out, include the `affiliate_fees` field when **attesting a quote**. An attested quote confirms the swap price and must be followed by order creation within a fixed time window.
 
 Here’s a sample attested quote request:
 
@@ -48,16 +50,16 @@ curl -X 'POST' \
     "secret_hash": "<secret_hash>",
     "affiliate_fees": [
       {
-        "address": "<address_1>",
-        "chain": "ethereum",
-        "asset": "<usdc_htlc_address>",
-        "fee": 10
+        "address": "<affiliate_address_1>",
+        "chain": "<chain_1>",
+        "asset": "<asset_1>",
+        "fee": <affiliate_fee_1>
       },
       {
-        "address": "<address_2>",
-        "chain": "base",
-        "asset": "<cbbtc_htlc_address>",
-        "fee": 20
+        "address": "<affiliate_address_2>",
+        "chain": "<chain_2>",
+        "asset": "<asset_2>",
+        "fee": <affiliate_fee_2>
       }
     ],
     "additional_data": {
@@ -66,12 +68,15 @@ curl -X 'POST' \
     }
   }'
 ```
+Refer to the [Supported Assets](./SupportedChains.mdx) to find valid asset addresses.
+
+Check out the full implementation using API [here](./api/QuickStart.md)
 
 ## Implementation using SDK
 
 You can also integrate affiliate fees via the Garden SDK for both **Node.js** and **React** environments. The process involves two steps:  
-- Requesting a quote with the affiliate fee applied  
-- Executing the swap with fee payout configuration
+- Requesting a quote with the affiliate fee applied.  
+- Attesting the quote and submitting the order.
 
 ### Node.js
 
@@ -87,11 +92,11 @@ const quoteRes = await garden.quote.getQuote(
     amount,
     isExactOut,
     {
-      affiliateFee: 30, // in bps (0.3%)
+      affiliateFee: 10, // in bps
     },
 );
 ```
-While creating the order using `swap` function, you can include an `affiliateFee` configuration. This lets you specify where the fees should be sent, how much to send, and optionally, which supported assets to use for the payouts.
+While creating the order using the swap function, you can include the affiliateFee property to specify the recipient addresses, the fee amounts (in bps), and optionally the [supported assets](./SupportedChains.mdx) to be used for payout.
 
 ```ts
 const [_strategyId, quoteAmount] = Object.entries(quoteRes.val.quotes)[0];
@@ -105,9 +110,9 @@ const swapParams: SwapParams = {
   },
   affiliateFee:[
     {
-        address: "<address_1>",
-        chain: "ethereum",
-        asset: "<usdc_htlc_address>",
+        address: "<affiliate_address_1>",
+        chain: "<chain_1>",
+        asset: "<asset_1>",
         fee: 10
     },
     //... Add more splits as needed
@@ -116,7 +121,7 @@ const swapParams: SwapParams = {
 
 const swapResult = await garden.swap(swapParams);
 ```
-Checkout full SDK implementation using Node.js [here](./sdk/nodejs/Quickstart.md).
+Check out full SDK implementation using Node.js [here](./sdk/nodejs/Quickstart.md).
 
 
 ### React
@@ -140,11 +145,11 @@ const quoteRes = await getQuote({
     amount,
     isExactOut,
     options: {
-      affiliateFee: 30 // in bps
+      affiliateFee: 10 // in bps
     },
 });
 ```
-While creating and initiating the order using `swapAndInitiate` function, you can include an `affiliateFee` array which lets you specify define the recipient addresses, fee amounts, and optionally, the supported assets in which the fees should be paid.
+While creating and initiating the order using `swapAndInitiate` function, you can include an `affiliateFee` array which lets you specify define the recipient addresses, fee amounts, and optionally, the [supported assets](./SupportedChains.mdx) in which the fees should be paid.
 
 ```ts
 const [_strategyId, quoteAmount] = Object.entries(quoteRes.val.quotes)[0];
@@ -158,15 +163,15 @@ const response = await swapAndInitiate({
     },
     affiliateFee: [
         {
-        address: "<address_1>",
-        chain: "ethereum",
-        asset: "<usdc_htlc_address>",
+        address: "<affiliate_address_1>",
+        chain: "<chain_1>",
+        asset: "<asset_1>",
         fee: 10
       },
       //... Add more splits as needed
     ]
 });
 ```
-Checkout full SDK implementation using React [here](./sdk/react/Quickstart.md).
+Check out full SDK implementation using React [here](./sdk/react/Quickstart.md).
 
 

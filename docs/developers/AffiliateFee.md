@@ -8,12 +8,10 @@ Garden allows partners to charge an affiliate fee for each swap initiated throug
 
 Fees are expressed in basis points (bps), where 1 bps = 0.01%. For example, a 30 bps fee equals 0.3% of the source asset value.
 
-Affiliates can earn rewards in `USDC` or `cbBTC` on [supported chains](./SupportedChains.mdx). Fees can be sent entirely to a single address in one asset, or split across multiple addresses and assets. 
-For example: a 30 bps fee could be split by sending 10 bps in USDC to an Ethereum address, and 20 bps in cbBTC to a Base address.
+Affiliates can earn rewards in USDC or cbBTC on [supported chains](./SupportedChains.mdx). Fees can be sent entirely to a single address in one asset, or split across multiple addresses and assets. 
+For example, a 30 bps fee could be split by sending 10 bps in USDC to an Ethereum address, and 20 bps in cbBTC to a Base address.
 
-The amount of each asset the affiliate will receive is calculated based on prices at the time of the quote and is also stored in the order data. 
-
-All affiliate fees collected during the week are distributed to the specified addresses at the end of the week.
+The amount of each asset the affiliate will receive is calculated based on prices at the time of the quote and is also stored in the order data. All affiliate fees collected during the week are distributed to the specified addresses at the end of the week.
 
 ## Implementation using API
 
@@ -68,9 +66,7 @@ curl -X 'POST' \
     }
   }'
 ```
-Refer to the [Supported Assets](./SupportedChains.mdx) to find valid asset addresses.
-
-Check out the full implementation using API [here](./api/QuickStart.md)
+Refer to the [Supported assets](./SupportedChains.mdx) to find the asset addresses of USDC and cbBTC. Check out the full implementation using API [here](./api/QuickStart.md).
 
 ## Implementation using SDK
 
@@ -96,7 +92,7 @@ const quoteRes = await garden.quote.getQuote(
     },
 );
 ```
-While creating the order using the swap function, you can include the affiliateFee property to specify the recipient addresses, the fee amounts (in bps), and optionally the [supported assets](./SupportedChains.mdx) to be used for payout.
+While creating the order using the `swap` function, you can include the `affiliateFee` property to specify the recipient addresses, the fee amounts (in bps), and optionally the assets and chains you want the payout to be in. Garden supports payout in USDC and cbBTC.
 
 ```ts
 const [_strategyId, quoteAmount] = Object.entries(quoteRes.val.quotes)[0];
@@ -149,7 +145,7 @@ const quoteRes = await getQuote({
     },
 });
 ```
-While creating and initiating the order using `swapAndInitiate` function, you can include an `affiliateFee` array which lets you specify define the recipient addresses, fee amounts, and optionally, the [supported assets](./SupportedChains.mdx) in which the fees should be paid.
+While creating and initiating the order using `swapAndInitiate` function, you can include an `affiliateFee` array which lets you specify define the recipient addresses, fee amounts, and optionally the assets and chains you want the payout to be in. Garden supports payout in USDC and cbBTC.
 
 ```ts
 const [_strategyId, quoteAmount] = Object.entries(quoteRes.val.quotes)[0];

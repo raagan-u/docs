@@ -116,7 +116,7 @@ Order redemptions are automatic. Poll the order details at regular intervals usi
 ## Get order
 
 To check if your swap has been successfully completed, retrieve the order details using the `order_id`.
-If you see a transaction hash in `order.destination_swap.redeem_tx_hash`, it means your side of the swap has been redeemed, and the transaction is complete from your end. You can now check your destination wallet to confirm the received funds.
+If you see a transaction hash in `order.destination_swap.redeem_tx_hash`, it means the swap has been successfully redeemed on your behalf, and the funds should have arrived in your destination wallet. You can now check your destination wallet to confirm the received funds.
 
 ```bash
 curl -X 'GET' \

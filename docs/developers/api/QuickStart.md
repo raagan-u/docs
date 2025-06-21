@@ -29,7 +29,7 @@ curl -X 'GET' \
 
 Authentication is required before you can interact with the Garden protocol. The simplest and most reliable way is by using an API key, especially for systems that handle authentication internally or need persistent access without requiring users to sign messages. You can get one by contacting the Garden team. Once issued, include it in the Authorization header as a Bearer token for all authenticated requests.
 
-Alternatively, you can use SIWE (Sign-In with Ethereum), which involves fetching a unique nonce, having the user sign it with their wallet, and then verifying the signature to receive an auth token. If you prefer the SIWE approach, refer to the dedicated [Authentication guide](./QuickStart.md) for full implementation details.
+Alternatively, you can use SIWE (Sign-In with Ethereum), which involves fetching a unique nonce, having the user sign it with their wallet, and then verifying the signature to receive an auth token. If you prefer the SIWE approach, refer to [Authentication guide](../sdk/Authentication.md) for more details.
 
 
 ## Create order

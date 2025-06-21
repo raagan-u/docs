@@ -2,7 +2,7 @@
   "post": {
     "operationId": "attestedQuote",
     "summary": "Get an attested quote for an order.",
-    "description": "Retrieves an attested quote, which includes the validity period of the quote until a specified time. It ensures that the quote is valid for a certain duration before expiration.",
+    "description": "Retrieves an attested quote, which includes a signature and a validity period ensuring that the quote remains valid until a specific expiry timestamp. This was previously a required step before creating an order, acting as confirmation of the initial quote. With the updated flow, this step is now optional, you can create an order directly after fetching the initial quote, without needing to call this endpoint. However, if your integration still relies on attested quotes, it will continue to work as expected.",
     "servers": [
       {
         "url": "https://testnet.api.garden.finance/quote",

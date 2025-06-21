@@ -2,7 +2,7 @@
 id: affiliate-fee
 ---
 
-# Affiliate Fees
+# Affiliate fees
 
 Garden allows partners to charge an affiliate fee for each swap initiated through their SDK or API integration. This fee must be specified when requesting a quote and is charged in addition to protocol and solver fees.
 
@@ -23,13 +23,13 @@ curl -X 'GET' \
 ```
 In this example, we’ve added a 30 bps affiliate fee.
 
-To define how and where fees are paid out, include the `affiliate_fees` field when **attesting a quote**. An attested quote confirms the swap price and must be followed by order creation within a fixed time window.
+To include affiliate fees, add the `affiliate_fees` field when **creating an order**.
 
-Here’s a sample attested quote request:
+Here’s a sample create order request:
 
 ```shell
 curl -X 'POST' \
-  'https://testnet.api.garden.finance/quote/attested' \
+  'https://testnet.api.garden.finance/relayer/create-order' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -45,7 +45,7 @@ curl -X 'POST' \
     "nonce": "<nonce>",
     "min_destination_confirmations": "<min_destination_confirmations>",
     "timelock": "<timelock>",
-    "secret_hash": "<secret_hash>",
+    "secret_hash": null,
     "affiliate_fees": [
       {
         "address": "<affiliate_address_1>",

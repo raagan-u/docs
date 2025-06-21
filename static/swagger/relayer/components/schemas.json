@@ -64,7 +64,7 @@
             "secret_hash": {
                 "type": "string",
                 "description": "A cryptographic hash used to verify the transaction's security.",
-                "example": "c1f286d511fc428a82...e5920f7ff812091cfbee3a5484a087682839"
+                "example": null
             },"affiliate_fees":{
                 "type": "object",
                 "properties":{
@@ -103,33 +103,11 @@
                         "description": "Provided by the quote server",
                         "example": "ea56cte9"
                     },
-                    "input_token_price": {
-                        "type": "number",
-                        "format": "double",
-                        "description": "Input token price provided by the quote server",
-                        "example": 0.9999373900647296
-                    },
-                    "output_token_price": {
-                        "type": "number",
-                        "format": "double",
-                        "description": "Output token price provided by the quote server",
-                        "example": 81894.13851815807
-                    },
-                    "deadline": {
-                        "type": "number",
-                        "description": "Validity till the current quote is valid",
-                        "example": 1735801988
-                    },
                     "bitcoin_optional_recipient": {
                         "type": "string",
                         "description": "An optional Bitcoin address to receive the output token, if specified.",
                         "example": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
                         "nullable": true
-                    },
-                    "sig": {
-                        "type": "string",
-                        "description": "The signature from the attested quote",
-                        "example": "939c73a014b9a016cbe...7adce0bc76f170a2deaafa1304f572b808341edcd93058b7b60af994b780a12f24dac0c905615d00d8059b6e6326446cc9d61c"
                     },
                     "instant_refund_tx_bytes": {
                         "type": "string",
@@ -141,11 +119,7 @@
                 "required": [
                     "strategy_id",
                     "bitcoin_optional_recipient",
-                    "instant_refund_tx_bytes",
-                    "sig",
-                    "deadline",
-                    "output_token_price",
-                    "input_token_price"
+                    "instant_refund_tx_bytes"
                 ]
             }
         },

@@ -223,6 +223,15 @@ const sidebars: SidebarsConfig = {
               },
               items: [],
             },
+            {
+              type: "category",
+              label: "Authentication",
+              link: {
+                type: "doc",
+                id: "developers/sdk/authentication",
+              },
+              items: [],
+            },
           ],
         },
       ],

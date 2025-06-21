@@ -2,7 +2,7 @@
     "post": {
         "operationId": "createOrder",
         "summary": "Creates a new order.",
-        "description": "Creates a new cross-chain swap order with specified parameters and strategy details. The request body should contain the response from attested quote.",
+        "description": "Creates a new cross-chain swap order by either passing an attested quote or manually providing the required fields, with or without a secret hash. If a secret hash is provided, both initiator addresses are required, regardless of the chain. If it's omitted (mainnet only), Garden will auto-generate it. For non-Bitcoin chains, both initiator addresses must be provided. If Bitcoin is involved, only the non-Bitcoin address is needed.",
         "servers": [
             {
                 "url": "https://api.garden.finance/orders",

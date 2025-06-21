@@ -29,7 +29,7 @@ curl -X 'GET' \
 
 Authentication is required before you can interact with the Garden protocol. The simplest and most reliable way is by using an API key, especially for systems that handle authentication internally or need persistent access without requiring users to sign messages. You can get one by contacting the Garden team. Once issued, include it in the Authorization header as a Bearer token for all authenticated requests.
 
-Alternatively, you can use SIWE (Sign-In with Ethereum), which involves fetching a unique nonce, having the user sign it with their wallet, and then verifying the signature to receive an auth token. If you prefer the SIWE approach, refer to [Authentication guide](../sdk/Authentication.md) for more details.
+Alternatively, you can obtain a **JWT** token for authentication. It uses SIWE (Sign-In with Ethereum) for wallet verification. Refer to [Authentication guide](../sdk/Authentication.md) for more details.
 
 
 ## Create order
@@ -56,7 +56,6 @@ curl -X 'POST' \
     "nonce": "<nonce>",
     "min_destination_confirmations": "<min_destination_confirmations>",
     "timelock": "<timelock>",
-    "secret_hash": "<secret_hash> | null",
     "affiliate_fees": [
       {
         "address": "<affiliate_address_1>",
@@ -80,23 +79,15 @@ curl -X 'POST' \
 ```
 The order is considered successfully created and matched if you receive a valid order object response from the [`getOrder`](#get-order) endpoint.
 
-Passing a `secret_hash` is optional. If you don’t provide one, Garden will handle secret generation for you automatically. For **non-Bitcoin** chains, you still need to include both `initiator_source_address` and `initiator_destination_address` addresses manually. If **Bitcoin** is involved, you only need to provide the address for the **non-Bitcoin** chain.
-
-If a **secret_hash** is provided, both **initiator_source_address** and **initiator_destination_address** must be included.
-
-:::note
-Support for making the **secret_hash** optional is currently live only on mainnet. Below are some common errors :
-- A secret hash is provided, but one or both addresses are missing → order will be rejected.
-- No addresses are included for non-Bitcoin chains → request will fail.
-- A Bitcoin address is manually included without a secret hash → request will fail.
-:::
-
+For **non-Bitcoin** swaps, provide both `initiator_source_address` and `initiator_destination_address`. If the swap involves **Bitcoin**, only provide the address for the non-Bitcoin chain.
+ - If Bitcoin is the source chain, set **initiator_source_address** to **null**.
+ - If Bitcoin is the destination chain, set **initiator_destination_address** to **null**.
 
 ## Initiate order
 
 For **Bitcoin** initiation, the user must send the exact amount of funds to the `order.source_swap.swap_id` address.
 
-For **EVM-based** initiation, you can either directly interact with the contract to transfer the funds or use Garden's relay service to facilitate the transaction. See the [Contacts guide](../contracts/HTLCEVM.md) for details on initiating via contract calls.
+For **EVM-based** initiation, you can either directly interact with the contract to transfer the funds or use Garden's relay service to facilitate the transaction. See the [Contracts guide](../contracts/HTLCEVM.md) for details on initiating via contract calls.
 
 To initiate the order using the relay service, the user must sign a message following the EIP-712 standard. The message must include the following details:
 
@@ -120,42 +111,12 @@ curl -X 'POST' \
 
 ## Order redemption
 
-Poll the order details at regular intervals to check if the solver has initiated the swap. If you see a transaction hash in `order.destination_swap.initiate_tx_hash`, it means the filler has initiated the order, and you can proceed to redeem the order.
-
-If Garden generated the secret, redemption is automatic. As soon as `initiate_tx_hash` is present and conditions are met, the system will detect it and handle the redeem step for you, no manual action needed.
-
-If you **manually provided the secret** during order creation, you'll need to redeem the funds either manually or through our relay service, depending on the destination chain. For Bitcoin, you can either manually construct and broadcast a redeem transaction using the original secret, along with the appropriate witness data (secret, redeem leaf bytes, and control block bytes), or use our relay service by submitting the redeem transaction (in raw bytes). Our relayer will take care of broadcasting it.
-
-```bash
-curl -X 'POST' \
-  'https://testnet.api.garden.finance/relayer/bitcoin/redeem' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -H 'Authorization: Bearer <authorization_token>' \
-  -d '{
-  "order_id": "<order_id>",
-  "redeem_tx_bytes": "<redeem_tx_bytes>"
-}'
-```
-For EVM chains, you can either redeem directly through the contract or use our relay service. If using the relay service, 
-simply submit the secret, and our relayer will handle the redemption process for you.
-
-```bash
-curl -X 'POST' \
-  'https://testnet.api.garden.finance/relayer/redeem' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -H 'Authorization: Bearer <authorization_token>' \
-  -d '{
-  "order_id": "<order_id>",
-  "secret": "<secret>",
-  "perform_on": "Destination"
-}'
-```
+Order redemptions are automatic. Poll the order details at regular intervals using the [get order](#get-order) endpoint to check status of your order.
 
 ## Get order
 
-To check if your swap has been successfully completed, retrieve the order details using the order_id. If the response includes a value in `order.destination_swap.redeem_tx_hash`, it means you’ve successfully redeemed the order, the swap is completed from your side, and the filler can now proceed with its redemption.
+To check if your swap has been successfully completed, retrieve the order details using the `order_id`.
+If you see a transaction hash in `order.destination_swap.redeem_tx_hash`, it means your side of the swap has been redeemed, and the transaction is complete from your end. You can now check your destination wallet to confirm the received funds.
 
 ```bash
 curl -X 'GET' \
